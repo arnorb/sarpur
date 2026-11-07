@@ -143,30 +143,30 @@ def cmd_series(args: argparse.Namespace, out: TextIO) -> None:
         _emit(out, item)
 
 
-def cmd_resolve(args: argparse.Namespace, out: TextIO) -> None:
-    item = dict(_require_item(args.portable, args.pid))
-    subtitles = item.get("subtitles")
+def _resolve_playlist(item: Dict[str, Any], quality: str) -> Dict[str, Any]:
+    """Find the playlist for one schedule item, or raise WorkerError.
+
+    Items without a full ruv-vod URL used to be looked up with RÚV's
+    getProgramType GraphQL query, which RÚV no longer answers (spike 2), so
+    they fail here with a clear message instead.
+    """
     file_url = item.get("file")
     if not file_url or not str(file_url).startswith(ruvsarpur.RUV_URL):
-        graph = ('?operationName=getProgramType&variables={"id":' + str(item["sid"])
-                 + ',"episodeId":["' + str(item["pid"]) + '"]}&extensions={"persistedQuery":{"version":1,'
-                 '"sha256Hash":"9d18a07f82fcd469ad52c0656f47fb8e711dc2436983b53754e0c09bad61ca29"}}')
-        data = ruvsarpur.requestsVodDataRetrieveWithRetries(graph)
-        try:
-            episode = data["data"]["Program"]["episodes"][0]
-        except (TypeError, KeyError, IndexError):
-            raise WorkerError(f"could not retrieve episode download url for pid {args.pid}")
-        file_url = episode.get("file")
-        if subtitles is None:
-            subtitles = episode.get("subtitles")
-    if not file_url:
-        raise WorkerError(f"no VOD url for pid {args.pid}")
+        raise WorkerError(
+            f"pid {item.get('pid')} has no {ruvsarpur.RUV_URL} video address "
+            f"(file={file_url!r}); it can't be downloaded")
     item["vod_url_full"] = file_url
     item["vod_url"] = ruvsarpur.getGroup(ruvsarpur.RE_VOD_BASE_URL, "vodbase", file_url)
     display_title = ruvsarpur.createShowTitle(item, False)
-    playlist = ruvsarpur.find_m3u8_playlist_url(item, display_title, args.quality)
+    playlist = ruvsarpur.find_m3u8_playlist_url(item, display_title, quality)
     if not playlist:
-        raise WorkerError(f"could not resolve a playlist for pid {args.pid}")
+        raise WorkerError(f"could not resolve a playlist for pid {item.get('pid')}")
+    return playlist
+
+
+def cmd_resolve(args: argparse.Namespace, out: TextIO) -> None:
+    item = dict(_require_item(args.portable, args.pid))
+    playlist = _resolve_playlist(item, args.quality)
     result: Dict[str, Any] = {
         "pid": args.pid,
         "playlist_url": playlist["url"],
@@ -175,7 +175,51 @@ def cmd_resolve(args: argparse.Namespace, out: TextIO) -> None:
     }
     if "fragments" in playlist:
         result["fragments"] = playlist["fragments"]
-    result["subtitles"] = subtitles
+    result["subtitles"] = item.get("subtitles")
+    _emit(out, result)
+
+
+def _content_type(item: Dict[str, Any]) -> str:
+    # Same rule as gui_api._content_type_from_item.
+    if item.get("is_movie") or item.get("is_docu"):
+        return "movie_or_docu"
+    if item.get("is_sport"):
+        return "sport"
+    return "show"
+
+
+def _duration_seconds(item: Dict[str, Any]) -> Optional[int]:
+    try:
+        return int(float(item["duration"]))
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def cmd_plan(args: argparse.Namespace, out: TextIO) -> None:
+    """Everything the server needs to download one episode, in one call."""
+    item = dict(_require_item(args.portable, args.pid))
+    plex = args.mode == "plex"
+    relative_path = ruvsarpur.createLocalFileName(item, False, plex)
+    # download_m3u8_playlist_using_ffmpeg appends .mp4 the same way.
+    if not relative_path.endswith(".mp4"):
+        relative_path += ".mp4"
+    metadata = ruvsarpur.buildFfmpegMetadata(item)
+    playlist = _resolve_playlist(item, args.quality)
+    result: Dict[str, Any] = {
+        "pid": args.pid,
+        "sid": str(item.get("sid")),
+        "title": ruvsarpur.createShowTitle(item, False),
+        "relative_path": relative_path,
+        "content_type": _content_type(item),
+        "playlist_url": playlist["url"],
+        "audio_url": playlist.get("audio_url"),
+        "quality": playlist.get("quality"),
+        "duration_seconds": _duration_seconds(item),
+        "metadata": metadata,
+        "subtitles": item.get("subtitles"),
+    }
+    if "fragments" in playlist:
+        result["fragments"] = playlist["fragments"]
     _emit(out, result)
 
 
@@ -207,6 +251,7 @@ COMMANDS: Dict[str, Callable[[argparse.Namespace, TextIO], None]] = {
     "catalogue": cmd_catalogue,
     "series": cmd_series,
     "resolve": cmd_resolve,
+    "plan": cmd_plan,
     "name": cmd_name,
     "imdb": cmd_imdb,
 }
@@ -231,6 +276,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("resolve", parents=[common])
     p.add_argument("pid")
+    p.add_argument("--quality", "-q", default="HD1080", choices=list(ruvsarpur.QUALITY_BITRATE.keys()))
+
+    p = sub.add_parser("plan", parents=[common])
+    p.add_argument("pid")
+    p.add_argument("--mode", choices=["web", "plex"], required=True)
     p.add_argument("--quality", "-q", default="HD1080", choices=list(ruvsarpur.QUALITY_BITRATE.keys()))
 
     p = sub.add_parser("name", parents=[common])

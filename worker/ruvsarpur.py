@@ -631,6 +631,60 @@ def find_m3u8_playlist_url(item, display_title, video_quality):
     traceback.print_stack()
     return None
 
+# The ffmpeg -metadata pairs written to every downloaded file, as [key, value]
+# lists. Used by download_m3u8_playlist_using_ffmpeg and by the sarpur worker's
+# `plan` command, so the two can't drift apart.
+# see https://kdenlive.org/en/project/adding-meta-data-to-mp4-video/ and https://kodi.wiki/view/Video_file_tagging
+def buildFfmpegMetadata(videoInfo):
+  pairs = []
+
+  # Determine the description for the file
+  ep_description = ''
+
+  # Find the series description and favour the longer description
+  series_description = videoInfo['desc'] if videoInfo['desc'] is not None else videoInfo['series_desc'] if 'series_desc' in videoInfo  else None
+  if 'series_sdesc' in videoInfo and videoInfo['series_sdesc'] is not None:
+    if( series_description is None or (videoInfo['series_sdesc'] is not None and len(videoInfo['series_sdesc']) > len(series_description))):
+      series_description = videoInfo['series_sdesc']
+
+  # Description for movies, we want the longer version of
+  if videoInfo['is_movie'] or videoInfo['is_docu']:
+    ep_description = series_description
+
+  # Description for epsiodic content (do not use the series description)
+  if len(ep_description) <= 0 and 'description' in videoInfo['episode'] and len(videoInfo['episode']['description']) > 4 :
+    ep_description = videoInfo['episode']['description']
+
+  # If there is no description then we use the series as a fallback
+  if len(ep_description) < 4:
+    ep_description = series_description
+
+  if videoInfo['is_sport']:
+    ep_description = f"{ep_description.rstrip('.')}. Sýnt {str(videoInfo['showtime'])[8:10]}.{str(videoInfo['showtime'])[5:7]}.{str(videoInfo['showtime'])[:4]} kl.{(videoInfo['showtime'][11:16]).replace(':','.')}"
+
+  #The title of this video. (String)
+  pairs.append(['title', sanitizeFileName(videoInfo['title'] if videoInfo['is_movie'] or videoInfo['is_docu'] or videoInfo['is_sport'] else videoInfo['episode_title'])])
+  #The program id and series id for the video, prefixed with ruvinfo for easier parsing
+  pairs.append(['comment', 'ruvinfo:{0}:{1}'.format(str(videoInfo['pid']), str(videoInfo['sid']))])
+  #A synopsis, a longer description of this video
+  pairs.append(['synopsis', sanitizeFileName(ep_description)])
+
+  if (not videoInfo['is_movie'] and not videoInfo['is_docu']) or videoInfo['is_sport']:
+    pairs.append(['show', sanitizeFileName(videoInfo['series_title'])]) #The name of the TV show,
+
+  if (videoInfo['is_movie'] or videoInfo['is_docu']) and 'imdb' in videoInfo and not videoInfo['imdb'] is None:
+    if 'year' in videoInfo['imdb'] and not videoInfo['imdb']['year'] is None:
+      pairs.append(['date', str(videoInfo['imdb']['year'])]) # The year of the movie or documentary as reported by IMDB
+
+  if not videoInfo['is_movie'] and not videoInfo['is_docu']:
+    pairs.append(['episode_id', str(videoInfo['ep_num'])])  #Either the episode name or episode number, for display.
+    pairs.append(['episode_sort', str(int(videoInfo['ep_num']))])  #This element is for sorting only, but never displayed. The valid range is limited to 0 to 255 only,
+    pairs.append(['season_number', str(int(videoInfo['season_num']))])  #The season number, in the range of 0 to 255 only
+
+  #The genre this video belongs to. (String)
+  pairs.append(['media_type', "Movie" if videoInfo['is_movie'] or videoInfo['is_docu'] else 'Sports' if videoInfo['is_sport'] else "TV Show"])
+  return pairs
+
 # FFMPEG download of the playlist
 def download_m3u8_playlist_using_ffmpeg(ffmpegexec, playlist_url, playlist_fragments, local_filename, display_title, keeppartial, video_quality, disable_metadata, videoInfo, audio_url=None):
   prog_args = [ffmpegexec]
@@ -673,57 +727,9 @@ def download_m3u8_playlist_using_ffmpeg(ffmpegexec, playlist_url, playlist_fragm
     if not local_filename.endswith('.mp4'):
       local_filename += '.mp4'
 
-    # Determine the description for the file
-    ep_description = ''
-
-    # Find the series description and favour the longer description
-    series_description = videoInfo['desc'] if videoInfo['desc'] is not None else videoInfo['series_desc'] if 'series_desc' in videoInfo  else None
-    if 'series_sdesc' in videoInfo and videoInfo['series_sdesc'] is not None:
-      if( series_description is None or (videoInfo['series_sdesc'] is not None and len(videoInfo['series_sdesc']) > len(series_description))):
-        series_description = videoInfo['series_sdesc']
-
-    # Description for movies, we want the longer version of
-    if videoInfo['is_movie'] or videoInfo['is_docu']:
-      ep_description = series_description
-    
-    # Description for epsiodic content (do not use the series description)
-    if len(ep_description) <= 0 and 'description' in videoInfo['episode'] and len(videoInfo['episode']['description']) > 4 :
-      ep_description = videoInfo['episode']['description']
-
-    # If there is no description then we use the series as a fallback
-    if len(ep_description) < 4:
-      ep_description = series_description
-
-    if videoInfo['is_sport']:
-      ep_description = f"{ep_description.rstrip('.')}. Sýnt {str(videoInfo['showtime'])[8:10]}.{str(videoInfo['showtime'])[5:7]}.{str(videoInfo['showtime'])[:4]} kl.{(videoInfo['showtime'][11:16]).replace(':','.')}"
-
-    prog_args.append("-metadata")
-    prog_args.append("{0}={1}".format('title', sanitizeFileName(videoInfo['title'] if videoInfo['is_movie'] or videoInfo['is_docu'] or videoInfo['is_sport'] else videoInfo['episode_title']) )) #The title of this video. (String)	
-    prog_args.append("-metadata")
-    #prog_args.append("{0}={1}".format('comment', sanitizeFileName(videoInfo['desc']) ))  #A (content) description of this video.
-    prog_args.append("{0}={1}".format('comment', 'ruvinfo:{0}:{1}'.format(str(videoInfo['pid']), str(videoInfo['sid']))))  #The program id and series id for the video, prefixed with ruvinfo for easier parsing
-    prog_args.append("-metadata")
-    prog_args.append("{0}={1}".format('synopsis', sanitizeFileName(ep_description) ))  #A synopsis, a longer description of this video
-
-    if (not videoInfo['is_movie'] and not videoInfo['is_docu']) or videoInfo['is_sport']:
+    for key, value in buildFfmpegMetadata(videoInfo):
       prog_args.append("-metadata")
-      prog_args.append("{0}={1}".format('show', sanitizeFileName(videoInfo['series_title']) )) #The name of the TV show,
-
-    if (videoInfo['is_movie'] or videoInfo['is_docu']) and 'imdb' in videoInfo and not videoInfo['imdb'] is None:
-      if 'year' in videoInfo['imdb'] and not videoInfo['imdb']['year'] is None:
-        prog_args.append("-metadata")
-        prog_args.append("{0}={1}".format('date', videoInfo['imdb']['year'] )) # The year of the movie or documentary as reported by IMDB
-
-    if not videoInfo['is_movie'] and not videoInfo['is_docu']:
-      prog_args.append("-metadata")
-      prog_args.append("{0}={1}".format('episode_id', videoInfo['ep_num']))  #Either the episode name or episode number, for display.
-      prog_args.append("-metadata")
-      prog_args.append("{0}={1}".format('episode_sort', int(videoInfo['ep_num'])))  #This element is for sorting only, but never displayed. It allows numerical sorting of episode names that are strings, but not (necessarily) numbers. The valid range is limited to 0 to 255 only,
-      prog_args.append("-metadata")
-      prog_args.append("{0}={1}".format('season_number', int(videoInfo['season_num'])))  #The season number, in the range of 0 to 255 only
-
-    prog_args.append("-metadata")
-    prog_args.append("{0}={1}".format('media_type', "Movie" if videoInfo['is_movie'] or videoInfo['is_docu'] else 'Sports' if videoInfo['is_sport'] else "TV Show"))  #The genre this video belongs to. (String)	
+      prog_args.append("{0}={1}".format(key, value))
 
     # Add the RUV specific identifier metadata, this can be used by other tooling to identify the entry
     # Note: These tags get dropped by ffmpeg unless the use_metadata_tag switch is used, but when that is used the 
