@@ -1,0 +1,2115 @@
+{
+ "id": 30766,
+ "title": "Veður",
+ "foreign_title": null,
+ "slug": "vedur",
+ "image_renditions": {
+  "web_images": [
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdF9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+    "width": 240
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdF9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+    "width": 480
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdF9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+    "width": 960
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdF9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 1920
+   }
+  ]
+ },
+ "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdF9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+ "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdF9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+ "portrait_image_renditions": {
+  "web_images": [
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyNSwiaGVpZ2h0IjoxODd9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+    "width": 125
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI1MCwiaGVpZ2h0IjozNzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+    "width": 250
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+    "width": 500
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEwMDAsImhlaWdodCI6MTUwMH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 1000
+   }
+  ]
+ },
+ "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1ZlZHVyXzIwMjVfbnl0dF91dGxpdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+ "carplay_poster": null,
+ "description": [
+  "Veðurfréttir."
+ ],
+ "short_description": null,
+ "format": "tv",
+ "categories": [
+  {
+   "title": "Fréttatengt efni",
+   "slug": "frettatengt-efni"
+  }
+ ],
+ "division": "Fréttastofa sjónvarps",
+ "multiple_episodes": true,
+ "episodes": [
+  {
+   "id": "bfcj7b",
+   "number": 299,
+   "series_id": 38524,
+   "firstrun": "2026-11-07T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 300,
+   "duration_friendly": "00:05",
+   "event": 5458120,
+   "title": "07.11.2026",
+   "slug": "07-11-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458120-AQMTO5.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458120-AQMTO5.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458120-AQMTO5/5458120-AQMTO5.m3u8",
+   "temp": {
+    "filename": "5458120-AQMTO5.mp4",
+    "folder": "2026/11/07"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458120V0.mp4",
+     "folder": null,
+     "file": "5458120V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-02-05",
+     "quality": 240,
+     "event": "5458120",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj7a",
+   "number": 298,
+   "series_id": 38524,
+   "firstrun": "2026-11-06T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 295,
+   "duration_friendly": "00:04",
+   "event": 5458119,
+   "title": "06.11.2026",
+   "slug": "06-11-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458119-5H0VM7.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458119-5H0VM7.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458119-5H0VM7/5458119-5H0VM7.m3u8",
+   "temp": {
+    "filename": "5458119-5H0VM7.mp4",
+    "folder": "2026/11/06"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458119V0.mp4",
+     "folder": null,
+     "file": "5458119V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-02-04",
+     "quality": 240,
+     "event": "5458119",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj79",
+   "number": 297,
+   "series_id": 38524,
+   "firstrun": "2026-11-05T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 317,
+   "duration_friendly": "00:05",
+   "event": 5458118,
+   "title": "05.11.2026",
+   "slug": "05-11-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458118-R5U7SH.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458118-R5U7SH.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458118-R5U7SH/5458118-R5U7SH.m3u8",
+   "temp": {
+    "filename": "5458118-R5U7SH.mp4",
+    "folder": "2026/11/05"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458118V0.mp4",
+     "folder": null,
+     "file": "5458118V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-02-03",
+     "quality": 240,
+     "event": "5458118",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj78",
+   "number": 296,
+   "series_id": 38524,
+   "firstrun": "2026-11-04T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 311,
+   "duration_friendly": "00:05",
+   "event": 5458117,
+   "title": "04.11.2026",
+   "slug": "04-11-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458117-NP2ALL.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458117-NP2ALL.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458117-NP2ALL/5458117-NP2ALL.m3u8",
+   "temp": {
+    "filename": "5458117-NP2ALL.mp4",
+    "folder": "2026/11/04"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458117V0.mp4",
+     "folder": null,
+     "file": "5458117V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-02-02",
+     "quality": 240,
+     "event": "5458117",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj77",
+   "number": 295,
+   "series_id": 38524,
+   "firstrun": "2026-11-03T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 329,
+   "duration_friendly": "00:05",
+   "event": 5458116,
+   "title": "03.11.2026",
+   "slug": "03-11-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458116-SH5LPS.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458116-SH5LPS.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458116-SH5LPS/5458116-SH5LPS.m3u8",
+   "temp": {
+    "filename": "5458116-SH5LPS.mp4",
+    "folder": "2026/11/03"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458116V0.mp4",
+     "folder": null,
+     "file": "5458116V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-02-01",
+     "quality": 240,
+     "event": "5458116",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj76",
+   "number": 294,
+   "series_id": 38524,
+   "firstrun": "2026-11-02T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 313,
+   "duration_friendly": "00:05",
+   "event": 5458115,
+   "title": "02.11.2026",
+   "slug": "02-11-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458115-JH6FPL.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458115-JH6FPL.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458115-JH6FPL/5458115-JH6FPL.m3u8",
+   "temp": {
+    "filename": "5458115-JH6FPL.mp4",
+    "folder": "2026/11/02"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458115V0.mp4",
+     "folder": null,
+     "file": "5458115V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-31",
+     "quality": 240,
+     "event": "5458115",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj75",
+   "number": 293,
+   "series_id": 38524,
+   "firstrun": "2026-11-01T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 316,
+   "duration_friendly": "00:05",
+   "event": 5458114,
+   "title": "01.11.2026",
+   "slug": "01-11-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458114-KBE8K8.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458114-KBE8K8.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458114-KBE8K8/5458114-KBE8K8.m3u8",
+   "temp": {
+    "filename": "5458114-KBE8K8.mp4",
+    "folder": "2026/11/01"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458114V0.mp4",
+     "folder": null,
+     "file": "5458114V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-30",
+     "quality": 240,
+     "event": "5458114",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj74",
+   "number": 292,
+   "series_id": 38524,
+   "firstrun": "2026-10-31T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 313,
+   "duration_friendly": "00:05",
+   "event": 5458113,
+   "title": "31.10.2026",
+   "slug": "31-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458113-O54TVS.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458113-O54TVS.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458113-O54TVS/5458113-O54TVS.m3u8",
+   "temp": {
+    "filename": "5458113-O54TVS.mp4",
+    "folder": "2026/10/31"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458113V0.mp4",
+     "folder": null,
+     "file": "5458113V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-29",
+     "quality": 240,
+     "event": "5458113",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj73",
+   "number": 291,
+   "series_id": 38524,
+   "firstrun": "2026-10-30T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 313,
+   "duration_friendly": "00:05",
+   "event": 5458112,
+   "title": "30.10.2026",
+   "slug": "30-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458112-BNO6GJ.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458112-BNO6GJ.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458112-BNO6GJ/5458112-BNO6GJ.m3u8",
+   "temp": {
+    "filename": "5458112-BNO6GJ.mp4",
+    "folder": "2026/10/30"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458112V0.mp4",
+     "folder": null,
+     "file": "5458112V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-28",
+     "quality": 240,
+     "event": "5458112",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj72",
+   "number": 290,
+   "series_id": 38524,
+   "firstrun": "2026-10-29T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 279,
+   "duration_friendly": "00:04",
+   "event": 5458111,
+   "title": "29.10.2026",
+   "slug": "29-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458111-OBU09N.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458111-OBU09N.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458111-OBU09N/5458111-OBU09N.m3u8",
+   "temp": {
+    "filename": "5458111-OBU09N.mp4",
+    "folder": "2026/10/29"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458111V0.mp4",
+     "folder": null,
+     "file": "5458111V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-27",
+     "quality": 240,
+     "event": "5458111",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj71",
+   "number": 289,
+   "series_id": 38524,
+   "firstrun": "2026-10-28T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 287,
+   "duration_friendly": "00:04",
+   "event": 5458110,
+   "title": "28.10.2026",
+   "slug": "28-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458110-PVV747.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458110-PVV747.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458110-PVV747/5458110-PVV747.m3u8",
+   "temp": {
+    "filename": "5458110-PVV747.mp4",
+    "folder": "2026/10/28"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458110V0.mp4",
+     "folder": null,
+     "file": "5458110V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-26",
+     "quality": 240,
+     "event": "5458110",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj70",
+   "number": 288,
+   "series_id": 38524,
+   "firstrun": "2026-10-27T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 306,
+   "duration_friendly": "00:05",
+   "event": 5458109,
+   "title": "27.10.2026",
+   "slug": "27-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458109-E54RSF.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458109-E54RSF.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458109-E54RSF/5458109-E54RSF.m3u8",
+   "temp": {
+    "filename": "5458109-E54RSF.mp4",
+    "folder": "2026/10/27"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458109V0.mp4",
+     "folder": null,
+     "file": "5458109V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-25",
+     "quality": 240,
+     "event": "5458109",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6v",
+   "number": 287,
+   "series_id": 38524,
+   "firstrun": "2026-10-26T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 320,
+   "duration_friendly": "00:05",
+   "event": 5458108,
+   "title": "26.10.2026",
+   "slug": "26-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458108-2HUN1I.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458108-2HUN1I.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458108-2HUN1I/5458108-2HUN1I.m3u8",
+   "temp": {
+    "filename": "5458108-2HUN1I.mp4",
+    "folder": "2026/10/26"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458108V0.mp4",
+     "folder": null,
+     "file": "5458108V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-24",
+     "quality": 240,
+     "event": "5458108",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6u",
+   "number": 286,
+   "series_id": 38524,
+   "firstrun": "2026-10-25T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 285,
+   "duration_friendly": "00:04",
+   "event": 5458107,
+   "title": "25.10.2026",
+   "slug": "25-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458107-LM0ECB.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458107-LM0ECB.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458107-LM0ECB/5458107-LM0ECB.m3u8",
+   "temp": {
+    "filename": "5458107-LM0ECB.mp4",
+    "folder": "2026/10/25"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458107V0.mp4",
+     "folder": null,
+     "file": "5458107V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-23",
+     "quality": 240,
+     "event": "5458107",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6t",
+   "number": 285,
+   "series_id": 38524,
+   "firstrun": "2026-10-24T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 286,
+   "duration_friendly": "00:04",
+   "event": 5458106,
+   "title": "24.10.2026",
+   "slug": "24-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458106-UNPJIH.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458106-UNPJIH.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458106-UNPJIH/5458106-UNPJIH.m3u8",
+   "temp": {
+    "filename": "5458106-UNPJIH.mp4",
+    "folder": "2026/10/24"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458106V0.mp4",
+     "folder": null,
+     "file": "5458106V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-22",
+     "quality": 240,
+     "event": "5458106",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6s",
+   "number": 284,
+   "series_id": 38524,
+   "firstrun": "2026-10-23T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 271,
+   "duration_friendly": "00:04",
+   "event": 5458105,
+   "title": "23.10.2026",
+   "slug": "23-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458105-OAI2KF.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458105-OAI2KF.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458105-OAI2KF/5458105-OAI2KF.m3u8",
+   "temp": {
+    "filename": "5458105-OAI2KF.mp4",
+    "folder": "2026/10/23"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458105V0.mp4",
+     "folder": null,
+     "file": "5458105V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-21",
+     "quality": 240,
+     "event": "5458105",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6r",
+   "number": 283,
+   "series_id": 38524,
+   "firstrun": "2026-10-22T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 302,
+   "duration_friendly": "00:05",
+   "event": 5458104,
+   "title": "22.10.2026",
+   "slug": "22-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": null,
+   "subtitles": {
+    "is": null
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458104-CQD9G8/5458104-CQD9G8.m3u8",
+   "temp": {
+    "filename": "5458104-CQD9G8.mp4",
+    "folder": "2026/10/22"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458104V0.mp4",
+     "folder": null,
+     "file": "5458104V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-20",
+     "quality": 240,
+     "event": "5458104",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6q",
+   "number": 282,
+   "series_id": 38524,
+   "firstrun": "2026-10-21T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 311,
+   "duration_friendly": "00:05",
+   "event": 5458103,
+   "title": "21.10.2026",
+   "slug": "21-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458103-QC0U6C.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458103-QC0U6C.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458103-QC0U6C/5458103-QC0U6C.m3u8",
+   "temp": {
+    "filename": "5458103-QC0U6C.mp4",
+    "folder": "2026/10/21"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458103V0.mp4",
+     "folder": null,
+     "file": "5458103V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-19",
+     "quality": 240,
+     "event": "5458103",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6p",
+   "number": 281,
+   "series_id": 38524,
+   "firstrun": "2026-10-20T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 314,
+   "duration_friendly": "00:05",
+   "event": 5458102,
+   "title": "20.10.2026",
+   "slug": "20-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458102-UD09J5.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458102-UD09J5.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458102-UD09J5/5458102-UD09J5.m3u8",
+   "temp": {
+    "filename": "5458102-UD09J5.mp4",
+    "folder": "2026/10/20"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458102V0.mp4",
+     "folder": null,
+     "file": "5458102V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-18",
+     "quality": 240,
+     "event": "5458102",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6o",
+   "number": 280,
+   "series_id": 38524,
+   "firstrun": "2026-10-19T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 322,
+   "duration_friendly": "00:05",
+   "event": 5458101,
+   "title": "19.10.2026",
+   "slug": "19-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458101-O5IDSH.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458101-O5IDSH.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458101-O5IDSH/5458101-O5IDSH.m3u8",
+   "temp": {
+    "filename": "5458101-O5IDSH.mp4",
+    "folder": "2026/10/19"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458101V0.mp4",
+     "folder": null,
+     "file": "5458101V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-17",
+     "quality": 240,
+     "event": "5458101",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6n",
+   "number": 279,
+   "series_id": 38524,
+   "firstrun": "2026-10-18T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 314,
+   "duration_friendly": "00:05",
+   "event": 5458100,
+   "title": "18.10.2026",
+   "slug": "18-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458100-FK2GJ8.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458100-FK2GJ8.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458100-FK2GJ8/5458100-FK2GJ8.m3u8",
+   "temp": {
+    "filename": "5458100-FK2GJ8.mp4",
+    "folder": "2026/10/18"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458100V0.mp4",
+     "folder": null,
+     "file": "5458100V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-16",
+     "quality": 240,
+     "event": "5458100",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6m",
+   "number": 278,
+   "series_id": 38524,
+   "firstrun": "2026-10-17T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 344,
+   "duration_friendly": "00:05",
+   "event": 5458099,
+   "title": "17.10.2026",
+   "slug": "17-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458099-S5U7A7.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458099-S5U7A7.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458099-S5U7A7/5458099-S5U7A7.m3u8",
+   "temp": {
+    "filename": "5458099-S5U7A7.mp4",
+    "folder": "2026/10/17"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458099V0.mp4",
+     "folder": null,
+     "file": "5458099V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-15",
+     "quality": 240,
+     "event": "5458099",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6l",
+   "number": 277,
+   "series_id": 38524,
+   "firstrun": "2026-10-16T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 311,
+   "duration_friendly": "00:05",
+   "event": 5458098,
+   "title": "16.10.2026",
+   "slug": "16-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458098-RB31H3.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458098-RB31H3.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458098-RB31H3/5458098-RB31H3.m3u8",
+   "temp": {
+    "filename": "5458098-RB31H3.mp4",
+    "folder": "2026/10/16"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458098V0.mp4",
+     "folder": null,
+     "file": "5458098V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-14",
+     "quality": 240,
+     "event": "5458098",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6k",
+   "number": 276,
+   "series_id": 38524,
+   "firstrun": "2026-10-15T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 317,
+   "duration_friendly": "00:05",
+   "event": 5458097,
+   "title": "15.10.2026",
+   "slug": "15-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458097-MC9LBE.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458097-MC9LBE.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458097-MC9LBE/5458097-MC9LBE.m3u8",
+   "temp": {
+    "filename": "5458097-MC9LBE.mp4",
+    "folder": "2026/10/15"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458097V0.mp4",
+     "folder": null,
+     "file": "5458097V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-13",
+     "quality": 240,
+     "event": "5458097",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6j",
+   "number": 275,
+   "series_id": 38524,
+   "firstrun": "2026-10-14T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 316,
+   "duration_friendly": "00:05",
+   "event": 5458096,
+   "title": "14.10.2026",
+   "slug": "14-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458096-TCAVGD.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458096-TCAVGD.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458096-TCAVGD/5458096-TCAVGD.m3u8",
+   "temp": {
+    "filename": "5458096-TCAVGD.mp4",
+    "folder": "2026/10/14"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458096V0.mp4",
+     "folder": null,
+     "file": "5458096V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-12",
+     "quality": 240,
+     "event": "5458096",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6i",
+   "number": 274,
+   "series_id": 38524,
+   "firstrun": "2026-10-13T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 288,
+   "duration_friendly": "00:04",
+   "event": 5458095,
+   "title": "13.10.2026",
+   "slug": "13-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458095-GKUFUT.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458095-GKUFUT.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458095-GKUFUT/5458095-GKUFUT.m3u8",
+   "temp": {
+    "filename": "5458095-GKUFUT.mp4",
+    "folder": "2026/10/13"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458095V0.mp4",
+     "folder": null,
+     "file": "5458095V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-11",
+     "quality": 240,
+     "event": "5458095",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6h",
+   "number": 273,
+   "series_id": 38524,
+   "firstrun": "2026-10-12T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 323,
+   "duration_friendly": "00:05",
+   "event": 5458094,
+   "title": "12.10.2026",
+   "slug": "12-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458094-VBGR8B.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458094-VBGR8B.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458094-VBGR8B/5458094-VBGR8B.m3u8",
+   "temp": {
+    "filename": "5458094-VBGR8B.mp4",
+    "folder": "2026/10/12"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458094V0.mp4",
+     "folder": null,
+     "file": "5458094V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-10",
+     "quality": 240,
+     "event": "5458094",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6g",
+   "number": 272,
+   "series_id": 38524,
+   "firstrun": "2026-10-11T19:40:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 296,
+   "duration_friendly": "00:04",
+   "event": 5458093,
+   "title": "11.10.2026",
+   "slug": "11-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458093-T3IBV0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458093-T3IBV0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458093-T3IBV0/5458093-T3IBV0.m3u8",
+   "temp": {
+    "filename": "5458093-T3IBV0.mp4",
+    "folder": "2026/10/11"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458093V0.mp4",
+     "folder": null,
+     "file": "5458093V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-09",
+     "quality": 240,
+     "event": "5458093",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6f",
+   "number": 271,
+   "series_id": 38524,
+   "firstrun": "2026-10-10T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 338,
+   "duration_friendly": "00:05",
+   "event": 5458092,
+   "title": "10.10.2026",
+   "slug": "10-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458092-ED4FKL.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458092-ED4FKL.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458092-ED4FKL/5458092-ED4FKL.m3u8",
+   "temp": {
+    "filename": "5458092-ED4FKL.mp4",
+    "folder": "2026/10/10"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458092V0.mp4",
+     "folder": null,
+     "file": "5458092V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-08",
+     "quality": 240,
+     "event": "5458092",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6e",
+   "number": 270,
+   "series_id": 38524,
+   "firstrun": "2026-10-09T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 309,
+   "duration_friendly": "00:05",
+   "event": 5458091,
+   "title": "09.10.2026",
+   "slug": "09-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458091-B9M85P.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458091-B9M85P.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458091-B9M85P/5458091-B9M85P.m3u8",
+   "temp": {
+    "filename": "5458091-B9M85P.mp4",
+    "folder": "2026/10/09"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458091V0.mp4",
+     "folder": null,
+     "file": "5458091V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-07",
+     "quality": 240,
+     "event": "5458091",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6d",
+   "number": 269,
+   "series_id": 38524,
+   "firstrun": "2026-10-08T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 313,
+   "duration_friendly": "00:05",
+   "event": 5458090,
+   "title": "08.10.2026",
+   "slug": "08-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458090-90934I.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458090-90934I.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458090-90934I/5458090-90934I.m3u8",
+   "temp": {
+    "filename": "5458090-90934I.mp4",
+    "folder": "2026/10/08"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458090V0.mp4",
+     "folder": null,
+     "file": "5458090V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-06",
+     "quality": 240,
+     "event": "5458090",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6c",
+   "number": 268,
+   "series_id": 38524,
+   "firstrun": "2026-10-07T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 308,
+   "duration_friendly": "00:05",
+   "event": 5458089,
+   "title": "07.10.2026",
+   "slug": "07-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458089-7PL233.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458089-7PL233.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458089-7PL233/5458089-7PL233.m3u8",
+   "temp": {
+    "filename": "5458089-7PL233.mp4",
+    "folder": "2026/10/07"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458089V0.mp4",
+     "folder": null,
+     "file": "5458089V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-05",
+     "quality": 240,
+     "event": "5458089",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6b",
+   "number": 267,
+   "series_id": 38524,
+   "firstrun": "2026-10-06T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 321,
+   "duration_friendly": "00:05",
+   "event": 5458088,
+   "title": "06.10.2026",
+   "slug": "06-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": null,
+   "subtitles": {
+    "is": null
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458088-A33QJ1/5458088-A33QJ1.m3u8",
+   "temp": {
+    "filename": "5458088-A33QJ1.mp4",
+    "folder": "2026/10/06"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458088V0.mp4",
+     "folder": null,
+     "file": "5458088V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-04",
+     "quality": 240,
+     "event": "5458088",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj6a",
+   "number": 266,
+   "series_id": 38524,
+   "firstrun": "2026-10-05T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 310,
+   "duration_friendly": "00:05",
+   "event": 5458087,
+   "title": "05.10.2026",
+   "slug": "05-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458087-OAKMQN.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458087-OAKMQN.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458087-OAKMQN/5458087-OAKMQN.m3u8",
+   "temp": {
+    "filename": "5458087-OAKMQN.mp4",
+    "folder": "2026/10/05"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458087V0.mp4",
+     "folder": null,
+     "file": "5458087V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-03",
+     "quality": 240,
+     "event": "5458087",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj69",
+   "number": 265,
+   "series_id": 38524,
+   "firstrun": "2026-10-04T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 312,
+   "duration_friendly": "00:05",
+   "event": 5458086,
+   "title": "04.10.2026",
+   "slug": "04-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458086-DNNT04.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458086-DNNT04.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458086-DNNT04/5458086-DNNT04.m3u8",
+   "temp": {
+    "filename": "5458086-DNNT04.mp4",
+    "folder": "2026/10/04"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458086V0.mp4",
+     "folder": null,
+     "file": "5458086V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-02",
+     "quality": 240,
+     "event": "5458086",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj68",
+   "number": 264,
+   "series_id": 38524,
+   "firstrun": "2026-10-03T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 313,
+   "duration_friendly": "00:05",
+   "event": 5458085,
+   "title": "03.10.2026",
+   "slug": "03-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458085-NG83PA.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458085-NG83PA.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458085-NG83PA/5458085-NG83PA.m3u8",
+   "temp": {
+    "filename": "5458085-NG83PA.mp4",
+    "folder": "2026/10/03"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458085V0.mp4",
+     "folder": null,
+     "file": "5458085V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-01-01",
+     "quality": 240,
+     "event": "5458085",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj67",
+   "number": 263,
+   "series_id": 38524,
+   "firstrun": "2026-10-02T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 284,
+   "duration_friendly": "00:04",
+   "event": 5458084,
+   "title": "02.10.2026",
+   "slug": "02-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458084-GIN6S5.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458084-GIN6S5.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458084-GIN6S5/5458084-GIN6S5.m3u8",
+   "temp": {
+    "filename": "5458084-GIN6S5.mp4",
+    "folder": "2026/10/02"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458084V0.mp4",
+     "folder": null,
+     "file": "5458084V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2026-12-31",
+     "quality": 240,
+     "event": "5458084",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj66",
+   "number": 262,
+   "series_id": 38524,
+   "firstrun": "2026-10-01T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 297,
+   "duration_friendly": "00:04",
+   "event": 5458083,
+   "title": "01.10.2026",
+   "slug": "01-10-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458083-M6UMFJ.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458083-M6UMFJ.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458083-M6UMFJ/5458083-M6UMFJ.m3u8",
+   "temp": {
+    "filename": "5458083-M6UMFJ.mp4",
+    "folder": "2026/10/01"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458083V0.mp4",
+     "folder": null,
+     "file": "5458083V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2026-12-30",
+     "quality": 240,
+     "event": "5458083",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj65",
+   "number": 261,
+   "series_id": 38524,
+   "firstrun": "2026-09-30T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 312,
+   "duration_friendly": "00:05",
+   "event": 5458082,
+   "title": "30.09.2026",
+   "slug": "30-09-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458082-A6HPQG.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458082-A6HPQG.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458082-A6HPQG/5458082-A6HPQG.m3u8",
+   "temp": {
+    "filename": "5458082-A6HPQG.mp4",
+    "folder": "2026/09/30"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458082V0.mp4",
+     "folder": null,
+     "file": "5458082V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2026-12-29",
+     "quality": 240,
+     "event": "5458082",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bfcj64",
+   "number": 260,
+   "series_id": 38524,
+   "firstrun": "2026-09-29T19:35:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 279,
+   "duration_friendly": "00:04",
+   "event": 5458081,
+   "title": "29.09.2026",
+   "slug": "29-09-2026",
+   "description": [],
+   "short_description": null,
+   "image_renditions": null,
+   "image": null,
+   "image_og": null,
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458081-5ARKU7.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/is/5458081-5ARKU7.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": false,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458081-5ARKU7/5458081-5ARKU7.m3u8",
+   "temp": {
+    "filename": "5458081-5ARKU7.mp4",
+    "folder": "2026/09/29"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458081V0.mp4",
+     "folder": null,
+     "file": "5458081V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2026-12-28",
+     "quality": 240,
+     "event": "5458081",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  }
+ ],
+ "podcast": {},
+ "last_updated": "2026-11-07T21:47:17.330500",
+ "panels": [],
+ "reverse_episode_order": false,
+ "web_available_episodes": 1377,
+ "vod_available_episodes": 89,
+ "podcast_available_episodes": 0,
+ "web_latest_date": "2026-11-07T19:35:00",
+ "channel": "Fréttastofa sjónvarps",
+ "web_player_url": "https://www.ruv.is/sjonvarp/spila/vedur/30766/bfcj7b"
+}

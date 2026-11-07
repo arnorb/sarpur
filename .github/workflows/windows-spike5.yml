@@ -1,0 +1,26 @@
+# Smoke test for spikes/windows/spike5.ps1 before the Windows user runs it.
+# A CI runner can't stand in for Defender/SmartScreen on a real PC, but it
+# catches script bugs and checks the ffmpeg long-path, progress, q and Job
+# Object behaviour.
+name: Windows spike 5
+
+on:
+  workflow_dispatch:
+
+jobs:
+  spike5:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run spike 5 (Windows PowerShell 5.1, as the Windows user will)
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File spikes/windows/spike5.ps1
+      - name: Show results
+        if: always()
+        shell: powershell
+        run: Get-Content -Raw (Join-Path ([Environment]::GetFolderPath('Desktop')) 'sarpur-spike5-results.json')
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: spike5-results
+          path: ~/Desktop/sarpur-spike5-results.json

@@ -1,0 +1,3821 @@
+{
+ "id": 38169,
+ "title": "Kastljós",
+ "foreign_title": null,
+ "slug": "kastljos",
+ "image_renditions": {
+  "web_images": [
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzAxX0tSSU5HTEEtMjAyNV9MVlpJYjl1LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjQwLCJoZWlnaHQiOjEzNX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 240
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzAxX0tSSU5HTEEtMjAyNV9MVlpJYjl1LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NDgwLCJoZWlnaHQiOjI3MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 480
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzAxX0tSSU5HTEEtMjAyNV9MVlpJYjl1LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 960
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzAxX0tSSU5HTEEtMjAyNV9MVlpJYjl1LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+    "width": 1920
+   }
+  ]
+ },
+ "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzAxX0tSSU5HTEEtMjAyNV9MVlpJYjl1LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+ "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzAxX0tSSU5HTEEtMjAyNV9MVlpJYjl1LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTIwMCwiaGVpZ2h0Ijo2NzV9LCJ0b0Zvcm1hdCI6ImpwZWcifX0=",
+ "portrait_image_renditions": {
+  "web_images": [
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0thc3Rsam9zX1ZPRF9GNk9aRHpnLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTI1LCJoZWlnaHQiOjE4N30sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 125
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0thc3Rsam9zX1ZPRF9GNk9aRHpnLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjUwLCJoZWlnaHQiOjM3NX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 250
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0thc3Rsam9zX1ZPRF9GNk9aRHpnLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NTAwLCJoZWlnaHQiOjc1MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+    "width": 500
+   },
+   {
+    "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0thc3Rsam9zX1ZPRF9GNk9aRHpnLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTAwMCwiaGVpZ2h0IjoxNTAwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+    "width": 1000
+   }
+  ]
+ },
+ "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0thc3Rsam9zX1ZPRF9GNk9aRHpnLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NTAwLCJoZWlnaHQiOjc1MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+ "carplay_poster": null,
+ "description": [
+  "Lifandi og fjölbreyttur þáttur um fréttir, menningu og dægurmál. Helstu fréttir dagsins eru krufðar og ljósi varpað á litríkt mannlíf um land allt. Umsjón: Sigríður Halldórsdóttir, Bergsteinn Sigurðsson, Guðrún Sóley Gestsdóttir og Urður Örlygsdóttir."
+ ],
+ "short_description": null,
+ "format": "tv",
+ "categories": [
+  {
+   "title": "Fréttatengt efni",
+   "slug": "frettatengt-efni"
+  },
+  {
+   "title": "Menning",
+   "slug": "menning"
+  },
+  {
+   "title": "Samfélag og mannlíf",
+   "slug": "samfelag-og-mannlif"
+  }
+ ],
+ "division": "Innlend dagskrárdeild",
+ "multiple_episodes": true,
+ "episodes": [
+  {
+   "id": "bc0897",
+   "number": 151,
+   "series_id": 38169,
+   "firstrun": "2026-06-18T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1176,
+   "duration_friendly": "00:19",
+   "event": 5458296,
+   "title": "Harpa Björk og auðgandi landbúnaður",
+   "slug": "harpa-bjork-og-audgandi-landbunadur",
+   "description": [
+    "Fyrir nokkrum árum var krabbamein fjarlægur sjúkdómur í huga Hörpu Bjarkar Hilmarsdóttir en í dag er hann stór hluti af lífi hennar. Hún hefur kynnst honum sem barn foreldra með krabbamein, sem syrgjandi og aðstandandi og sem foreldri barns með krabbamein.  Við heyrum sögu Hörpu Bjarkar í Kastljósi kvöldsins.",
+    "",
+    "Hjón sem stunda svokallaðan auðgandi landbúnað segjast njóta meiri tíma með dýrunum en áður. Markmiðið er að vinna með náttúrunni og jarðveginum og skilja eftir betra land en þau tóku við."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNmMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNmMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNmMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNmMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNmMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNmMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458296T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458296T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458296T0/5458296T0.m3u8",
+   "temp": {
+    "filename": "5458296T0.mp4",
+    "folder": "2026/06/18"
+   },
+   "clips": [
+    {
+     "time": "00:00:25",
+     "mark": 25,
+     "text": "Krabbameinsbarátta",
+     "mark_f": 25.04,
+     "slug": "krabbameinsbaratta"
+    },
+    {
+     "time": "00:12:40",
+     "mark": 760,
+     "text": "Auðgandi landbúnaður á Tyrfingsstöðum",
+     "mark_f": 760.4,
+     "slug": "audgandi-landbunadur-a-tyrfingsstodum"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458296V0.mp4",
+     "folder": null,
+     "file": "5458296V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-19",
+     "quality": 240,
+     "event": "5458296",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0896",
+   "number": 150,
+   "series_id": 38169,
+   "firstrun": "2026-06-16T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1750,
+   "duration_friendly": "00:29",
+   "event": 5507028,
+   "title": "Kristrún Frostadóttir og Guðrún Hafsteinsdóttir um þinglok, lögregludrónar",
+   "slug": "kristrun-frostadottir-og-gudrun-hafsteinsdottir-um-thinglok-logregludronar",
+   "description": [
+    "Kristrún Frostasdóttir forsætisráðherra og Guðrún Hafsteinsdóttir, formaður Sjálfstæðisflokkins eru gestir Kastljóss. Alþingi er á lokametrunum áður en þingi verður slitið og þingmenn í óðaönn við að samþykkja síðustu málin fyrir sumarfrí. Styr stóð um fjármálaáætlun, sem þó var samþykkt í gær, og stjórnarandstaðan vill bæta við þingfundi í ágúst í aðdraganda þjóðaratkvæðagreiðslu um aðildarviðræður við ESB.",
+    "",
+    "Lögreglan hefur tekið í sína þjónustu sérstaka lögregludróna, sem geta stytt viðbragðstíma margfalt og hafa þega sinnt um 500 útköllum. Við kynnum okkur málið."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5507028A1.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5507028A1.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5507028A1/5507028A1.m3u8",
+   "temp": {
+    "filename": "5507028A1.mp4",
+    "folder": "2026/06/22"
+   },
+   "clips": [
+    {
+     "time": "00:00:35",
+     "mark": 35,
+     "text": "Kristrún Frostadóttir og Guðrún Hafsteinsdóttir",
+     "mark_f": 35.48,
+     "slug": "kristrun-frostadottir-og-gudrun-hafsteinsdottir"
+    },
+    {
+     "time": "00:23:46",
+     "mark": 1426,
+     "text": "Lögregludrónar",
+     "mark_f": 1426.0,
+     "slug": "logregludronar"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5507028B1.mp4",
+     "folder": null,
+     "file": "5507028B1.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-22",
+     "quality": 240,
+     "event": "5507028",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0895",
+   "number": 149,
+   "series_id": 38169,
+   "firstrun": "2026-06-15T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1260,
+   "duration_friendly": "00:21",
+   "event": 5458294,
+   "title": "Samgönguáætlun, nikótínpúðanotkun ungmenna",
+   "slug": "samgonguaaetlun-nikotinpudanotkun-ungmenna",
+   "description": [
+    "Það er í mörg horn að líta fyrir samgönguráðherra þessi dægrin. Mikil röskun hefur verið á samgöngum til Vestmannaeyja það sem af er ári. Nú hefur vélarbilun í Herjólfi verið leyst með því að nota Breiðafjarðarferjuna Baldur sem staðgengil, sem bitnar á samgöngum og ferðaþjónustu á Vestfjörðum. Eyjólfur Ármannsson samgönguráðherra fer yfir þessi mál og nýsamþykkta samgönguáætlun.",
+    "",
+    "Þótt reykingar séu á undanhaldi hefur nikótínfíkn fundið sér annan farveg í formi munnpúða, sem njóta sívaxandi vinsælda - ekki síst meðal ungs fólks. Charlotta Holm Pisinger er einn helsti sérfræðingur Dana í tóbaksvörnum. Kastljós tók hana tali."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458294T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458294T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458294T0/5458294T0.m3u8",
+   "temp": {
+    "filename": "5458294T0.mp4",
+    "folder": "2026/06/15"
+   },
+   "clips": [
+    {
+     "time": "00:01:25",
+     "mark": 84,
+     "text": "Innviðaráðherra um samgönguáætlun",
+     "mark_f": 84.6,
+     "slug": "innvidaradherra-um-samgonguaaetlun"
+    },
+    {
+     "time": "00:13:39",
+     "mark": 818,
+     "text": "Nýr fíknifaraldur meðal ungs fólks",
+     "mark_f": 818.6,
+     "slug": "nyr-fiknifaraldur-medal-ungs-folks"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458294V0.mp4",
+     "folder": null,
+     "file": "5458294V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-16",
+     "quality": 240,
+     "event": "5458294",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0894",
+   "number": 148,
+   "series_id": 38169,
+   "firstrun": "2026-06-11T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1024,
+   "duration_friendly": "00:17",
+   "event": 5458293,
+   "title": "HM í fótbolta snýst um margt fleira en fótbolta + Organisti/fuglaljósmyndari í Svarfaðardal",
+   "slug": "hm-i-fotbolta-snyst-um-margt-fleira-en-fotbolta-organisti-fuglaljosmyndari-i-svarfadardal",
+   "description": [
+    "Heimsmeistaramót karla í knattspyrnu er hafið. Framundan er rúmur mánuður af fótboltafári; 104 leikir í þremur löndum og eitthvað í kringum 10.000 mínútur af fótbolta. Rætt við Kristjönu Arnarsdóttur, fjölmiðlakonu, og Björn Berg, sérfræðing í fjármálumí knattspyrnu um alþjóðapólitíkina, miðaverðið og sitthvað fleira í aðdraganda mótsins.",
+    "",
+    "Í þættinum heimsækjum við líka fuglaljósmyndarann Eyþór Inga Jónsson, sem býr í Svarfaðardal. Hann segir ekkert jafnast á við volkið og slarkið sem fylgir biðinni eftir hinu fullkomna skoti."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2dyYWJiXzExX2p1bmlfMl9zYW1hbi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2dyYWJiXzExX2p1bmlfMl9zYW1hbi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2dyYWJiXzExX2p1bmlfMl9zYW1hbi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2dyYWJiXzExX2p1bmlfMl9zYW1hbi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2dyYWJiXzExX2p1bmlfMl9zYW1hbi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2dyYWJiXzExX2p1bmlfMl9zYW1hbi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458293T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458293T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458293T0/5458293T0.m3u8",
+   "temp": {
+    "filename": "5458293T0.mp4",
+    "folder": "2026/06/11"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458293V0.mp4",
+     "folder": null,
+     "file": "5458293V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-12",
+     "quality": 240,
+     "event": "5458293",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0893",
+   "number": 147,
+   "series_id": 38169,
+   "firstrun": "2026-06-08T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1020,
+   "duration_friendly": "00:17",
+   "event": 5458292,
+   "title": "Þróun gervigreindar, símar á fæðingadeild, Baunin",
+   "slug": "throun-gervigreindar-simar-a-faedingadeild-baunin",
+   "description": [
+    "Sífellt fleiri hafa áhyggjur af því að þróun gervigreindar sé að verða stjórnlaus. En er hægt að koma böndunm á hana og hvernig? Halldóra Mogensen, sérfæðingur í vísindanefnd ESB, fer yfir málið.",
+    "",
+    "Það er kunnara en frá þurfi að segja að símar valda truflunum í nær öllu daglegu lífi, yfir sjónvarpinu og undir stýri. En nú eru þeir farnir nú að valda truflunum á mikilvægustu stund lífsins - á fæðingardeildinni.",
+    "",
+    "Við kynnum okkur líka útvarpsleikritið Baunin, sem nær allur ungleikarahópur landsins tekur þátt í."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458292T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458292T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458292T0/5458292T0.m3u8",
+   "temp": {
+    "filename": "5458292T0.mp4",
+    "folder": "2026/06/08"
+   },
+   "clips": [
+    {
+     "time": "00:00:30",
+     "mark": 30,
+     "text": "Þróun gervigreindar",
+     "mark_f": 30.2,
+     "slug": "throun-gervigreindar"
+    },
+    {
+     "time": "00:08:45",
+     "mark": 525,
+     "text": "Símar í fæðingu",
+     "mark_f": 525.2,
+     "slug": "simar-i-faedingu"
+    },
+    {
+     "time": "00:13:00",
+     "mark": 780,
+     "text": "Eins og hlaðvarp sinnum tíu",
+     "mark_f": 780.2,
+     "slug": "eins-og-hladvarp-sinnum-tiu"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458292V0.mp4",
+     "folder": null,
+     "file": "5458292V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-09",
+     "quality": 240,
+     "event": "5458292",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0892",
+   "number": 146,
+   "series_id": 38169,
+   "firstrun": "2026-06-04T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1486,
+   "duration_friendly": "00:24",
+   "event": 5458291,
+   "title": "Áhættuhegðun unglinga og Hildur Guðnadóttir",
+   "slug": "ahaettuhegdun-unglinga-og-hildur-gudnadottir",
+   "description": [],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0hpbGR1cl9zdGlsbC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0hpbGR1cl9zdGlsbC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0hpbGR1cl9zdGlsbC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0hpbGR1cl9zdGlsbC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0hpbGR1cl9zdGlsbC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0hpbGR1cl9zdGlsbC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458291T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458291T0.mp4"
+   },
+   "open_subtitles": true,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458291T0/5458291T0.m3u8",
+   "temp": {
+    "filename": "5458291T0.mp4",
+    "folder": "2026/06/04"
+   },
+   "clips": [
+    {
+     "time": "00:00:36",
+     "mark": 35,
+     "text": "Ofbeldi nær til yngri barna",
+     "mark_f": 35.76,
+     "slug": "ofbeldi-naer-til-yngri-barna"
+    },
+    {
+     "time": "00:16:48",
+     "mark": 1008,
+     "text": "Hildur Guðnadóttir",
+     "mark_f": 1008.2,
+     "slug": "hildur-gudnadottir"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458291V0.mp4",
+     "folder": null,
+     "file": "5458291V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-04",
+     "quality": 240,
+     "event": "5458291",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0891",
+   "number": 145,
+   "series_id": 38169,
+   "firstrun": "2026-06-03T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1158,
+   "duration_friendly": "00:19",
+   "event": 5458290,
+   "title": "Áslaug Arna hætt á þingi og fötin sem enginn erfir",
+   "slug": "aslaug-arna-haett-a-thingi-og-fotin-sem-enginn-erfir",
+   "description": [
+    "Áslaug Arna Sigurbjörnsdóttir sagði af sér þingmennsku á Alþingi í morgun. Hún var gestur Kastljóss.",
+    "",
+    "Við fjöllum líka um fataframleiðslu í nútímanum og veltum fyrir okkur hvers vegna við getum ennþá gengið í fötum sem framleidd voru fyrir mörgum áratugum síðan. Mun einhver erfa fötin sem við kaupum okkur í dag?"
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDMwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDMwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDMwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDMwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDMwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDMwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458290T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458290T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458290T0/5458290T0.m3u8",
+   "temp": {
+    "filename": "5458290T0.mp4",
+    "folder": "2026/06/03"
+   },
+   "clips": [
+    {
+     "time": "00:00:22",
+     "mark": 21,
+     "text": "Áslaug Arna hættir á þingi",
+     "mark_f": 21.72,
+     "slug": "aslaug-arna-haettir-a-thingi"
+    },
+    {
+     "time": "00:11:07",
+     "mark": 666,
+     "text": "Fötin sem enginn erfir",
+     "mark_f": 666.72,
+     "slug": "fotin-sem-enginn-erfir"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458290V0.mp4",
+     "folder": null,
+     "file": "5458290V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-04",
+     "quality": 240,
+     "event": "5458290",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0890",
+   "number": 144,
+   "series_id": 38169,
+   "firstrun": "2026-06-02T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 945,
+   "duration_friendly": "00:15",
+   "event": 5458289,
+   "title": "Valkostir Íslands í gjaldmiðlamálum og bein Jónasar Hallgrímssonar",
+   "slug": "valkostir-islands-i-gjaldmidlamalum-og-bein-jonasar-hallgrimssonar",
+   "description": [
+    "Fjármálaráðuneytið efndi til ráðstefnunnar í dag í tilefni af nýrri skýrslu um valkosti Íslands í gjaldmiðlamálum, sem kom út fyrir helgi. Skýrslunni er ætlað að leggja grunn að upplýstri umræðu um gjaldmiðlamál í aðdraganda þjóðaratkvæðagreiðslu um aðildarviðræður við ESB.  Fjórir erlendir sérfræðingar unnu skýrsluna undir forystu Catherine L. Mann, fyrrverandi aðalhagfræðings OECD.  Við ræðum við hana í þætti kvöldsins.",
+    "",
+    "Hópur þjóðþekkts fólks sem vinnur að kvikmynd um ævi þjóðskáldsins Jónasar Hallgrímssonar óskaði eftir leyfi til þess að grafa bein hans upp í þjóðargrafreitnum á Þingvöllum, taka úr þeim sýni og senda í DNA-greiningu. Þingvallanefnd tók málið fyrir í síðasta mánuði en afstaða og svar nefndarinnar er sú að hún geti ekki veitt slíka heimild nema að fyrir liggi dómsúrskurður. Meðal þeirra sem eru á bak við umsóknina er Páll Valsson sagnfræðingur sem er gestur Kastljóss."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDIwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDIwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDIwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDIwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDIwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDIwNi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458289T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458289T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458289T0/5458289T0.m3u8",
+   "temp": {
+    "filename": "5458289T0.mp4",
+    "folder": "2026/06/02"
+   },
+   "clips": [
+    {
+     "time": "00:00:23",
+     "mark": 22,
+     "text": "Valkostir Íslands í gjaldmiðlamálum",
+     "mark_f": 22.76,
+     "slug": "valkostir-islands-i-gjaldmidlamalum"
+    },
+    {
+     "time": "00:08:17",
+     "mark": 497,
+     "text": "Bein Jónasar Hallgrímssonar",
+     "mark_f": 497.28,
+     "slug": "bein-jonasar-hallgrimssonar"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458289V0.mp4",
+     "folder": null,
+     "file": "5458289V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-03",
+     "quality": 240,
+     "event": "5458289",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088v",
+   "number": 143,
+   "series_id": 38169,
+   "firstrun": "2026-06-01T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1453,
+   "duration_friendly": "00:24",
+   "event": 5458288,
+   "title": "Skuggavarp í íbúðarhúsnæði, ljósvist tryggð í nýju ákvæði, Mugison á flakki",
+   "slug": "skuggavarp-i-ibudarhusnaedi-ljosvist-tryggd-i-nyju-akvaedi-mugison-a-flakki",
+   "description": [
+    "Ný ákvæði í byggingareglugerð um ljósvist í íbúðarhúsnæði eiga að tryggja að allar íbúðir njóti héðan í frá nægilegrar dagsbirtu. Anna María Bogadóttir arkitekt og Ásta Logadóttir rafmagnsverkfræðingur segja að ljósvist hafi setið á hakanum við þéttingu byggðar. Á undanförnum árum hafi of margar íbúðir verið byggðar sem myndu ekki standast nýju ákvæðin.",
+    "",
+    "Ólafur Árnason, framkvæmdastjóri skipulags- og umhverfismatssviðs, fer yfir nýju ljósvistarákvæðin og hvaða breytingar þau hafa í för með sér í skipulagi.",
+    "",
+    "Tónlistarmaðurinn Mugison er lagður af stað í tónleikaferðalag. Við fylgjum honum úr hlaði."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDEwNl9ncmFmaWsuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDEwNl9ncmFmaWsuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDEwNl9ncmFmaWsuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDEwNl9ncmFmaWsuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDEwNl9ncmFmaWsuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDEwNl9ncmFmaWsuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458288T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458288T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458288T0/5458288T0.m3u8",
+   "temp": {
+    "filename": "5458288T0.mp4",
+    "folder": "2026/06/01"
+   },
+   "clips": [
+    {
+     "time": "00:00:33",
+     "mark": 32,
+     "text": "Skuggavarp í íbúðarhúsnæði",
+     "mark_f": 32.56,
+     "slug": "skuggavarp-i-ibudarhusnaedi"
+    },
+    {
+     "time": "00:08:53",
+     "mark": 533,
+     "text": "Ljósvist tryggð",
+     "mark_f": 533.16,
+     "slug": "ljosvist-tryggd"
+    },
+    {
+     "time": "00:18:43",
+     "mark": 1122,
+     "text": "Mugison á flakki",
+     "mark_f": 1122.96,
+     "slug": "mugison-a-flakki"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458288V0.mp4",
+     "folder": null,
+     "file": "5458288V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-06-02",
+     "quality": 240,
+     "event": "5458288",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088u",
+   "number": 142,
+   "series_id": 38169,
+   "firstrun": "2026-05-28T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1576,
+   "duration_friendly": "00:26",
+   "event": 5458287,
+   "title": "Þjóðaratkvæðagreiðsla um aðild Íslands að ESB og Gael Strack",
+   "slug": "thjodaratkvaedagreidsla-um-adild-islands-ad-esb-og-gael-strack",
+   "description": [
+    "Íslendingar ganga að kjörborðinu 29. ágúst til að greiða atkvæði um aðildarviðræður við Evrópusambandið. Þetta varð ljóst eftir atkvæðagreiðslu á Alþingi síðdegis. Þingsályktunartillaga utanríkisráðherra var samþykkt með 34 atkvæðum gegn 8 og 14 sátu hjá. Gestir Kastljós eru Þorgerður Katrín Gunnarsdóttir, utanríkisráðherra og formaður Viðreisnar og Sigríður Á. Andersen þingflokksformaður Miðflokksins.",
+    "",
+    "Einn helsti sérfræðingur Bandaríkjanna um kyrkingartak segir nauðsynlegt að setja sérstök lög um kyrkingar hér á landi. Ekki sé nógu markvisst að þær tilheyri almennum lögum um líkamsárásir. Rætt er við Gael Strack í lok þáttar."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458287T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458287T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458287T0/5458287T0.m3u8",
+   "temp": {
+    "filename": "5458287T0.mp4",
+    "folder": "2026/05/28"
+   },
+   "clips": [
+    {
+     "time": "00:02:06",
+     "mark": 125,
+     "text": "Þjóðaratkvæðagreiðsla um aðild að ESB",
+     "mark_f": 125.96,
+     "slug": "thjodaratkvaedagreidsla-um-adild-ad-esb"
+    },
+    {
+     "time": "00:23:25",
+     "mark": 1404,
+     "text": "Kallar eftir sérstökum kyrkingarlögum",
+     "mark_f": 1404.96,
+     "slug": "kallar-eftir-serstokum-kyrkingarlogum"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458287V0.mp4",
+     "folder": null,
+     "file": "5458287V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-29",
+     "quality": 240,
+     "event": "5458287",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088t",
+   "number": 141,
+   "series_id": 38169,
+   "firstrun": "2026-05-27T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1499,
+   "duration_friendly": "00:24",
+   "event": 5504499,
+   "title": "Nýr meirihluti í Reykjavík og bústörf í Eyjafirði",
+   "slug": "nyr-meirihluti-i-reykjavik-og-bustorf-i-eyjafirdi",
+   "description": [
+    "Sjálfstæðisflokkurinn, Framsókn og Viðreisn hafa náð saman um tólf manna meirihlutasamstarf í Reykjavík og taka við þann 2. júní.  Hildur Björnsdóttir, oddviti Sjálfstæðisflokksins, verður borgarstjóri Reykjavíkur, Einar Þorsteinsson, oddviti Framsóknar, verður formaður borgarráðs og Björg Magnúsdóttir, oddviti Viðreisnar, forseti borgarstjórnar. Oddvitarnir þrír eru gestir Kastljóss í kvöld.",
+    "",
+    "Nemendum í Hrafnagilsskóla í Eyjafjarðarsveit stendur til boða valáfangi þar sem þeir læra um bústörf. Við heimsækjum skólann í lok þáttar."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjcwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjcwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjcwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjcwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjcwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjcwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5504499A0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5504499A0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5504499A0/5504499A0.m3u8",
+   "temp": {
+    "filename": "5504499A0.mp4",
+    "folder": "2026/05/27"
+   },
+   "clips": [
+    {
+     "time": "00:00:35",
+     "mark": 35,
+     "text": "Nýr meirihluti í Reykjavík",
+     "mark_f": 35.04,
+     "slug": "nyr-meirihluti-i-reykjavik"
+    },
+    {
+     "time": "00:19:10",
+     "mark": 1150,
+     "text": "Bústörf í Hrafnagilsskóla í Eyjafjarðarsveit",
+     "mark_f": 1150.36,
+     "slug": "bustorf-i-hrafnagilsskola-i-eyjafjardarsveit"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5504499B0.mp4",
+     "folder": null,
+     "file": "5504499B0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-28",
+     "quality": 240,
+     "event": "5504499",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088s",
+   "number": 140,
+   "series_id": 38169,
+   "firstrun": "2026-05-26T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1581,
+   "duration_friendly": "00:26",
+   "event": 5458285,
+   "title": "Þjóðaratkvæðagreiðsla um ESB, hitað upp fyrir Grímuna og rætt við forstjóri hjá IKEA um sjálfbærni",
+   "slug": "thjodaratkvaedagreidsla-um-esb-hitad-upp-fyrir-grimuna-og-raett-vid-forstjori-hja-ikea-um-sjalfbaerni",
+   "description": [
+    "Stjórnvöld vilja boða til þjóðaratkvæðagreiðslu um aðildarviðræður við ESB þann 29. ágúst. Rætt við Helga Hrafn Gunnarsson, frá Evrópuhreyfingunni sem er fylgjandi aðild og Frosta Sigurjónsson, frá Heimssýn sem leggst gegn aðild.",
+    "",
+    "Hitað upp fyrir sviðslistaverðlaun Íslands, Grímuna, sem veitt eru í Þjóðleikhúsinu í kvöld. Rætt við gagnrýnendur, leikara og leikstjóra.",
+    "",
+    "Rætt við Jesper Brodin, fyrrum forstjóra hjá sænska stórfyrirtækinu IKEA. Hann segir sjálfbærni ekki bara snúast um siðferði, heldur sé hún líka góð fyrir bisnessinn."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjYwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjYwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjYwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjYwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjYwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tBU1RfMjYwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458285T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458285T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458285T0/5458285T0.m3u8",
+   "temp": {
+    "filename": "5458285T0.mp4",
+    "folder": "2026/05/26"
+   },
+   "clips": [
+    {
+     "time": "00:00:55",
+     "mark": 54,
+     "text": "Evrópumálin",
+     "mark_f": 54.64,
+     "slug": "evropumalin"
+    },
+    {
+     "time": "00:13:08",
+     "mark": 787,
+     "text": "Gríman",
+     "mark_f": 787.64,
+     "slug": "griman"
+    },
+    {
+     "time": "00:21:00",
+     "mark": 1259,
+     "text": "Fyrrum IKEA forstjóri",
+     "mark_f": 1259.64,
+     "slug": "fyrrum-ikea-forstjori"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458285V0.mp4",
+     "folder": null,
+     "file": "5458285V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-27",
+     "quality": 240,
+     "event": "5458285",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088r",
+   "number": 139,
+   "series_id": 38169,
+   "firstrun": "2026-05-21T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1500,
+   "duration_friendly": "00:25",
+   "event": 5458284,
+   "title": "Dýrtíð og ferðaþjónusta, kvartöld í sveitarstjórn og Alex Óli",
+   "slug": "dyrtid-og-ferdathjonusta-kvartold-i-sveitarstjorn-og-alex-oli",
+   "description": [
+    "Samkvæmt könnun Ferðamálastofu hefur aukist sá fjöldi ferðmanna sem segir að Íslandsferðin hafi hreinlega ekki verið peninganna virði. Ísland er enda orðið dýrasta land í heimi, samkvæmt úttekt Visku stéttarfélags. Rætt við Vilhjálm Hilmarsson, hagfræðing félagsins og Pétur Óskarsson, formann samtaka Ferðaþjónustunnar.",
+    "",
+    "Einar Jón Pálsson er hættur eftir kvartaldar þátttöku í sveitarstjórnarmálum á Suðurnesjum. Hólmfríður Dagný fékk hjá honum góð ráð fyrir nýtt sveitarstjórnarfólk.",
+    "",
+    "Rætt við unga söngvarann Alex Óla, sem er nokkuð reynslumikill í bransanum, einungis 12 ára að aldri."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNV9yZXR0LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjQwLCJoZWlnaHQiOjEzNX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNV9yZXR0LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NDgwLCJoZWlnaHQiOjI3MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNV9yZXR0LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNV9yZXR0LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNV9yZXR0LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNV9yZXR0LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTIwMCwiaGVpZ2h0Ijo2NzV9LCJ0b0Zvcm1hdCI6ImpwZWcifX0=",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458284T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458284T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458284T0/5458284T0.m3u8",
+   "temp": {
+    "filename": "5458284T0.mp4",
+    "folder": "2026/05/21"
+   },
+   "clips": [
+    {
+     "time": "00:01:49",
+     "mark": 108,
+     "text": "Dýrtíð og ferðaþjónustan",
+     "mark_f": 108.64,
+     "slug": "dyrtid-og-ferdathjonustan"
+    },
+    {
+     "time": "00:15:04",
+     "mark": 903,
+     "text": "Einar Jón Pálsson",
+     "mark_f": 903.64,
+     "slug": "einar-jon-palsson"
+    },
+    {
+     "time": "00:19:21",
+     "mark": 1160,
+     "text": "12 ára framtíðar poppstjarna",
+     "mark_f": 1160.64,
+     "slug": "12-ara-framtidar-poppstjarna"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458284V0.mp4",
+     "folder": null,
+     "file": "5458284V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-22",
+     "quality": 240,
+     "event": "5458284",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088q",
+   "number": 138,
+   "series_id": 38169,
+   "firstrun": "2026-05-20T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1560,
+   "duration_friendly": "00:26",
+   "event": 5458283,
+   "title": "Hækkun stýrivaxta, líftæknikjöt, aldamótahönnun",
+   "slug": "haekkun-styrivaxta-liftaeknikjot-aldamotahonnun",
+   "description": [
+    "Seðlabankinn hækkaði stýrivexti um 25 punkta í morgun og eru þeir nú komnir upp í 7,75 prósent. Una Jónsdóttir, aðalhagfræðingur Landsbankans, og Már Wolfgang Mixa, dósent í viðskiptafræði við HÍ, fara yfir stöðuna.",
+    "",
+    "Miklar framfarir hafa orðið í ræktun á svonefndu líftæknikjöti - eða vistkjöti - sem gæti í komið í stað kjöts af dýrum í framtíðinni.",
+    "",
+    "Við rifjum líka upp hápunkta fatatískunnar upp ár aldamótunum en Fatahönnunarfélag Íslands stóð fyrir sýningu á dögunum."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjAwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjAwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjAwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjAwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjAwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjAwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458283T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458283T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458283T0/5458283T0.m3u8",
+   "temp": {
+    "filename": "5458283T0.mp4",
+    "folder": "2026/05/20"
+   },
+   "clips": [
+    {
+     "time": "00:00:39",
+     "mark": 39,
+     "text": "Stýrivaxtahækkun",
+     "mark_f": 39.2,
+     "slug": "styrivaxtahaekkun"
+    },
+    {
+     "time": "00:14:04",
+     "mark": 844,
+     "text": "Vistkjöt framtíðarinnar",
+     "mark_f": 844.2,
+     "slug": "vistkjot-framtidarinnar"
+    },
+    {
+     "time": "00:19:38",
+     "mark": 1178,
+     "text": "Fatahönnun sýnd í Norræna húsinu",
+     "mark_f": 1178.2,
+     "slug": "fatahonnun-synd-i-norraena-husinu"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458283V0.mp4",
+     "folder": null,
+     "file": "5458283V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-21",
+     "quality": 240,
+     "event": "5458283",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088p",
+   "number": 137,
+   "series_id": 38169,
+   "firstrun": "2026-05-19T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1500,
+   "duration_friendly": "00:25",
+   "event": 5458282,
+   "title": "Sigurvegarar kosninganna, inntökupróf í slökkviliðið, slátturóbótar",
+   "slug": "sigurvegarar-kosninganna-inntokuprof-i-slokkvilidid-slatturobotar",
+   "description": [
+    "Sjálfstæðisflokkurinn í Kópavogi og Framsóknarflokkurinn í Hafnarfirði, öðru og þriðja stærsta sveitarfélaga landsins, unnu glæsta sigra í sveitarstjórnarkosningum um helgina. Sjálfstæðisflokkurinn fékk hreinan meirihluta í fyrsta sinn og Framsóknarflokkurinn fékk meira fylgi en nokkru sinni í bænum. Ásdís Kristjánsdóttir og Valdimar Víðisson fóru yfir árangurinn og verkefnin framundan.",
+    "",
+    "Marga dreymir um að komast í slökkviliðið á höfuðborgarsvæðinu en til þess þarf að standast krefjandi þrekpróf. Við prófuðum að þreyta það.",
+    "",
+    "Sífellt fleiri garðeigendur fá sér slátturóbota til að létta sér garðvinnuna. Við kynntum okkur innreið róbotanna."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTkwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTkwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTkwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTkwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTkwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTkwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458282T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458282T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458282T0/5458282T0.m3u8",
+   "temp": {
+    "filename": "5458282T0.mp4",
+    "folder": "2026/05/19"
+   },
+   "clips": [
+    {
+     "time": "00:01:14",
+     "mark": 73,
+     "text": "Meirihlutaviðræður í Kópavogi og Hafnarfirði",
+     "mark_f": 73.64,
+     "slug": "meirihlutavidraedur-i-kopavogi-og-hafnarfirdi"
+    },
+    {
+     "time": "00:13:43",
+     "mark": 822,
+     "text": "Inntökupróf slökkviliðsins",
+     "mark_f": 822.64,
+     "slug": "inntokuprof-slokkvilidsins"
+    },
+    {
+     "time": "00:19:45",
+     "mark": 1184,
+     "text": "Slátturóbot",
+     "mark_f": 1184.64,
+     "slug": "slatturobot"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458282V0.mp4",
+     "folder": null,
+     "file": "5458282V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-20",
+     "quality": 240,
+     "event": "5458282",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088o",
+   "number": 136,
+   "series_id": 38169,
+   "firstrun": "2026-05-18T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1740,
+   "duration_friendly": "00:29",
+   "event": 5458281,
+   "title": "Þingmenn um niðurstöður sveitarstjórnarkosninga og brúðarbúningur frá 18.öld",
+   "slug": "thingmenn-um-nidurstodur-sveitarstjornarkosninga-og-brudarbuningur-fra-18-old",
+   "description": [
+    "Skýr hægri sveifla var í úrslitum kosninganna og Sjálfstæðisflokkurinn er með pálmann í höndunum í Reykjavík. En hvað segja niðurstöður kosninganna okkur um stöðu flokkanna á landsvísu? Og við hverju má búast á næstu misserum? Gestir Kastljóss eru  Dagur B. Eggertsson þingmaður Samfylkingarinnar og Guðlaugur Þór Þórðarson þingmaður Sjálfstæðisflokksins.",
+    "",
+    "Íslenskur brúðarbúningur frá átjándu öld sem á sér mikla og dramatíska sögu er nú til sýnis á Þjóðminjasafninu. Sýningarstjóri segir búninginn vera hið heilaga gral íslenskrar menningarsögu. Við kynnum okkur söguna í lok þáttarins."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTgwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458281T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458281T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458281T0/5458281T0.m3u8",
+   "temp": {
+    "filename": "5458281T0.mp4",
+    "folder": "2026/05/18"
+   },
+   "clips": [
+    {
+     "time": "00:04:40",
+     "mark": 279,
+     "text": "Staða flokkanna eftir kosningar",
+     "mark_f": 279.64,
+     "slug": "stada-flokkanna-eftir-kosningar"
+    },
+    {
+     "time": "00:22:53",
+     "mark": 1372,
+     "text": "Brúðarbúningur með dramatíska sögu til sýnis",
+     "mark_f": 1372.64,
+     "slug": "brudarbuningur-med-dramatiska-sogu-til-synis"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458281V0.mp4",
+     "folder": null,
+     "file": "5458281V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-19",
+     "quality": 240,
+     "event": "5458281",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088n",
+   "number": 135,
+   "series_id": 38169,
+   "firstrun": "2026-05-13T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1566,
+   "duration_friendly": "00:26",
+   "event": 5458280,
+   "title": "Tónleikahald á Þingvöllum, ungir kjósendur, Feneyjatvíæringurinn",
+   "slug": "tonleikahald-a-thingvollum-ungir-kjosendur-feneyjatviaeringurinn",
+   "description": [
+    "Hljómsveitin Kaleo og fleiri tónlistarmenn halda stórtónleika á Þingvöllum í sumar. Þingvellir eru þjóðgarður og á heimsminjaskrá UNESCO. Skiptar skoðanir eru á hvort vel fari á því að halda lokaðan viðburð á slíkum stað. Sigurður Helgi Pálmason, þingmaður Flokks fólksins og formaður Þingvallarnefndar, og Álfheiður Ingadóttir, fyrrverandi formaður Þingvallanefndar, ræða málið.",
+    "",
+    "Það styttist í kjördag og margir ganga að kjörborðinu í fyrsta sinn. Við tökum púlsinn á ungum kjósendum.",
+    "",
+    "Við förum líka yfir sviðið á Feneyjatvíæringnum, stærstu myndlistarhátíð í heimi, sem er umdeildari í ár en ofast áður."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458280T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458280T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458280T0/5458280T0.m3u8",
+   "temp": {
+    "filename": "5458280T0.mp4",
+    "folder": "2026/05/13"
+   },
+   "clips": [
+    {
+     "time": "00:00:41",
+     "mark": 40,
+     "text": "Tónleikahald á Þingvöllum",
+     "mark_f": 40.64,
+     "slug": "tonleikahald-a-thingvollum"
+    },
+    {
+     "time": "00:13:46",
+     "mark": 825,
+     "text": "Ungir kjósendur",
+     "mark_f": 825.64,
+     "slug": "ungir-kjosendur"
+    },
+    {
+     "time": "00:17:43",
+     "mark": 1062,
+     "text": "Feneyjatvíæringurinn",
+     "mark_f": 1062.64,
+     "slug": "feneyjatviaeringurinn"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458280V0.mp4",
+     "folder": null,
+     "file": "5458280V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-14",
+     "quality": 240,
+     "event": "5458280",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088m",
+   "number": 134,
+   "series_id": 38169,
+   "firstrun": "2026-05-12T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1500,
+   "duration_friendly": "00:25",
+   "event": 5458279,
+   "title": "Skakkir hvatar í skipulagsmálum, skúlptúrar Jóhanns Eyfells",
+   "slug": "skakkir-hvatar-i-skipulagsmalum-skulpturar-johanns-eyfells",
+   "description": [
+    "Skakkir hvatar í skipulagsferlum sveitarfélaga á höfuðborgarsvæðinu gera að verkum húsnæðisuppbygging verður of dýr og áherslan verður á magn umfram gæði, að mati Eddu Ívarsdóttur borgarhönnuðar, sem starfaði lengi hjá Reykjavíkurborg. Hún leggur til að sveitarfélögin leiti leiða til að færa hönnunina fyrr inn í ferlið, til að spara fjármagnskostnað og gera uppbyggingu mannvænni. Við ræðum Eddu.",
+    "",
+    "Við ræðum líka skipulagsmálin við Ásdísi Hlökk Theodórsdóttur, skipulagsfræðing og fyrrverandi forstjóra Skipulagsstofnunar.",
+    "",
+    "Tröllvaxnir skúlptúrar listamannsins Jóhanns Eyfells eru komnir til Íslands frá Texast. Við fylgjumst með móttökunni."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTIwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTIwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTIwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTIwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTIwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTIwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458279T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458279T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458279T0/5458279T0.m3u8",
+   "temp": {
+    "filename": "5458279T0.mp4",
+    "folder": "2026/05/12"
+   },
+   "clips": [
+    {
+     "time": "00:00:59",
+     "mark": 59,
+     "text": "Borgarskipulag",
+     "mark_f": 59.2,
+     "slug": "borgarskipulag"
+    },
+    {
+     "time": "00:20:23",
+     "mark": 1223,
+     "text": "Höggmyndirnar heim",
+     "mark_f": 1223.2,
+     "slug": "hoggmyndirnar-heim"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458279V0.mp4",
+     "folder": null,
+     "file": "5458279V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-13",
+     "quality": 240,
+     "event": "5458279",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088l",
+   "number": 133,
+   "series_id": 38169,
+   "firstrun": "2026-05-11T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1620,
+   "duration_friendly": "00:27",
+   "event": 5458278,
+   "title": "Sveitarstjórnarkosningar, framtíðarstörf og Feneyjatvíæringurinn",
+   "slug": "sveitarstjornarkosningar-framtidarstorf-og-feneyjatviaeringurinn",
+   "description": [
+    "Fimm dagar eru í sveitarstjórnarkosningar, ýmislegt hefur gengið á í aðdragandanum og fylgi flokka tekið breytingum. En hvernig lítur líklegt meirihlutasamstarf út í borginni og hvaða mál gætu haft áhrif á úrslit kosninga? Gestir Kastljóss eru þeir Ólafur Þ. Harðarson prófessor emeritus í stjórnmálafræði og Magnús Sigurbjörnsson fyrrverandi framkvæmdastjóri borgarstjórnarhóps Sjálfstæðisflokksins sem heldur úti hlaðvarpinu Korter í kosningar.",
+    "",
+    "Hvaða störf eiga eftir að lifa af gervigreindarbyltinguna og hver ekki? Við komumst að því síðar í þættinum.",
+    "",
+    "Við lítum einnig á íslenska skálann á Feneyjatvíæringnum, stærstu myndlistarhátíð heims, sem hófst fyrir helgi. Listakonan Ásta Fanney Sigurðardóttir er fulltrúi Íslands á hátíðinni í ár."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTEwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTEwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTEwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTEwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTEwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTEwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458278T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458278T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458278T0/5458278T0.m3u8",
+   "temp": {
+    "filename": "5458278T0.mp4",
+    "folder": "2026/05/11"
+   },
+   "clips": [
+    {
+     "time": "00:01:11",
+     "mark": 71,
+     "text": "Sveitarstjórnarkosningar",
+     "mark_f": 71.16,
+     "slug": "sveitarstjornarkosningar"
+    },
+    {
+     "time": "00:14:47",
+     "mark": 887,
+     "text": "Störf framtíðar",
+     "mark_f": 887.16,
+     "slug": "storf-framtidar"
+    },
+    {
+     "time": "00:20:30",
+     "mark": 1230,
+     "text": "Feneyjatvíæringurinn",
+     "mark_f": 1230.16,
+     "slug": "feneyjatviaeringurinn"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458278V0.mp4",
+     "folder": null,
+     "file": "5458278V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-12",
+     "quality": 240,
+     "event": "5458278",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088k",
+   "number": 132,
+   "series_id": 38169,
+   "firstrun": "2026-05-04T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1491,
+   "duration_friendly": "00:24",
+   "event": 5458277,
+   "title": "Málefni sveitarstjórnarkosninga, samgöngur á höfuðborgarsvæðinu og Katla Sólnes",
+   "slug": "malefni-sveitarstjornarkosninga-samgongur-a-hofudborgarsvaedinu-og-katla-solnes",
+   "description": [
+    "Tæpar tvær vikur eru til sveitarstjórnarkosninga og spennan farin að magnast. Hvaða málefni skipta fólk mestu máli í tengslum við kosningarnar? Við kynnum okkur það í þættinum í kvöld.",
+    "",
+    "Bílaumferð hefur verið að aukast á höfuðborgarsvæðinu á undanförnum árum og flest bendir til að hún muni halda því áfram að óbreyttu, með sívaxandi umferðarteppum á annatímum. Enn eru þó nokkur ár þar til borgarlína kemst í gagnið, þar sem strætó á sérakreinum á að létta á álaginu. En hvað er til ráða þangað til? Gestir Kastljóss eru Daði Baldur Ottósson, samgönguverkfræðingur hjá Eflu, og Þorsteinn Hermannsson, framkvæmdastjóri Betri samgangna.",
+    "",
+    "Við heimsækjum einnig Kötlu Sólnes sem er ung og upprennandi kvikmyndagerðarkona."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDQwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDQwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDQwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDQwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDQwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDQwNS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458277T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458277T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458277T0/5458277T0.m3u8",
+   "temp": {
+    "filename": "5458277T0.mp4",
+    "folder": "2026/05/04"
+   },
+   "clips": [
+    {
+     "time": "00:00:49",
+     "mark": 49,
+     "text": "Sveitastjórnarkosningar",
+     "mark_f": 49.28,
+     "slug": "sveitastjornarkosningar"
+    },
+    {
+     "time": "00:06:29",
+     "mark": 389,
+     "text": "Samgöngumál",
+     "mark_f": 389.44,
+     "slug": "samgongumal"
+    },
+    {
+     "time": "00:19:55",
+     "mark": 1194,
+     "text": "Katla Sólnes",
+     "mark_f": 1194.92,
+     "slug": "katla-solnes"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458277V0.mp4",
+     "folder": null,
+     "file": "5458277V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-05",
+     "quality": 240,
+     "event": "5458277",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088j",
+   "number": 131,
+   "series_id": 38169,
+   "firstrun": "2026-04-30T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1524,
+   "duration_friendly": "00:25",
+   "event": 5458276,
+   "title": "Aukið framboð af fíkniefnum og vændi, Argó rís aftur, Torgið",
+   "slug": "aukid-frambod-af-fikniefnum-og-vaendi-argo-ris-aftur-torgid",
+   "description": [
+    "Eins og fram kom í síðustu tveimur þáttum hjá Kveik hefur framboð af vændi og fíkniefnum á Íslandi stóraukist á undanförnum árum. Skipulögð brotastarfsemi leikur þar stórt hlutverk og oft er skörun milli fíkniefnainnflutnings og mansals. Þorbjörg Sigríður Gunnlaugsdóttir dómsmálaráðherra er gestur Kastljóss.",
+    "",
+    "Argó, 145 ára sjóhús sem hýsi Tækniminjasafn Austurlands, laskaðist verulega í aurskiðum á Seyðisfirði fyrir sex árum. En nú er verið að huga að endurbyggingu. Við litum á verkstað.",
+    "",
+    "Íslendingar mælast þyngstir Norðurlandaþjóða. Á sama tíma hefur tilfellum átröskunarsjúkdóma fjölgað. Fjallað verður um þessa þróun í Torginu á þriðjudag."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458276T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458276T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458276T0/5458276T0.m3u8",
+   "temp": {
+    "filename": "5458276T0.mp4",
+    "folder": "2026/04/30"
+   },
+   "clips": [
+    {
+     "time": "00:01:01",
+     "mark": 60,
+     "text": "Dómsmálaráðherra um skipulagða glæpastarfsemi",
+     "mark_f": 60.64,
+     "slug": "domsmalaradherra-um-skipulagda-glaepastarfsemi"
+    },
+    {
+     "time": "00:17:57",
+     "mark": 1076,
+     "text": "145 ára sjóhús á Seyðisfirði",
+     "mark_f": 1076.64,
+     "slug": "145-ara-sjohus-a-seydisfirdi"
+    },
+    {
+     "time": "00:22:18",
+     "mark": 1337,
+     "text": "Íslendingar þyngstir Norðurlandabúa",
+     "mark_f": 1337.64,
+     "slug": "islendingar-thyngstir-nordurlandabua"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458276V0.mp4",
+     "folder": null,
+     "file": "5458276V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-05-01",
+     "quality": 240,
+     "event": "5458276",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088i",
+   "number": 130,
+   "series_id": 38169,
+   "firstrun": "2026-04-28T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1640,
+   "duration_friendly": "00:27",
+   "event": 5458275,
+   "title": "Húsnæðispakki tvö, Bocuse d’Or kandídat Íslands og útskriftarsýning í fatahönnun",
+   "slug": "husnaedispakki-tvo-bocuse-dor-kandidat-islands-og-utskriftarsyning-i-fatahonnun",
+   "description": [
+    "Ríkisstjórnin og Reykjavíkurborg hafa gert samning um að byggðar verði á annað þúsund íbúðir á lóðum og í húsnæði í eigu ríkisins. Þetta er meðal aðgerða í húsnæðismálum sem kynntar voru á fundi í morgun og eru liður í öðrum húsnæðispakka ríkisstjórnarinnar. Gestur Kastljóss er  Ragnar Þór Ingólfsson, félags- og húsnæðismálaráðherra.",
+    "",
+    "Snædís Xyza Jónsdóttir keppti fyrst kvenna fyrir hönd Íslands í undankeppni alþjóðlegu matreiðslukeppninnar Bocuse d’Or í Frakklandi. Hún komst áfram í úrslitakeppnina sem fer fram á næsta ári og er strax farin að undirbúa sig.",
+    "",
+    "Í lok þáttar kynnumst við fatahönnuðum framtíðarinnar, sem sýndu útskriftarlínur sínar úr Listaháskóla Íslands á dögunum."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458275T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458275T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458275T0/5458275T0.m3u8",
+   "temp": {
+    "filename": "5458275T0.mp4",
+    "folder": "2026/04/28"
+   },
+   "clips": [
+    {
+     "time": "00:00:42",
+     "mark": 41,
+     "text": "Húsnæðispakki tvö",
+     "mark_f": 41.8,
+     "slug": "husnaedispakki-tvo"
+    },
+    {
+     "time": "00:15:27",
+     "mark": 927,
+     "text": "Bocuse d'Or kandídat Íslands",
+     "mark_f": 927.32,
+     "slug": "bocuse-d-or-kandidat-islands"
+    },
+    {
+     "time": "00:21:49",
+     "mark": 1309,
+     "text": "Útskriftarsýning í fatahönnun",
+     "mark_f": 1309.0,
+     "slug": "utskriftarsyning-i-fatahonnun"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458275V0.mp4",
+     "folder": null,
+     "file": "5458275V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-29",
+     "quality": 240,
+     "event": "5458275",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088h",
+   "number": 129,
+   "series_id": 38169,
+   "firstrun": "2026-04-27T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1590,
+   "duration_friendly": "00:26",
+   "event": 5458274,
+   "title": "AMOC í hættu, genagallar í gjafasæði, Högni semur fyrir Apex",
+   "slug": "amoc-i-haettu-genagallar-i-gjafasaedi-hogni-semur-fyrir-apex",
+   "description": [
+    "Auknar líkur eru á að að veltihringrás Atlantshafsins, eða AMOC, veikist af völdum loftslagsbreytinga og rofni jafnvel í framhaldinu. Slíkt gæti þýtt nýtt kuldaskeið í Bretlandi, Skandinavíu og á Íslandi, með afdrifaríkum afleiðungum. Halldór Björnsson, fagstjóri veðurs og loftstlags hjá Veðurstofu Íslands, og Hrönn Egilsdóttir, sviðsstjóri umhverfissviðs hjá Hafrannsóknarstofnun, fóru yfir stöðuna.",
+    "",
+    "Frá árinu 2013 hefur sæði úr 70 dönskum sæðisgjöfum verið tekið úr umferð hér á landi vegna genagalla. Við fjöllum um málið.",
+    "",
+    "Kastljós hittir líka Högna Egilsson tónskáld sem semur tónlistina við nýjustu kvikmynd Baltasars Kormáks, Apex, sem er framleidd af Netflix"
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjcwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjcwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjcwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjcwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjcwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjcwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458274T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458274T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458274T0/5458274T0.m3u8",
+   "temp": {
+    "filename": "5458274T0.mp4",
+    "folder": "2026/04/27"
+   },
+   "clips": [
+    {
+     "time": "00:00:37",
+     "mark": 36,
+     "text": "Veltihringrás Atlantshafsins",
+     "mark_f": 36.64,
+     "slug": "veltihringras-atlantshafsins"
+    },
+    {
+     "time": "00:16:41",
+     "mark": 1000,
+     "text": "Sæði tekið úr notkun",
+     "mark_f": 1000.64,
+     "slug": "saedi-tekid-ur-notkun"
+    },
+    {
+     "time": "00:20:59",
+     "mark": 1258,
+     "text": "Högni og Apex",
+     "mark_f": 1258.64,
+     "slug": "hogni-og-apex"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458274V0.mp4",
+     "folder": null,
+     "file": "5458274V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-28",
+     "quality": 240,
+     "event": "5458274",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088g",
+   "number": 128,
+   "series_id": 38169,
+   "firstrun": "2026-04-22T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1560,
+   "duration_friendly": "00:26",
+   "event": 5458273,
+   "title": "Fjöldi óseldra íbúða, þjónusta við fatlað fólk, Ástríkur plokkari",
+   "slug": "fjoldi-oseldra-ibuda-thjonusta-vid-fatlad-folk-astrikur-plokkari",
+   "description": [
+    "Fjöldi óseldra íbúða er í sögulegum hæðum og hefur aukist um 40 prósent milli ára. Sigurður Hannesson, framkvæmastjóri Samtaka iðnaðarins, óttast að vatnaskil séu að verða í íslenskum byggingariðnaði. Við förum yfir stöðuna með honum og Moniku Hjálmtýsdóttur, formanni Félags fasteignasala.",
+    "",
+    "Málefni  fatlaðs fólks eru eitt mikilvægasta verkefni sveitarfélaga, þar á meðal að tryggja öruggt og gott aðgengi. Við hittum mann í Múlaþingi sem notar hjólastól og segir enn verið að byggja íbúðir með of háum þröskuldum og það sé undir hælinn lagt hvort brugðist sé við óskum um umbætur.",
+    "",
+    "Við kynnumst líka einum afkastamesta plastplokkara landsins, að minnsta kosti í flokki ferfætlinga - hafnfirska kettinum Ástríki."
+   ],
+   "short_description": "r",
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjIwNF9KUjZGT2ZuLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjQwLCJoZWlnaHQiOjEzNX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjIwNF9KUjZGT2ZuLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NDgwLCJoZWlnaHQiOjI3MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjIwNF9KUjZGT2ZuLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjIwNF9KUjZGT2ZuLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjIwNF9KUjZGT2ZuLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjIwNF9KUjZGT2ZuLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTIwMCwiaGVpZ2h0Ijo2NzV9LCJ0b0Zvcm1hdCI6ImpwZWcifX0=",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458273T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458273T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458273T0/5458273T0.m3u8",
+   "temp": {
+    "filename": "5458273T0.mp4",
+    "folder": "2026/04/22"
+   },
+   "clips": [
+    {
+     "time": "00:01:02",
+     "mark": 61,
+     "text": "Fasteignamarkaðurinn",
+     "mark_f": 61.88,
+     "slug": "fasteignamarkadurinn"
+    },
+    {
+     "time": "00:11:58",
+     "mark": 717,
+     "text": "Aðgengi fatlaðra",
+     "mark_f": 717.88,
+     "slug": "adgengi-fatladra"
+    },
+    {
+     "time": "00:20:06",
+     "mark": 1205,
+     "text": "Plokkkötturinn Ási",
+     "mark_f": 1205.88,
+     "slug": "plokkkotturinn-asi"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458273V0.mp4",
+     "folder": null,
+     "file": "5458273V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-23",
+     "quality": 240,
+     "event": "5458273",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088f",
+   "number": 127,
+   "series_id": 38169,
+   "firstrun": "2026-04-21T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1572,
+   "duration_friendly": "00:26",
+   "event": 5458272,
+   "title": "Þórdís Kolbrún verður sendiherra, Dalatangi, Tuttugu og eitthvað",
+   "slug": "thordis-kolbrun-verdur-sendiherra-dalatangi-tuttugu-og-eitthvad",
+   "description": [
+    "Þórdís Kolbrún Reykfjörð Gylfadóttir, fyrrverandi varaformaður Sjálfstæðisflokksins og utanríkisráðherra, hefur verið skipuð sendiherra og hættir á þingi. Hún ræddi við Kastljós í tilefni af vistaskiptunum.",
+    "",
+    "Dalatangi er austasta byggða ból landsins og það er hægara sagt en gert að komast þangað yfir vetrarmánuðina, eins og við komumst að.",
+    "",
+    "Það getur verið flókið að fóta sig í lífinu á þrítugsaldri. Um það fjalla sjónvarpsþættirnir Tuttugu og eitthvað, sem hófu göngu sína á RÚV á dögunum. Við ræddum við aðstandendur,."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjEwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458272T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458272T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458272T0/5458272T0.m3u8",
+   "temp": {
+    "filename": "5458272T0.mp4",
+    "folder": "2026/04/21"
+   },
+   "clips": [
+    {
+     "time": "00:00:41",
+     "mark": 40,
+     "text": "Þórdís Kolbrún hættir í stjórnmálum",
+     "mark_f": 40.88,
+     "slug": "thordis-kolbrun-haettir-i-stjornmalum"
+    },
+    {
+     "time": "00:13:12",
+     "mark": 791,
+     "text": "Austasta byggða ból landsins",
+     "mark_f": 791.88,
+     "slug": "austasta-byggda-bol-landsins"
+    },
+    {
+     "time": "00:20:41",
+     "mark": 1240,
+     "text": "20 og eitthvað",
+     "mark_f": 1240.88,
+     "slug": "20-og-eitthvad"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458272V0.mp4",
+     "folder": null,
+     "file": "5458272V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-22",
+     "quality": 240,
+     "event": "5458272",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088e",
+   "number": 126,
+   "series_id": 38169,
+   "firstrun": "2026-04-20T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1594,
+   "duration_friendly": "00:26",
+   "event": 5458271,
+   "title": "Misheppnuð fegrunaraðgerð í Tyrklandi og listakonan Edda Karólína Ævarsdóttir",
+   "slug": "misheppnud-fegrunaradgerd-i-tyrklandi-og-listakonan-edda-karolina-aevarsdottir",
+   "description": [
+    "Kona sem fór í misheppnaða fegrunaraðgerð í Tyrklandi í gegnum íslenska fyrirtækið Hei-medival veit ekki enn hver framkvæmdi aðgerðina. Konan er með stór og ljót ör eftir andlitslyftingu og aðskotahlutur varð eftir í andliti hennar í aðgerðinni. Rætt er við konuna í Kastljósi kvöldsins og gestur þáttarins er Guðjón Sigurbjartsson framkvæmdastjóri HEI medical travel.",
+    "",
+    "Í nýrri sýningu listakonunnar Eddu Karólínu Ævarsdóttur kynnir hún nýja röð skúlptúrinnsetninga, í samspili við hljóðheim eftir tónlistamanninn Dag Sölva Halldórsson. Við lítum inn á sýninguna í þættinum."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wNC0yMS0wOWgwOW0zNnM2NDAucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wNC0yMS0wOWgwOW0zNnM2NDAucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wNC0yMS0wOWgwOW0zNnM2NDAucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wNC0yMS0wOWgwOW0zNnM2NDAucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wNC0yMS0wOWgwOW0zNnM2NDAucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wNC0yMS0wOWgwOW0zNnM2NDAucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458271T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458271T0.mp4"
+   },
+   "open_subtitles": true,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458271T0/5458271T0.m3u8",
+   "temp": {
+    "filename": "5458271T0.mp4",
+    "folder": "2026/04/20"
+   },
+   "clips": [
+    {
+     "time": "00:00:52",
+     "mark": 52,
+     "text": "Misheppnuð andlitslyfting",
+     "mark_f": 52.24,
+     "slug": "misheppnud-andlitslyfting"
+    },
+    {
+     "time": "00:10:58",
+     "mark": 658,
+     "text": "Hei medical",
+     "mark_f": 658.2,
+     "slug": "hei-medical"
+    },
+    {
+     "time": "00:22:04",
+     "mark": 1323,
+     "text": "Edda Karólína",
+     "mark_f": 1323.6,
+     "slug": "edda-karolina"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458271V0.mp4",
+     "folder": null,
+     "file": "5458271V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-21",
+     "quality": 240,
+     "event": "5458271",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088d",
+   "number": 125,
+   "series_id": 38169,
+   "firstrun": "2026-04-16T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1504,
+   "duration_friendly": "00:25",
+   "event": 5458270,
+   "title": "Breytingar á einkunnakerfinu og sigurvegari Söngkeppni framhaldsskólanna",
+   "slug": "breytingar-a-einkunnakerfinu-og-sigurvegari-songkeppni-framhaldsskolanna",
+   "description": [
+    "Ræða Ingu Sæland mennta- og barnamálaráðherra á þingi Kennarasambands Íslands í gær hefur valdið titringi meðal kennarastéttarinnar og skildi salinn eftir í nokkru uppnámi. Hún boðaði í ræðu sinnu breytingar á einkunnakerfi grunnskólanna sem virðist hafa komið kennurum í opna skjöldu. Inga Sæland er gestur Kastljóss.",
+    "",
+    "Sigurvegari Söngkeppni framhaldsskólanna er hinn 18 ára Guðjón Þorgils Kristjánsson, sem keppti fyrir hönd Fjölbrautaskóla Suðurnesja. Við kynnumst honumí þætti kvöldsins."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNF9iLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjQwLCJoZWlnaHQiOjEzNX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNF9iLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NDgwLCJoZWlnaHQiOjI3MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNF9iLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNF9iLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNF9iLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTYwNF9iLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTIwMCwiaGVpZ2h0Ijo2NzV9LCJ0b0Zvcm1hdCI6ImpwZWcifX0=",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458270T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458270T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458270T0/5458270T0.m3u8",
+   "temp": {
+    "filename": "5458270T0.mp4",
+    "folder": "2026/04/16"
+   },
+   "clips": [
+    {
+     "time": "00:02:08",
+     "mark": 127,
+     "text": "Mennta- og barnamálaráðherra",
+     "mark_f": 127.64,
+     "slug": "mennta-og-barnamalaradherra"
+    },
+    {
+     "time": "00:18:38",
+     "mark": 1117,
+     "text": "Guðjón Þorgils söngvari",
+     "mark_f": 1117.64,
+     "slug": "gudjon-thorgils-songvari"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458270V0.mp4",
+     "folder": null,
+     "file": "5458270V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-17",
+     "quality": 240,
+     "event": "5458270",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088c",
+   "number": 124,
+   "series_id": 38169,
+   "firstrun": "2026-04-15T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1524,
+   "duration_friendly": "00:25",
+   "event": 5458269,
+   "title": "Unnar kjötvörur í skólum, kosningamál unga fólksins. flóttafólk stofnar leikhóp",
+   "slug": "unnar-kjotvorur-i-skolum-kosningamal-unga-folksins-flottafolk-stofnar-leikhop",
+   "description": [
+    "Skiptar skoðanir eru á nýrri matarstefnu Reykjavíkurborgar, þar sem bann er lagt við unnum kjötvörum í leik- og grunnskólum nema í undantekningartilfellum. Meirihlutinn segir að með þessu sé stuðlað að aðgengi að næringarríkum mat óháð efnahag og benda á að unnar kjötvörur innihaldi skaðleg efni. Minnihlutinn gagnrýnir meirihlutann fyrir að fara offari og útiloka meðal annars hefðbundinn heimilismat, sem sé hluti af íslenskri matarmenningu. En hversu algengar eru unnar kjötvörur á matseðlum skólanna? Ellen Alma Tryggvadóttir, næringarfræðingur og verkefnastjóri hjá embætti landlæknis í fer yfir málið?",
+    "",
+    "Það þarf að koma til móts við fólkið sem notar almenningssamgöngur, segir ungur maður sem er stundum rúmlega klukkutíma að komast til vinnu með strætó. Kastljós fjallar um nokkur málefni sem kosið er um í sveitarstjórnarkosningum á næstu vikum.",
+    "",
+    "Óvenjulegur leikhópur sýnir sitt eigið verk í Hljómahöllinni í Reykjanesbæ. Leikararnir eru á öllum aldri, tala ólík tungumál og eiga það allir sameiginlegt að vera flóttafólk. Við lítum á æfingu."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNF9UQUgzWDV4LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjQwLCJoZWlnaHQiOjEzNX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNF9UQUgzWDV4LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NDgwLCJoZWlnaHQiOjI3MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNF9UQUgzWDV4LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNF9UQUgzWDV4LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNF9UQUgzWDV4LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTUwNF9UQUgzWDV4LmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTIwMCwiaGVpZ2h0Ijo2NzV9LCJ0b0Zvcm1hdCI6ImpwZWcifX0=",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458269T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458269T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458269T0/5458269T0.m3u8",
+   "temp": {
+    "filename": "5458269T0.mp4",
+    "folder": "2026/04/15"
+   },
+   "clips": [
+    {
+     "time": "00:01:18",
+     "mark": 77,
+     "text": "Matur í skólum",
+     "mark_f": 77.68,
+     "slug": "matur-i-skolum"
+    },
+    {
+     "time": "00:14:00",
+     "mark": 839,
+     "text": "Samgöngumál í borginni",
+     "mark_f": 839.68,
+     "slug": "samgongumal-i-borginni"
+    },
+    {
+     "time": "00:21:24",
+     "mark": 1283,
+     "text": "Leikhús Rauða Krossins",
+     "mark_f": 1283.68,
+     "slug": "leikhus-rauda-krossins"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458269V0.mp4",
+     "folder": null,
+     "file": "5458269V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-16",
+     "quality": 240,
+     "event": "5458269",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088b",
+   "number": 123,
+   "series_id": 38169,
+   "firstrun": "2026-04-14T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1500,
+   "duration_friendly": "00:25",
+   "event": 5458268,
+   "title": "Uppbygging í Grindavík og húsbygging í Mosfellsbæ",
+   "slug": "uppbygging-i-grindavik-og-husbygging-i-mosfellsbae",
+   "description": [
+    "Grindavíkurbær hyggur á skólahald í haust en Grindavíkurnefnd leggst gegn því. Við ræðum nýútkomna rammaáætlun um endurreisn Grindavíkur og viðtökurnar sem hún hefur fengið meðal Grindvíkinga. Viðmælendur eru Árni Þór Sigurðsson, formaður Grindavíkurnefndar og Kristín María Birgisdóttir, Grindvíkingur.",
+    "",
+    "Við kynnum okkur líka nýja aðferð til húsbygginga, sem nú er beitt við Sölkugötu í Mosfellsbæ. Hönnuðir aðferðarinnar binda vonir við að með henni megi byggja hús á skemmri tíma og með minni tilkostnaði."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTQwNEIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTQwNEIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTQwNEIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTQwNEIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTQwNEIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTQwNEIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458268T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458268T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458268T0/5458268T0.m3u8",
+   "temp": {
+    "filename": "5458268T0.mp4",
+    "folder": "2026/04/14"
+   },
+   "clips": [
+    {
+     "time": "00:00:39",
+     "mark": 39,
+     "text": "Grindavík",
+     "mark_f": 39.12,
+     "slug": "grindavik"
+    },
+    {
+     "time": "00:16:56",
+     "mark": 1016,
+     "text": "Sölkugata í Mosfellsbæ",
+     "mark_f": 1016.12,
+     "slug": "solkugata-i-mosfellsbae"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458268V0.mp4",
+     "folder": null,
+     "file": "5458268V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-15",
+     "quality": 240,
+     "event": "5458268",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc088a",
+   "number": 122,
+   "series_id": 38169,
+   "firstrun": "2026-04-13T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1560,
+   "duration_friendly": "00:26",
+   "event": 5458267,
+   "title": "Aðgerðir gegn verðbólgu, Tilman Kuban og Gæðablóð",
+   "slug": "adgerdir-gegn-verdbolgu-tilman-kuban-og-gaedablod",
+   "description": [
+    "Ríkisstjórnin kynnti fyrir helgi tímabundnar efnahagsaðgerðir til að ná niður verðbólgu. Duga þessar aðgerðir til og hvað þarf að gera til að ná tökum á efnahagsástandinu? Gestir Kastljós eru Henný Hinz aðstoðarframkvæmdastjóri Alþýðusambands Íslands og GylfI Magnússon, prófessor í viðskiptafræði við Háskóla Íslands og fyrrverandi efnahags- og viðskiptaráðherra.",
+    "",
+    "Þýski þingmaðurinn Tilman Kuban fer fyrir Evrópumálum í flokki Merz kanslara Þýskalands. Hann var hérlendis fyrir nokkrum dögum og sagðist í viðtali við Ingólf Bjarna viss um að hægt væri að ná málamiðlun í sjávarútvegsmálum sem bæði sjómenn og útvegsfyrirtæki gætu unað við.",
+    "",
+    "Þrír íslenskir leikarar með ólíkar reynslusögur sameina krafta sína í verkinu Gæðablóð í Þjóðleikhúsinu. Við lræðum við tríóið og leikstjóra verksins."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMTMwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458267T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458267T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458267T0/5458267T0.m3u8",
+   "temp": {
+    "filename": "5458267T0.mp4",
+    "folder": "2026/04/13"
+   },
+   "clips": [
+    {
+     "time": "00:01:16",
+     "mark": 76,
+     "text": "Efnahagshorfur",
+     "mark_f": 76.12,
+     "slug": "efnahagshorfur"
+    },
+    {
+     "time": "00:16:28",
+     "mark": 988,
+     "text": "Þýskur þingmaður",
+     "mark_f": 988.12,
+     "slug": "thyskur-thingmadur"
+    },
+    {
+     "time": "00:21:34",
+     "mark": 1294,
+     "text": "Gæðablóð í Þjóðleikhúsi",
+     "mark_f": 1294.12,
+     "slug": "gaedablod-i-thjodleikhusi"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458267V0.mp4",
+     "folder": null,
+     "file": "5458267V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-14",
+     "quality": 240,
+     "event": "5458267",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0889",
+   "number": 121,
+   "series_id": 38169,
+   "firstrun": "2026-04-09T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1500,
+   "duration_friendly": "00:25",
+   "event": 5458266,
+   "title": "Aðstöðumunur við íþróttaiðkun, forseti ÍSÍ, iðjuleysi gegn einbeitingarskori",
+   "slug": "adstodumunur-vid-ithrottaidkun-forseti-isi-idjuleysi-gegn-einbeitingarskori",
+   "description": [
+    "Faðir þriggja drengja á Egilsstöðum borgaði í fyrra yfir tvær milljónir króna í ferðakostnað vegna þátttöku sona hans á íþróttamótum í Reykjavík. Formaður Hattar segir kostnað farinn að valda misskiptingu í íþróttaiðkun, dæmi séu um heimili sem hafi ekki tök á að senda börn sín á mót. Umsóknir í jöfnunarsjóð ÍSÍ vegna ferðakostnaðar voru fimm sinnum meiri en til var í sjóðnum í fyrra. KSÍ sendi á dögunum áskorun til mennta- og barnamálaráðherra um aðgerðir. Við förum yfir stöðuna fyrir austan og ræðum við Willum Þór Þórsson, forseta ÍSÍ.",
+    "",
+    "Að sitja með hendur í skauti og gera ekki neitt í klukkustund hljómar eins og létt verk en reynist mörgum erfitt á tímum síáreitis. Sumir eru þó farnir að nota þessa aðferð til að endurheimta athyglisgáfu og einbeitingu. Kastljós bað þrjá einstaklinga um að gera ekki neitt og segja frá hvernig gekk."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDkwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDkwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDkwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDkwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDkwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDkwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458266T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458266T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458266T0/5458266T0.m3u8",
+   "temp": {
+    "filename": "5458266T0.mp4",
+    "folder": "2026/04/09"
+   },
+   "clips": [
+    {
+     "time": "00:01:13",
+     "mark": 73,
+     "text": "Íþróttaiðkun barna",
+     "mark_f": 73.44,
+     "slug": "ithrottaidkun-barna"
+    },
+    {
+     "time": "00:17:02",
+     "mark": 1022,
+     "text": "Iðjuleysisklukkari",
+     "mark_f": 1022.44,
+     "slug": "idjuleysisklukkari"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458266V0.mp4",
+     "folder": null,
+     "file": "5458266V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-10",
+     "quality": 240,
+     "event": "5458266",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0888",
+   "number": 120,
+   "series_id": 38169,
+   "firstrun": "2026-04-08T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1398,
+   "duration_friendly": "00:23",
+   "event": 5458265,
+   "title": "Átröskun og leiðangur Artemis II",
+   "slug": "atroskun-og-leidangur-artemis-ii",
+   "description": [
+    "Tilfellum átröskunar hjá ungum stelpum hefur fjölgað undanfarna mánuði, það sýna tölur bæði frá BUGL og átröskunarteymi Landspítala. Mikið bakslag hefur orðið. Samfélagsmiðlar og aukin umræða um þyngdarstjórnun og offitu eru talin hafa neikvæð áhrif á líkamsímynd.",
+    "",
+    "Geimfararnir fjórir í geimfarinu Integrity eru nú á leið til jarðar eftir að hafa farið hringinn í kringum tunglið og virt fyrir sér bakhlið þess, sem afar fáar manneskjur hafa augum litið. Við ræðum við Sævar Helga Bragason um leiðangurinn Artemis II."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMDgwNC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458265T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458265T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458265T0/5458265T0.m3u8",
+   "temp": {
+    "filename": "5458265T0.mp4",
+    "folder": "2026/04/08"
+   },
+   "clips": [
+    {
+     "time": "00:00:55",
+     "mark": 54,
+     "text": "Tilfellum átröskunar fjölgar",
+     "mark_f": 54.92,
+     "slug": "tilfellum-atroskunar-fjolgar"
+    },
+    {
+     "time": "00:12:30",
+     "mark": 750,
+     "text": "Tunglferð Artemis II",
+     "mark_f": 750.2,
+     "slug": "tunglferd-artemis-ii"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458265V0.mp4",
+     "folder": null,
+     "file": "5458265V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-09",
+     "quality": 240,
+     "event": "5458265",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0887",
+   "number": 119,
+   "series_id": 38169,
+   "firstrun": "2026-04-07T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1500,
+   "duration_friendly": "00:25",
+   "event": 5458264,
+   "title": "Trump hótar Íran, lokun Hormussunds, búa í elsta steinbænum",
+   "slug": "trump-hotar-iran-lokun-hormussunds-bua-i-elsta-steinbaenum",
+   "description": [
+    "Donald Trump hefur hótað að útrýma siðmenningu Íran gangi stjórnvöld þar í landi ekki að kröfum hans, semji um frið og opni Hormussund fyrir olíuflutninga á ný. Utanríkisráðherra Íslands segir þetta alvarlegustu stöðu sem hún muni eftir í alþjóðamálum. Albert Jónsson, fyrrverandi sendiherra, og Kjartan Orri Þórsson, sérfræðingur í málefnum Írans, fara yfir atburðarásina.",
+    "",
+    "Þótt Trump fylgi hótunum sínum ekki eftir er ljóst að lokun Hormussunds hefur valdið efnahagslegum skell um allan heim. Aðalhagfræðingur Íslandsbanka segir áhrifin eiga eftir að koma fyllilega í ljós en þau verði líklega ekki skammvinn. Við ræðum við hann um hvað það þýðir fyrir Ísland.",
+    "",
+    "Ef það eru draugar hér eru þeir með okkur í liði, segja íbúar í elsta tvöfalda steinbæ landsins. Honum var bjargað frá glötun af Minjavernd. Hann er staðsettur innan um glænýjar blokkir en íbúarnir segja þetta eins og að búa uppi í sveit."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzA3MDRfa2FzdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzA3MDRfa2FzdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzA3MDRfa2FzdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzA3MDRfa2FzdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzA3MDRfa2FzdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzA3MDRfa2FzdC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458264T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458264T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458264T0/5458264T0.m3u8",
+   "temp": {
+    "filename": "5458264T0.mp4",
+    "folder": "2026/04/07"
+   },
+   "clips": [
+    {
+     "time": "00:00:52",
+     "mark": 51,
+     "text": "Hótanir Trump gegn Íran",
+     "mark_f": 51.64,
+     "slug": "hotanir-trump-gegn-iran"
+    },
+    {
+     "time": "00:12:43",
+     "mark": 762,
+     "text": "Aðalhagfræðingur Íslandsbanka um efnahagshorfur",
+     "mark_f": 762.64,
+     "slug": "adalhagfraedingur-islandsbanka-um-efnahagshorfur"
+    },
+    {
+     "time": "00:20:06",
+     "mark": 1205,
+     "text": "Elsti tvöfaldi steinbær Reykjavíkur",
+     "mark_f": 1205.64,
+     "slug": "elsti-tvofaldi-steinbaer-reykjavikur"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458264V0.mp4",
+     "folder": null,
+     "file": "5458264V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-08",
+     "quality": 240,
+     "event": "5458264",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0886",
+   "number": 118,
+   "series_id": 38169,
+   "firstrun": "2026-04-01T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1429,
+   "duration_friendly": "00:23",
+   "event": 5458263,
+   "title": "Áhrif orkukreppu á Ísland, nýir kjörkassar, Ástin og dauðinn",
+   "slug": "ahrif-orkukreppu-a-island-nyir-kjorkassar-astin-og-daudinn",
+   "description": [
+    "Heimurinn býr sig undir orkukreppu eftir að ein mikilvægasta olíuflutningaleið heims, Hormússund, lokaðist í kjölfar innrásar Bandaríkjanna og Ísrael í Íran. Hvaða áhrif gæti olíukreppa haft á Ísland? Við ræðum við Loga Einarsson, settan orkumálaráðherra, og Sigríði Mogensen, sviðsstjóra iðnaðar- og hugverkasviðs hjá Samtökum iðnaðarins.",
+    "",
+    "Nýir kjörkassar leysa gömlu viðarkassana af hólmi í komandi sveitarstjórnarkosningum. Nýju kassarnir eru úr plasti og eiga að létta kjörstjórnum lífið. Við kíkjum á kassana.",
+    "",
+    "Salka Valka, eins þekktasta bókmenntapersóna Íslands, lifnar við í einleiknum Ástin og dauðinn, sem Unnur Ösp Stefánsdóttir flytur í Landnámssetrinu í Borgarnesi. Við hittum Unni Ösp."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xvZ2lfZ3JhYmIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xvZ2lfZ3JhYmIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xvZ2lfZ3JhYmIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xvZ2lfZ3JhYmIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xvZ2lfZ3JhYmIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xvZ2lfZ3JhYmIuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458263T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458263T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458263T0/5458263T0.m3u8",
+   "temp": {
+    "filename": "5458263T0.mp4",
+    "folder": "2026/04/01"
+   },
+   "clips": [
+    {
+     "time": "00:00:40",
+     "mark": 39,
+     "text": "Áhrif orkukreppu á Íslandi",
+     "mark_f": 39.72,
+     "slug": "ahrif-orkukreppu-a-islandi"
+    },
+    {
+     "time": "00:12:34",
+     "mark": 753,
+     "text": "Nýir kjörkassar",
+     "mark_f": 753.92,
+     "slug": "nyir-kjorkassar"
+    },
+    {
+     "time": "00:16:18",
+     "mark": 978,
+     "text": "Ástin og dauðinn",
+     "mark_f": 978.16,
+     "slug": "astin-og-daudinn"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458263V0.mp4",
+     "folder": null,
+     "file": "5458263V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-01",
+     "quality": 240,
+     "event": "5458263",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0885",
+   "number": 117,
+   "series_id": 38169,
+   "firstrun": "2026-03-31T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1653,
+   "duration_friendly": "00:27",
+   "event": 5458262,
+   "title": "Brottfararbúðir, eldsneytisverð og Mömmó",
+   "slug": "brottfararbudir-eldsneytisverd-og-mommo",
+   "description": [
+    "Frumvarp dómsmálaráðherra um brottfarastöð hefur hlotið gagnrýni, meðal annars vegna heimildar til að vista þar börn. Umboðsmaður barna segir frumvarpið vera andstætt Barnasáttmálanum og brjóta gegn réttindum barna. Við kynnum okkur málið.",
+    "",
+    "Olíuverð er í hæstu hæðum vegna stríðsins í Íran og eldsneytisverð hefur hækkað skarpt eftir lækkun um áramótin þegar kílómetragjald var tekið upp. Runólfur Ólafsson, framkvæmdastjóri Félags íslenskra bifreiðaeigenda, vill að stjórnvöld grípi inn í miklar verðhækkanir. Hann er gestur Kastljóss í kvöld.",
+    "",
+    "Auk þriggja leikara í leiksýningunni Mömmó í Borgarleikhúsinu, leika hárkollur lykilhlutverk í frásögninni. Vanalega er markmiðið að ekki sjáist að kolla sé kolla, en þannig er það ekki í þetta sinn."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzEwM3JldHQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzEwM3JldHQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzEwM3JldHQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzEwM3JldHQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzEwM3JldHQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzEwM3JldHQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458262T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458262T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458262T0/5458262T0.m3u8",
+   "temp": {
+    "filename": "5458262T0.mp4",
+    "folder": "2026/03/31"
+   },
+   "clips": [
+    {
+     "time": "00:01:09",
+     "mark": 68,
+     "text": "Börn og brottfararbúðir",
+     "mark_f": 68.64,
+     "slug": "born-og-brottfararbudir"
+    },
+    {
+     "time": "00:10:03",
+     "mark": 602,
+     "text": "Hækkandi olíuverð",
+     "mark_f": 602.64,
+     "slug": "haekkandi-oliuverd"
+    },
+    {
+     "time": "00:22:43",
+     "mark": 1362,
+     "text": "Mömmó í Borgarleikhúsinu",
+     "mark_f": 1362.64,
+     "slug": "mommo-i-borgarleikhusinu"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458262V0.mp4",
+     "folder": null,
+     "file": "5458262V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-04-01",
+     "quality": 240,
+     "event": "5458262",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0884",
+   "number": 116,
+   "series_id": 38169,
+   "firstrun": "2026-03-30T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1370,
+   "duration_friendly": "00:22",
+   "event": 5458261,
+   "title": "Fósturheimili, Grænland og Trump og Júlli safnari",
+   "slug": "fosturheimili-graenland-og-trump-og-julli-safnari",
+   "description": [
+    "Fréttaskýringaþátturinn Þetta helst á Rás 1 fjallaði í dag um fósturheimilið á Gauksstöðum í Garði á Reykjanesi, sem lokað var árið 2019 eftir að hafa verið starfrækt í áratug. Rætt við Lilju Margréti Olsen, lögmann og réttargæslumann rúmlega 20 einstaklinga sem vistaðir voru á heimilinu og greint hafa frá ofbeldi þar.",
+    "",
+    "Sérfræðingur við herrannsóknardeild Kaupmannahafnarháskóla segir að Bandaríkin hafa enn áhuga á yfirráðum á Grænlandi en samningaviðræðum um fyrirkomulagið sæe haldið mjög leyndum. Ingólfur Bjarni Sigfússon ræðir við Lise Wiederholt Christensen.",
+    "",
+    "Það er svalt að vera nörd - eða það segir allavegana yfirgrúskarinn Júlíus Júlíusson sem rekur safnarabúð á Dalvík. Sigurður Þorri heimsótti Safnabúð Júlla."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMzAwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458261T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458261T0.mp4"
+   },
+   "open_subtitles": true,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458261T0/5458261T0.m3u8",
+   "temp": {
+    "filename": "5458261T0.mp4",
+    "folder": "2026/03/30"
+   },
+   "clips": [],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458261V0.mp4",
+     "folder": null,
+     "file": "5458261V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-03-31",
+     "quality": 240,
+     "event": "5458261",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0883",
+   "number": 115,
+   "series_id": 38169,
+   "firstrun": "2026-03-26T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1560,
+   "duration_friendly": "00:26",
+   "event": 5458260,
+   "title": "Fjárlagagatinu lokað, Undir ísnum",
+   "slug": "fjarlagagatinu-lokad-undir-isnum",
+   "description": [
+    "Daði Már Kristófersson fjármálaráðherra boðar fyrstu hallalausu fjárlögin síðan 2019 á næsta ári í fjármálaáætlun til næstu fimm ára. Áætlunin var kynnt í dag í skugga hækkandi verðbólgu, sem mælist nú 5,4 prósent. Daði Már var gestur Kastljós þar sem hann ræddi fjármálaáætlun og baráttuna við verðbólguna.",
+    "",
+    "Nokkrir nemendur við Tónhyl akademíu voru búnir að fá sig fullsadda á bíómyndum um myrkur og morð á Íslandi. Þeir ákváðu því að gera eigin bíómynd og úr varð spennumyndin Undir ísnum, sem er komin í bíó. Við hittum kvikmyndargerðarmennina."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjYwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjYwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjYwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjYwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjYwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjYwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458260T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458260T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458260T0/5458260T0.m3u8",
+   "temp": {
+    "filename": "5458260T0.mp4",
+    "folder": "2026/03/26"
+   },
+   "clips": [
+    {
+     "time": "00:00:34",
+     "mark": 33,
+     "text": "Viðtal við Daða Má fjármálaráðherra",
+     "mark_f": 33.72,
+     "slug": "vidtal-vid-dada-ma-fjarmalaradherra"
+    },
+    {
+     "time": "00:18:12",
+     "mark": 1091,
+     "text": "Undir ísnum",
+     "mark_f": 1091.84,
+     "slug": "undir-isnum"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458260V0.mp4",
+     "folder": null,
+     "file": "5458260V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-03-27",
+     "quality": 240,
+     "event": "5458260",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0882",
+   "number": 114,
+   "series_id": 38169,
+   "firstrun": "2026-03-25T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1529,
+   "duration_friendly": "00:25",
+   "event": 5458259,
+   "title": "Stækkunarstjóri ESB, krabbameinsforvarnir, bjartasta vonin í íslenskri tónlist",
+   "slug": "staekkunarstjori-esb-krabbameinsforvarnir-bjartasta-vonin-i-islenskri-tonlist",
+   "description": [
+    "Marta Kos, stækkunarstjóri ESB, segir Ísland hafa sérstöðu umfram önnur umsóknarríki vegna EES-samningins og Schengen-samstarfsins. Það sé líklegt til að flýta fyrir aðildarviðræðum kjósi þjóðin að halda þeim áfram. Við ræðum við Mörtu Kos.",
+    "",
+    "Talið er að krabbameinstilfellum eigi eftir að fjölga um allt að 65 prósent hér á landi á næstu tveimur áratugum. Hvernig erum við í stakk búin að takast á við þá fjölgun og hvað er hægt að gera til að koma í veg fyrir krabbamein? Við ræðum við Beatrice Ferver, sérfræðing í krabbameinsforvörnum, og Sigurdísi Haraldsdóttir krabbameinslækni og yfirlækni á Landspítala.",
+    "",
+    "Sara Magnúsdóttir, Hammondleikari, var valin bjartasta vonin á Íslensku tónlistarverðlaununum, sem veitt voru fyrir skemmstu. Sara býr nú í New York og kemur ár sinni fyrir borð í tónlistarsenunni þar. Við kynntum okkur þessa björtu von."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wMy0zMC0xNWg0MW01OXM2NDUucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wMy0zMC0xNWg0MW01OXM2NDUucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wMy0zMC0xNWg0MW01OXM2NDUucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wMy0zMC0xNWg0MW01OXM2NDUucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wMy0zMC0xNWg0MW01OXM2NDUucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL3ZsY3NuYXAtMjAyNi0wMy0zMC0xNWg0MW01OXM2NDUucG5nIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458259T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458259T0.mp4"
+   },
+   "open_subtitles": true,
+   "closed_subtitles": true,
+   "auto_subtitles": false,
+   "file": "https://ruv-vod.akamaized.net/opid/5458259T0/5458259T0.m3u8",
+   "temp": {
+    "filename": "5458259T0.mp4",
+    "folder": "2026/03/25"
+   },
+   "clips": [
+    {
+     "time": "00:01:07",
+     "mark": 66,
+     "text": "Stækunarstjóri ESB",
+     "mark_f": 66.72,
+     "slug": "staekunarstjori-esb"
+    },
+    {
+     "time": "00:07:52",
+     "mark": 472,
+     "text": "Krabbameinsforvarnir",
+     "mark_f": 472.16,
+     "slug": "krabbameinsforvarnir"
+    },
+    {
+     "time": "00:12:38",
+     "mark": 757,
+     "text": "Krabbameinslæknir á Landspítala",
+     "mark_f": 757.52,
+     "slug": "krabbameinslaeknir-a-landspitala"
+    },
+    {
+     "time": "00:19:43",
+     "mark": 1183,
+     "text": "Hammondleikarinn Sara Mjöll Magnúsdóttir",
+     "mark_f": 1183.12,
+     "slug": "hammondleikarinn-sara-mjoll-magnusdottir"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458259V0.mp4",
+     "folder": null,
+     "file": "5458259V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-03-26",
+     "quality": 240,
+     "event": "5458259",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0881",
+   "number": 113,
+   "series_id": 38169,
+   "firstrun": "2026-03-23T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1680,
+   "duration_friendly": "00:28",
+   "event": 5458258,
+   "title": "Þingkosningar í Danmörku",
+   "slug": "thingkosningar-i-danmorku",
+   "description": [
+    "Danir ganga að kjörborðinu á morgun og útlit er fyrir spennandi þingkosningar eftir stutta og snarpa kosningabaráttu, en aðeins mánuður er síðan að Mette Frederiksen forsætisráðherra Danmerkur boðaði til kosninga. Við hittum Clement Kjersgaard einn þekktasta sjónvarpsmann Dana fyrr í dag en hann hefur tekið virkan þátt í umfjöllun danska ríkisútvarpsins fyrir þingkosningarnar. Við spurðum hann sérstaklega um alþjóðamálin sem hafa verið fyrirferðamikil í Danmörku undanfarna mánuði  og kosningarnar í því samhengi. En áður en við heyrum í honum ætlum við að ræða við Kristínu Ólafsdóttir fyrrverandi framkvæmdastjóra Sambands Norrænu félaganna og Alexander Kristjánsson varaformann Ung norræn og fyrrum fréttamann á Ríkisútvarpinu."
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjMwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjMwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjMwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjMwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjMwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3RfMjMwMy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458258T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458258T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458258T0/5458258T0.m3u8",
+   "temp": {
+    "filename": "5458258T0.mp4",
+    "folder": "2026/03/23"
+   },
+   "clips": [
+    {
+     "time": "00:05:42",
+     "mark": 342,
+     "text": "Kosningabaráttan í Danmörku",
+     "mark_f": 342.32,
+     "slug": "kosningabarattan-i-danmorku"
+    },
+    {
+     "time": "00:06:31",
+     "mark": 391,
+     "text": "Viðtal við Clement Kjersgaard",
+     "mark_f": 391.32,
+     "slug": "vidtal-vid-clement-kjersgaard"
+    },
+    {
+     "time": "00:12:46",
+     "mark": 766,
+     "text": "Niðurstöður kosninganna",
+     "mark_f": 766.32,
+     "slug": "nidurstodur-kosninganna"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458258V0.mp4",
+     "folder": null,
+     "file": "5458258V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-03-24",
+     "quality": 240,
+     "event": "5458258",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  },
+  {
+   "id": "bc0880",
+   "number": 112,
+   "series_id": 38169,
+   "firstrun": "2026-03-19T19:45:00",
+   "file_expires": "9999-12-31",
+   "rating": 0,
+   "descriptors": [],
+   "duration": 1549,
+   "duration_friendly": "00:25",
+   "event": 5458257,
+   "title": "Kjarasamningar í hættu, yfirfullur Landspítali, ESB í Torginu",
+   "slug": "kjarasamningar-i-haettu-yfirfullur-landspitali-esb-i-torginu",
+   "description": [
+    "Seðlabankinn hækkaði stýrivexti í gær um 0,25 prósentustig og eru þeir því orðnir 7,5 prósent. Verðbólga mælist 5,2 prósent, sem þýðir að forsendur kjarasamninga í haust eru í hættu. Fjármálaráðherra kallar eftir samstilltu átaki ríkis, vinnuveitenda og verkalýðshreyfingar - en varar við að þær yrðu ekki sársaukalausar. Halla Gunnarsdóttir, formaður VR og Þorsteinn Víglundsson, formaður Samtaka iðnaðarins. eru gestir Kastljóss.",
+    "",
+    "Rauði liturinn er allsráðandi á legudeildum Landspítalans - sem þýðir að þær eru yfirfullar. Hjúkrunarfræðingur segir að að eitt sinn hefði mátt líkja ástandinu við snjóhengju - en nú sé hún fallin. Við fylgjumst með starfsfólki Landspítalans reyna að finna rúm fyrir sjúklinga.",
+    "",
+    "Umræðu um þjóðaratkvæðagreiðslu um aðildarviðræður að ESB verður ekki haldið áfram á Alþingi fyrr en eftir páska. Þá kemur í ljós hvort atkvæðagreiðslan verði 29. ágúst eins og stefnt er að. Fram að því má búast við líflegum umræðum og ljóst er að almenningur hefur fjölmargar spurningar sem tengjast bæði atkvæðagreiðslunni og mögulegri aðild að ESB. Torgið næsta þriðjudag verður helgað þeim spurningum"
+   ],
+   "short_description": null,
+   "image_renditions": {
+    "web_images": [
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3Rsam9zXzE5MDMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 240
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3Rsam9zXzE5MDMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 480
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3Rsam9zXzE5MDMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+      "width": 960
+     },
+     {
+      "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3Rsam9zXzE5MDMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+      "width": 1920
+     }
+    ]
+   },
+   "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3Rsam9zXzE5MDMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+   "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL2thc3Rsam9zXzE5MDMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+   "scope": "Global",
+   "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458257T0.mp4",
+   "subtitles": {
+    "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5458257T0.mp4"
+   },
+   "open_subtitles": false,
+   "closed_subtitles": true,
+   "auto_subtitles": true,
+   "file": "https://ruv-vod.akamaized.net/opid/5458257T0/5458257T0.m3u8",
+   "temp": {
+    "filename": "5458257T0.mp4",
+    "folder": "2026/03/19"
+   },
+   "clips": [
+    {
+     "time": "00:00:39",
+     "mark": 39,
+     "text": "Vaxtahækkanir Seðlabankans",
+     "mark_f": 39.4,
+     "slug": "vaxtahaekkanir-sedlabankans"
+    },
+    {
+     "time": "00:14:44",
+     "mark": 883,
+     "text": "Flæðisvandi á Landspítalanum",
+     "mark_f": 883.6,
+     "slug": "flaedisvandi-a-landspitalanum"
+    },
+    {
+     "time": "00:21:33",
+     "mark": 1293,
+     "text": "Torgið",
+     "mark_f": 1293.04,
+     "slug": "torgid"
+    }
+   ],
+   "cards": [],
+   "files": {
+    "vod": {},
+    "vodmp4": {
+     "filename": "5458257V0.mp4",
+     "folder": null,
+     "file": "5458257V0.mp4",
+     "multi_bitrate": false,
+     "expires": "2027-03-20",
+     "quality": 240,
+     "event": "5458257",
+     "broadcast": null,
+     "format": "vodmp4",
+     "scope": "Global"
+    }
+   },
+   "creditpoint": 0,
+   "hls_token": null
+  }
+ ],
+ "podcast": {},
+ "last_updated": "2026-11-07T21:46:53.494355",
+ "panels": [],
+ "reverse_episode_order": false,
+ "web_available_episodes": 151,
+ "vod_available_episodes": 104,
+ "podcast_available_episodes": 0,
+ "web_latest_date": "2026-06-18T19:45:00",
+ "channel": "Innlend dagskrárdeild",
+ "web_player_url": "https://www.ruv.is/sjonvarp/spila/kastljos/38169/bc0897"
+}

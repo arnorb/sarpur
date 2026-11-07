@@ -1,0 +1,927 @@
+{
+ "last_updated": "2026-11-07T21:39:38.582456",
+ "panels": [
+  {
+   "title": "Hlaðborð",
+   "slug": "hladbord",
+   "type": "editorial",
+   "display_style": "normal",
+   "programs": [
+    {
+     "id": 36160,
+     "title": "Fleiri pabbahelgar",
+     "foreign_title": null,
+     "slug": "fleiri-pabbahelgar",
+     "image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 240
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 480
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 960
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 1920
+       }
+      ]
+     },
+     "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+     "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+     "portrait_image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyNSwiaGVpZ2h0IjoxODd9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 125
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI1MCwiaGVpZ2h0IjozNzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 250
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 500
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEwMDAsImhlaWdodCI6MTUwMH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 1000
+       }
+      ]
+     },
+     "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+     "carplay_poster": null,
+     "description": [
+      "Önnur þáttaröð leikinna íslenskra þátta. Karen hefur fengið sig fullsadda af Tinder og leitinni að hinni einu sönnu ást. Hún ákveður að segja skilið við stefnumótabransann og læra frekar að elska sjálfa sig en klisjan um að setja sjálfa sig í fyrsta sæti reynist flóknari en sýndist í fyrstu. Aðalhlutverk: Nanna Kristín Magnúsdóttir og Sveinn Ólafur Gunnarsson. Leikstjóri: Nanna Kristín Magnúsdóttir. Framleiðsla: Cubs Production og Vintage Pictures. Þættirnir eru ekki við hæfi barna yngri en 14 ára."
+     ],
+     "short_description": null,
+     "format": "tv",
+     "categories": [
+      {
+       "title": "Leikið efni",
+       "slug": "leikid-efni"
+      }
+     ],
+     "division": "Innlend dagskrárdeild",
+     "multiple_episodes": true,
+     "episodes": [
+      {
+       "id": "aor503",
+       "number": 3,
+       "series_id": 36160,
+       "firstrun": "2026-11-01T21:00:00",
+       "file_expires": "2034-11-01",
+       "rating": 14,
+       "descriptors": [
+        "sex",
+        "coarse-language",
+        "smoking-alcohol-and-drugs"
+       ],
+       "duration": 3000,
+       "duration_friendly": "00:50",
+       "event": 5502169,
+       "title": "Þáttur 3 af 6",
+       "slug": "thattur-3-af-6",
+       "description": [
+        "Karen lætur afbrýðisemi hlaupa með sig í gönur og fer gjörsamlega fram úr sér á endanum. Það getur verið flókið fyrir sterka konu að vera lítil í sér."
+       ],
+       "short_description": null,
+       "image_renditions": {
+        "web_images": [
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 240
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 480
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 960
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+          "width": 1920
+         }
+        ]
+       },
+       "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+       "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+       "scope": "Domestic",
+       "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5502169-NMJ9MN.mp4",
+       "subtitles": {
+        "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5502169-NMJ9MN.mp4"
+       },
+       "open_subtitles": false,
+       "closed_subtitles": true,
+       "auto_subtitles": false,
+       "file": "https://ruv-vod.akamaized.net/lokad/5502169-NMJ9MN/5502169-NMJ9MN.m3u8",
+       "temp": {
+        "filename": "5502169-NMJ9MN.mp4",
+        "folder": "2026/11/01"
+       },
+       "clips": [],
+       "cards": [],
+       "files": {
+        "vod": {},
+        "vodmp4": {
+         "filename": "5502169V0.mp4",
+         "folder": null,
+         "file": "5502169V0.mp4",
+         "multi_bitrate": false,
+         "expires": "2034-11-01",
+         "quality": 240,
+         "event": "5502169",
+         "broadcast": null,
+         "format": "vodmp4",
+         "scope": "Domestic"
+        }
+       },
+       "creditpoint": 0,
+       "hls_token": null
+      }
+     ],
+     "podcast": {},
+     "last_updated": "2026-11-07T21:39:33.048986",
+     "panels": [],
+     "reverse_episode_order": true,
+     "web_available_episodes": 1,
+     "vod_available_episodes": 1,
+     "podcast_available_episodes": 0,
+     "web_latest_date": "2026-11-01T21:00:00",
+     "channel": "Innlend dagskrárdeild",
+     "web_player_url": "https://www.ruv.is/sjonvarp/spila/fleiri-pabbahelgar/36160/aor503"
+    },
+    {
+     "id": 38909,
+     "title": "Landsleikarnir",
+     "foreign_title": null,
+     "slug": "landsleikarnir",
+     "image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyX0xTLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjQwLCJoZWlnaHQiOjEzNX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 240
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyX0xTLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NDgwLCJoZWlnaHQiOjI3MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 480
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyX0xTLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 960
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyX0xTLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 1920
+       }
+      ]
+     },
+     "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyX0xTLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6OTYwLCJoZWlnaHQiOjU0MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+     "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyX0xTLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTIwMCwiaGVpZ2h0Ijo2NzV9LCJ0b0Zvcm1hdCI6ImpwZWcifX0=",
+     "portrait_image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTI1LCJoZWlnaHQiOjE4N30sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 125
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjUwLCJoZWlnaHQiOjM3NX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 250
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NTAwLCJoZWlnaHQiOjc1MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 500
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTAwMCwiaGVpZ2h0IjoxNTAwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 1000
+       }
+      ]
+     },
+     "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRzbGVpa2FybmlyLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NTAwLCJoZWlnaHQiOjc1MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+     "carplay_poster": null,
+     "description": [
+      "Spennandi spurningaþáttur í beinni útsendingu þar sem baggalúturinn Guðmundur Pálsson og sjónvarpskonan Sigrún Ósk Kristjánsdóttir halda um stjórnartaumana. Fulltrúar bæjarfélaga um allt land spreyta sig á spurningum, glíma við heilabrot og leysa ýmsar þrautir. Hvaða lið stendur uppi sem landsmeistari? Stjórn útsendingar: Sturla Skúlason."
+     ],
+     "short_description": null,
+     "format": "tv",
+     "categories": [
+      {
+       "title": "Skemmtiefni",
+       "slug": "skemmtiefni"
+      }
+     ],
+     "division": "Innlend dagskrárdeild",
+     "multiple_episodes": true,
+     "episodes": [
+      {
+       "id": "bj22mn",
+       "number": 7,
+       "series_id": 38909,
+       "firstrun": "2026-11-07T19:45:00",
+       "file_expires": "9999-12-31",
+       "rating": 0,
+       "descriptors": [],
+       "duration": 3530,
+       "duration_friendly": "00:58",
+       "event": 5509774,
+       "title": "Garðabær - Höfn í Hornafirði",
+       "slug": "gardabaer-hofn-i-hornafirdi",
+       "description": [
+        "Garðabær mætir Höfn í Hornafirði. Keppendur frá Garðabæ eru Kjartan Atli Kjartansson, Stefán Einar Stefánsson og Katrín Júlíusdóttir. Keppendur frá Höfn í Hornafirði eru Þorkell Ragnar Grétarsson, Björg Catherine Blöndal og Anna Birna Elvarsdóttir."
+       ],
+       "short_description": null,
+       "image_renditions": {
+        "web_images": [
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xMX0tyaW5nbGEtMDdfWFA2UUx5Ty5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 240
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xMX0tyaW5nbGEtMDdfWFA2UUx5Ty5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 480
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xMX0tyaW5nbGEtMDdfWFA2UUx5Ty5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 960
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xMX0tyaW5nbGEtMDdfWFA2UUx5Ty5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+          "width": 1920
+         }
+        ]
+       },
+       "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xMX0tyaW5nbGEtMDdfWFA2UUx5Ty5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+       "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xMX0tyaW5nbGEtMDdfWFA2UUx5Ty5wbmciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+       "scope": "Global",
+       "subtitles_url": null,
+       "subtitles": {
+        "is": null
+       },
+       "open_subtitles": false,
+       "closed_subtitles": false,
+       "auto_subtitles": true,
+       "file": "https://ruv-vod.akamaized.net/opid/5509774-QDRL5D/5509774-QDRL5D.m3u8",
+       "temp": {
+        "filename": "5509774-QDRL5D.mp4",
+        "folder": "2026/11/07"
+       },
+       "clips": [],
+       "cards": [],
+       "files": {
+        "vod": {},
+        "vodmp4": {
+         "filename": "5509774V0.mp4",
+         "folder": null,
+         "file": "5509774V0.mp4",
+         "multi_bitrate": false,
+         "expires": "2028-01-16",
+         "quality": 240,
+         "event": "5509774",
+         "broadcast": null,
+         "format": "vodmp4",
+         "scope": "Global"
+        }
+       },
+       "creditpoint": 0,
+       "hls_token": null
+      }
+     ],
+     "podcast": {},
+     "last_updated": "2026-11-07T21:39:33.050048",
+     "panels": [],
+     "reverse_episode_order": true,
+     "web_available_episodes": 1,
+     "vod_available_episodes": 1,
+     "podcast_available_episodes": 0,
+     "web_latest_date": "2026-11-07T19:45:00",
+     "channel": "Innlend dagskrárdeild",
+     "web_player_url": "https://www.ruv.is/sjonvarp/spila/landsleikarnir/38909/bj22mn"
+    },
+    {
+     "id": 38535,
+     "title": "Vikan með Gísla Marteini",
+     "foreign_title": null,
+     "slug": "vikan-med-gisla-marteini",
+     "image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0xTX21iQXU0Q0MuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 240
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0xTX21iQXU0Q0MuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 480
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0xTX21iQXU0Q0MuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 960
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0xTX21iQXU0Q0MuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 1920
+       }
+      ]
+     },
+     "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0xTX21iQXU0Q0MuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+     "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0xTX21iQXU0Q0MuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+     "portrait_image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0cxQ0kyUjYuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjUsImhlaWdodCI6MTg3fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 125
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0cxQ0kyUjYuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNTAsImhlaWdodCI6Mzc1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 250
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0cxQ0kyUjYuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo1MDAsImhlaWdodCI6NzUwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 500
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0cxQ0kyUjYuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMDAwLCJoZWlnaHQiOjE1MDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 1000
+       }
+      ]
+     },
+     "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1Zpa2FuX0cxQ0kyUjYuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo1MDAsImhlaWdodCI6NzUwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+     "carplay_poster": null,
+     "description": [
+      "Gísli Marteinn tekur á móti góðum gestum á föstudagskvöldum í vetur og fer með þeim yfir helstu atburði vikunnar í stjórnmálum, menningu og mannlífi. Persónur og leikendur koma í spjall og brakandi fersk tónlistaratriði koma landsmönnum í helgarstemninguna. Stjórn útsendingar: Ragnar Eyþórsson."
+     ],
+     "short_description": null,
+     "format": "tv",
+     "categories": [
+      {
+       "title": "Samfélag og mannlíf",
+       "slug": "samfelag-og-mannlif"
+      },
+      {
+       "title": "Skemmtiefni",
+       "slug": "skemmtiefni"
+      },
+      {
+       "title": "Spjallþættir",
+       "slug": "spjallthaettir"
+      }
+     ],
+     "division": "Innlend dagskrárdeild",
+     "multiple_episodes": true,
+     "episodes": [
+      {
+       "id": "bffubn",
+       "number": 7,
+       "series_id": 38535,
+       "firstrun": "2026-11-06T20:20:00",
+       "file_expires": "9999-12-31",
+       "rating": 0,
+       "descriptors": [],
+       "duration": 4393,
+       "duration_friendly": "01:13",
+       "event": 5499484,
+       "title": "6. nóvember 2026",
+       "slug": "6-november-2026",
+       "description": [
+        "Gestir þáttarins eru Nanna Kristín Magnúsdóttir, Sandra Barilli og Valur Freyr Einarsson.",
+        "Berglind Festival fer yfir fréttir Vikunnar ásamt Sölku Gústafs.",
+        "Krummi Björgvins flytur lagið Bak við fjöllin í miðjum þætti.",
+        "Saga til næsta bæjar er á sínum stað.",
+        "Bjarni Daníel og hljómsveit flytja lagið Dísel í lok þáttar."
+       ],
+       "short_description": null,
+       "image_renditions": null,
+       "image": null,
+       "image_og": null,
+       "scope": "Global",
+       "subtitles_url": null,
+       "subtitles": {
+        "is": null
+       },
+       "open_subtitles": false,
+       "closed_subtitles": false,
+       "auto_subtitles": false,
+       "file": "https://ruv-vod.akamaized.net/opid/5499484-A6GUSO/5499484-A6GUSO.m3u8",
+       "temp": {
+        "filename": "5499484-A6GUSO.mp4",
+        "folder": "2026/11/06"
+       },
+       "clips": [],
+       "cards": [],
+       "files": {
+        "vod": {},
+        "vodmp4": {
+         "filename": "5499484V0.mp4",
+         "folder": null,
+         "file": "5499484V0.mp4",
+         "multi_bitrate": false,
+         "expires": "2028-04-02",
+         "quality": 240,
+         "event": "5499484",
+         "broadcast": null,
+         "format": "vodmp4",
+         "scope": "Global"
+        }
+       },
+       "creditpoint": 0,
+       "hls_token": null
+      }
+     ],
+     "podcast": {},
+     "last_updated": "2026-11-07T21:39:33.063585",
+     "panels": [],
+     "reverse_episode_order": false,
+     "web_available_episodes": 1,
+     "vod_available_episodes": 1,
+     "podcast_available_episodes": 0,
+     "web_latest_date": "2026-11-06T20:20:00",
+     "channel": "Innlend dagskrárdeild",
+     "web_player_url": "https://www.ruv.is/sjonvarp/spila/vikan-med-gisla-marteini/38535/bffubn"
+    }
+   ],
+   "last_updated": "2026-11-07T21:39:33.189393"
+  },
+  {
+   "title": "Vinsælast",
+   "slug": "vinsaelast",
+   "type": "logic",
+   "display_style": "normal",
+   "programs": [
+    {
+     "id": 36160,
+     "title": "Fleiri pabbahelgar",
+     "foreign_title": null,
+     "slug": "fleiri-pabbahelgar",
+     "image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 240
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 480
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 960
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 1920
+       }
+      ]
+     },
+     "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+     "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhcl9MUy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+     "portrait_image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyNSwiaGVpZ2h0IjoxODd9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 125
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI1MCwiaGVpZ2h0IjozNzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 250
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 500
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEwMDAsImhlaWdodCI6MTUwMH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 1000
+       }
+      ]
+     },
+     "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0ZsZWlyaV9wYWJiYWhlbGdhci5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+     "carplay_poster": null,
+     "description": [
+      "Önnur þáttaröð leikinna íslenskra þátta. Karen hefur fengið sig fullsadda af Tinder og leitinni að hinni einu sönnu ást. Hún ákveður að segja skilið við stefnumótabransann og læra frekar að elska sjálfa sig en klisjan um að setja sjálfa sig í fyrsta sæti reynist flóknari en sýndist í fyrstu. Aðalhlutverk: Nanna Kristín Magnúsdóttir og Sveinn Ólafur Gunnarsson. Leikstjóri: Nanna Kristín Magnúsdóttir. Framleiðsla: Cubs Production og Vintage Pictures. Þættirnir eru ekki við hæfi barna yngri en 14 ára."
+     ],
+     "short_description": null,
+     "format": "tv",
+     "categories": [
+      {
+       "title": "Leikið efni",
+       "slug": "leikid-efni"
+      }
+     ],
+     "division": "Innlend dagskrárdeild",
+     "multiple_episodes": true,
+     "episodes": [
+      {
+       "id": "aor503",
+       "number": 3,
+       "series_id": 36160,
+       "firstrun": "2026-11-01T21:00:00",
+       "file_expires": "2034-11-01",
+       "rating": 14,
+       "descriptors": [
+        "sex",
+        "coarse-language",
+        "smoking-alcohol-and-drugs"
+       ],
+       "duration": 3000,
+       "duration_friendly": "00:50",
+       "event": 5502169,
+       "title": "Þáttur 3 af 6",
+       "slug": "thattur-3-af-6",
+       "description": [
+        "Karen lætur afbrýðisemi hlaupa með sig í gönur og fer gjörsamlega fram úr sér á endanum. Það getur verið flókið fyrir sterka konu að vera lítil í sér."
+       ],
+       "short_description": null,
+       "image_renditions": {
+        "web_images": [
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 240
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 480
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 960
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+          "width": 1920
+         }
+        ]
+       },
+       "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+       "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzLzNfZldFa1R4WC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+       "scope": "Domestic",
+       "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5502169-NMJ9MN.mp4",
+       "subtitles": {
+        "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5502169-NMJ9MN.mp4"
+       },
+       "open_subtitles": false,
+       "closed_subtitles": true,
+       "auto_subtitles": false,
+       "file": "https://ruv-vod.akamaized.net/lokad/5502169-NMJ9MN/5502169-NMJ9MN.m3u8",
+       "temp": {
+        "filename": "5502169-NMJ9MN.mp4",
+        "folder": "2026/11/01"
+       },
+       "clips": [],
+       "cards": [],
+       "files": {
+        "vod": {},
+        "vodmp4": {
+         "filename": "5502169V0.mp4",
+         "folder": null,
+         "file": "5502169V0.mp4",
+         "multi_bitrate": false,
+         "expires": "2034-11-01",
+         "quality": 240,
+         "event": "5502169",
+         "broadcast": null,
+         "format": "vodmp4",
+         "scope": "Domestic"
+        }
+       },
+       "creditpoint": 0,
+       "hls_token": null
+      }
+     ],
+     "podcast": {},
+     "last_updated": "2026-11-07T21:39:33.202464",
+     "panels": [],
+     "reverse_episode_order": true,
+     "web_available_episodes": 1,
+     "vod_available_episodes": 1,
+     "podcast_available_episodes": 0,
+     "web_latest_date": "2026-11-01T21:00:00",
+     "channel": "Innlend dagskrárdeild",
+     "web_player_url": "https://www.ruv.is/sjonvarp/spila/fleiri-pabbahelgar/36160/aor503"
+    },
+    {
+     "id": 38534,
+     "title": "Landinn",
+     "foreign_title": null,
+     "slug": "landinn",
+     "image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fTFNfUDZBY0VjYy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 240
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fTFNfUDZBY0VjYy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 480
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fTFNfUDZBY0VjYy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 960
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fTFNfUDZBY0VjYy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 1920
+       }
+      ]
+     },
+     "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fTFNfUDZBY0VjYy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+     "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fTFNfUDZBY0VjYy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+     "portrait_image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fb0Fub3VzRi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyNSwiaGVpZ2h0IjoxODd9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 125
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fb0Fub3VzRi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI1MCwiaGVpZ2h0IjozNzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 250
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fb0Fub3VzRi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 500
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fb0Fub3VzRi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEwMDAsImhlaWdodCI6MTUwMH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 1000
+       }
+      ]
+     },
+     "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0xhbmRpbm5fb0Fub3VzRi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjUwMCwiaGVpZ2h0Ijo3NTB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+     "carplay_poster": null,
+     "description": [
+      "Þáttur um mannlífið í landinu. Landinn leitar uppi skemmtilegt fólk í bæjum og sveitum og skoðar áhugaverða staði landshorna á milli. Ritstjóri er Gísli Einarsson. Aðrir umsjónarmenn: Edda Sif Pálsdóttir, Hafsteinn Vilhelmsson, Þórdís Claessen og Amanda Guðrún Bjarnadóttir. Dagskrárgerð: Jóhannes Jónsson, Björgvin Kolbeinsson, Benedikt Nikulás Anes Ketilsson, Adelina Antal og Hjalti Stefánsson."
+     ],
+     "short_description": null,
+     "format": "tv",
+     "categories": [
+      {
+       "title": "Samfélag og mannlíf",
+       "slug": "samfelag-og-mannlif"
+      }
+     ],
+     "division": "Innlend dagskrárdeild",
+     "multiple_episodes": true,
+     "episodes": [
+      {
+       "id": "bffkj6",
+       "number": 6,
+       "series_id": 38534,
+       "firstrun": "2026-11-01T19:45:00",
+       "file_expires": "9999-12-31",
+       "rating": 0,
+       "descriptors": [],
+       "duration": 1885,
+       "duration_friendly": "00:31",
+       "event": 5499895,
+       "title": "Landinn 1. nóvember 2026",
+       "slug": "landinn-1-november-2026",
+       "description": [
+        "Við hittum ungt par á Akureyri sem fékk erfitt verkefni á árinu, við teljum laxa og hittum farandsvein á leið út í heim."
+       ],
+       "short_description": null,
+       "image_renditions": {
+        "web_images": [
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tvbGJydW5fTWFyaWFfMTcuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyNDAsImhlaWdodCI6MTM1fSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+          "width": 240
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tvbGJydW5fTWFyaWFfMTcuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo0ODAsImhlaWdodCI6MjcwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+          "width": 480
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tvbGJydW5fTWFyaWFfMTcuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+          "width": 960
+         },
+         {
+          "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tvbGJydW5fTWFyaWFfMTcuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxOTIwLCJoZWlnaHQiOjEwODB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+          "width": 1920
+         }
+        ]
+       },
+       "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tvbGJydW5fTWFyaWFfMTcuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo5NjAsImhlaWdodCI6NTQwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+       "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL0tvbGJydW5fTWFyaWFfMTcuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoxMjAwLCJoZWlnaHQiOjY3NX0sInRvRm9ybWF0IjoianBlZyJ9fQ==",
+       "scope": "Global",
+       "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5499895-C2081E.mp4",
+       "subtitles": {
+        "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5499895-C2081E.mp4"
+       },
+       "open_subtitles": true,
+       "closed_subtitles": true,
+       "auto_subtitles": false,
+       "file": "https://ruv-vod.akamaized.net/opid/5499895-C2081E/5499895-C2081E.m3u8",
+       "temp": {
+        "filename": "5499895-C2081E.mp4",
+        "folder": "2026/11/01"
+       },
+       "clips": [
+        {
+         "time": "00:00:01",
+         "mark": 0,
+         "text": "Landinn 01.11.2026",
+         "mark_f": 0.64,
+         "slug": "landinn-01-11-2026"
+        },
+        {
+         "time": "00:00:52",
+         "mark": 52,
+         "text": "Ungt par á Akureyri upplifði mikinn missi á árinu",
+         "mark_f": 52.0,
+         "slug": "ungt-par-a-akureyri-upplifdi-mikinn-missi-a-arinu"
+        },
+        {
+         "time": "00:19:36",
+         "mark": 1175,
+         "text": "Harðfiskur í súkkulaði",
+         "mark_f": 1175.64,
+         "slug": "hardfiskur-i-sukkuladi"
+        },
+        {
+         "time": "00:21:51",
+         "mark": 1311,
+         "text": "Fiskiteljarinn",
+         "mark_f": 1311.24,
+         "slug": "fiskiteljarinn"
+        },
+        {
+         "time": "00:26:33",
+         "mark": 1593,
+         "text": "Farandsveinn að fornum sið",
+         "mark_f": 1593.04,
+         "slug": "farandsveinn-ad-fornum-sid"
+        }
+       ],
+       "cards": [],
+       "files": {
+        "vod": {},
+        "vodmp4": {
+         "filename": "5499895V0.mp4",
+         "folder": null,
+         "file": "5499895V0.mp4",
+         "multi_bitrate": false,
+         "expires": "2028-05-15",
+         "quality": 240,
+         "event": "5499895",
+         "broadcast": null,
+         "format": "vodmp4",
+         "scope": "Global"
+        }
+       },
+       "creditpoint": 0,
+       "hls_token": null
+      }
+     ],
+     "podcast": {},
+     "last_updated": "2026-11-07T21:39:33.204353",
+     "panels": [],
+     "reverse_episode_order": false,
+     "web_available_episodes": 1,
+     "vod_available_episodes": 1,
+     "podcast_available_episodes": 0,
+     "web_latest_date": "2026-11-01T19:45:00",
+     "channel": "Innlend dagskrárdeild",
+     "web_player_url": "https://www.ruv.is/sjonvarp/spila/landinn/38534/bffkj6"
+    },
+    {
+     "id": 39532,
+     "title": "Svona er lífið",
+     "foreign_title": null,
+     "slug": "svona-er-lifid",
+     "image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1NWT05BLUVSLUxJRklEX0tSSU5HTEFfbHR4cDRpTC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjI0MCwiaGVpZ2h0IjoxMzV9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 240
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1NWT05BLUVSLUxJRklEX0tSSU5HTEFfbHR4cDRpTC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjQ4MCwiaGVpZ2h0IjoyNzB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 480
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1NWT05BLUVSLUxJRklEX0tSSU5HTEFfbHR4cDRpTC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+        "width": 960
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1NWT05BLUVSLUxJRklEX0tSSU5HTEFfbHR4cDRpTC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjE5MjAsImhlaWdodCI6MTA4MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 1920
+       }
+      ]
+     },
+     "image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1NWT05BLUVSLUxJRklEX0tSSU5HTEFfbHR4cDRpTC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1NDB9LCJ0b0Zvcm1hdCI6IndlYnAifX0=",
+     "image_og": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1NWT05BLUVSLUxJRklEX0tSSU5HTEFfbHR4cDRpTC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1fSwidG9Gb3JtYXQiOiJqcGVnIn19",
+     "portrait_image_renditions": {
+      "web_images": [
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1N2b25hLWVyLWxpZmlkX1ZPRF9pcGtHZEdILmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTI1LCJoZWlnaHQiOjE4N30sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 125
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1N2b25hLWVyLWxpZmlkX1ZPRF9pcGtHZEdILmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjUwLCJoZWlnaHQiOjM3NX0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 250
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1N2b25hLWVyLWxpZmlkX1ZPRF9pcGtHZEdILmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NTAwLCJoZWlnaHQiOjc1MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+        "width": 500
+       },
+       {
+        "uri": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1N2b25hLWVyLWxpZmlkX1ZPRF9pcGtHZEdILmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTAwMCwiaGVpZ2h0IjoxNTAwfSwidG9Gb3JtYXQiOiJ3ZWJwIn19",
+        "width": 1000
+       }
+      ]
+     },
+     "portrait_image": "https://myndir.ruv.is/eyJidWNrZXQiOiJydXYtcHJvZC1ydXZpcy1wdWJsaWMiLCJrZXkiOiJtZWRpYS9wdWJsaWMvb3JpZ2luYWxfaW1hZ2VzL1N2b25hLWVyLWxpZmlkX1ZPRF9pcGtHZEdILmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NTAwLCJoZWlnaHQiOjc1MH0sInRvRm9ybWF0Ijoid2VicCJ9fQ==",
+     "carplay_poster": null,
+     "description": [
+      "Viðtalsþáttur þar sem Viktoría Hermannsdóttir spjallar við áhugavert fólk á einlægum nótum og fær að heyra alls konar sögur. Dagskrárgerð: Fannar Scheving Edwardsson og Viktoría Hermannsdóttir."
+     ],
+     "short_description": null,
+     "format": "tv",
+     "categories": [
+      {
+       "title": "Heimildarefni",
+       "slug": "heimildarefni"
+      },
+      {
+       "title": "Samfélag og mannlíf",
+       "slug": "samfelag-og-mannlif"
+      }
+     ],
+     "division": "Innlend dagskrárdeild",
+     "multiple_episodes": true,
+     "episodes": [
+      {
+       "id": "bp06m3",
+       "number": 3,
+       "series_id": 39532,
+       "firstrun": "2026-11-01T20:20:00",
+       "file_expires": "9999-12-31",
+       "rating": 0,
+       "descriptors": [],
+       "duration": 2186,
+       "duration_friendly": "00:36",
+       "event": 5502628,
+       "title": "Ingólfur Snær Víðisson",
+       "slug": "ingolfur-snaer-vidisson",
+       "description": [
+        "Þegar Ingólfur Snær Víðisson var fjórtán ára hafði hann misst báða foreldra sína og var í umsjá barnaverndaryfirvalda. Unglingsárunum eyddi hann að mestu á fósturheimilum og úrræðum á vegum barnaverndaryfirvalda þar til hann var dæmdur í fangelsi 17 ára gamall. Rúmlega tvítugur sneri hann við blaðinu og vinnur nú við að hjálpa hinum ýmsu jaðarsettu hópum. Við fylgjum Ingólfi eftir í starfi hans í fangelsi og fáum að heyra hans mögnuðu sögu."
+       ],
+       "short_description": null,
+       "image_renditions": null,
+       "image": null,
+       "image_og": null,
+       "scope": "Global",
+       "subtitles_url": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5502628A0.mp4",
+       "subtitles": {
+        "is": "https://muninn.nyr.ruv.is/files/subtitles/webvtt/closed/5502628A0.mp4"
+       },
+       "open_subtitles": true,
+       "closed_subtitles": true,
+       "auto_subtitles": false,
+       "file": "https://ruv-vod.akamaized.net/opid/5502628A0/5502628A0.m3u8",
+       "temp": {
+        "filename": "5502628A0.mp4",
+        "folder": "2026/11/01"
+       },
+       "clips": [],
+       "cards": [],
+       "files": {
+        "vod": {},
+        "vodmp4": {
+         "filename": "5502628V0.mp4",
+         "folder": null,
+         "file": "5502628V0.mp4",
+         "multi_bitrate": false,
+         "expires": "2027-12-13",
+         "quality": 240,
+         "event": "5502628",
+         "broadcast": null,
+         "format": "vodmp4",
+         "scope": "Global"
+        }
+       },
+       "creditpoint": 0,
+       "hls_token": null
+      }
+     ],
+     "podcast": {},
+     "last_updated": "2026-11-07T21:39:33.205410",
+     "panels": [],
+     "reverse_episode_order": false,
+     "web_available_episodes": 1,
+     "vod_available_episodes": 1,
+     "podcast_available_episodes": 0,
+     "web_latest_date": "2026-11-01T20:20:00",
+     "channel": "Innlend dagskrárdeild",
+     "web_player_url": "https://www.ruv.is/sjonvarp/spila/svona-er-lifid/39532/bp06m3"
+    }
+   ],
+   "last_updated": "2026-11-07T21:39:33.362859"
+  }
+ ]
+}

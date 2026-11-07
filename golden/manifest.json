@@ -1,0 +1,17 @@
+{
+  "schedule": "tvschedule.json",
+  "schedule_sha256": "78eb107cf58a7a7272ec1577714ddd1317d9cab7df15edfa006c09c9ebdf1b6e",
+  "schedule_date": "2026-03-21",
+  "items": 8508,
+  "frozen_now": "2026-03-21T12:00:00",
+  "modes": [
+    "web",
+    "plex",
+    "web_original"
+  ],
+  "python": "3.11.11",
+  "files": {
+    "names.jsonl": "bfc95b6c83ade32aaca954dfe25719c3d0f4a33f32805e63654828673cbc1085",
+    "imdb.jsonl": "6e8b9d066640e0177045319784ba0bbe0d0dc2740be5f9b5bbd17a98771906f1"
+  }
+}

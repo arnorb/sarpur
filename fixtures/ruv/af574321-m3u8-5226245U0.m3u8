@@ -1,0 +1,6 @@
+#EXTM3U
+#EXT-X-VERSION:4
+#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aacl-50",NAME="audio",DEFAULT=YES,AUTOSELECT=YES,CHANNELS="2"
+#EXT-X-STREAM-INF:CLOSED-CAPTIONS=NONE,BANDWIDTH=3816000,RESOLUTION=1920x1080,CODECS="mp4a.40.2,avc1.640028",AUDIO="audio-aacl-50"
+asset-audio=50000-video=3550000.m3u8?tlm=hls&streams=2022/02/13/5226245U0.mp4.m3u8:3600&AliasPass=ruv-vod-app-dcp-v4.secure.footprint.net
+#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=471000,RESOLUTION=1920x1080,CODECS="avc1.640028",URI="keyframes/asset-video=3550000.m3u8?tlm=hls&streams=2022/02/13/5226245U0.mp4.m3u8:3600&AliasPass=ruv-vod-app-dcp-v4.secure.footprint.net"

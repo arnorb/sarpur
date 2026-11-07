@@ -1,0 +1,312 @@
+{
+ "recorded": "2026-11-07",
+ "entries": [
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/featured/tv",
+   "file": "148c5e34-featured-tv.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 46404,
+   "trimmed": "featured/tv cut to 2 panels x 3 programs"
+  },
+  {
+   "method": "GET",
+   "url": "https://www.ruv.is/gql/?operationName=getProgramType&variables=%7B%22id%22:30766,%22episodeId%22:%5B%22bfcj7b%22%5D%7D&extensions=%7B%22persistedQuery%22:%7B%22version%22:1,%22sha256Hash%22:%229d18a07f82fcd469ad52c0656f47fb8e711dc2436983b53754e0c09bad61ca29%22%7D%7D",
+   "file": "36763e06-gql-getProgramType.json",
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 100
+  },
+  {
+   "method": "GET",
+   "url": "https://www.ruv.is/gql/?operationName=getProgramType&variables=%7B%22id%22:35732,%22episodeId%22:%5B%22akohaa%22%5D%7D&extensions=%7B%22persistedQuery%22:%7B%22version%22:1,%22sha256Hash%22:%229d18a07f82fcd469ad52c0656f47fb8e711dc2436983b53754e0c09bad61ca29%22%7D%7D",
+   "file": "203631b3-gql-getProgramType.json",
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 100
+  },
+  {
+   "method": "GET",
+   "url": "https://www.ruv.is/gql/?operationName=getProgramType&variables=%7B%22id%22:38169,%22episodeId%22:%5B%22bc0897%22%5D%7D&extensions=%7B%22persistedQuery%22:%7B%22version%22:1,%22sha256Hash%22:%229d18a07f82fcd469ad52c0656f47fb8e711dc2436983b53754e0c09bad61ca29%22%7D%7D",
+   "file": "7a6b30da-gql-getProgramType.json",
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 100
+  },
+  {
+   "method": "GET",
+   "url": "https://www.ruv.is/gql/?operationName=getSearch&variables=%7B%22type%22:%22tv%22,%22text%22:%22Brown%22%7D&extensions=%7B%22persistedQuery%22:%7B%22version%22:1,%22sha256Hash%22:%22823f9e99e09dadeca8896ea9f29374429e6fc3c4be2d2c2a93e7ce6dc65eec41%22%7D%7D",
+   "file": "bdd5cdd5-gql-getSearch.json",
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 6017
+  },
+  {
+   "method": "GET",
+   "url": "https://www.ruv.is/gql/?operationName=getSearch&variables=%7B%22type%22:%22tv%22,%22text%22:%22Ve%C3%B0ur%22%7D&extensions=%7B%22persistedQuery%22:%7B%22version%22:1,%22sha256Hash%22:%22823f9e99e09dadeca8896ea9f29374429e6fc3c4be2d2c2a93e7ce6dc65eec41%22%7D%7D",
+   "file": "3cdac23e-gql-getSearch.json",
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 34816
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5210496A0/5210496A0.m3u8",
+   "file": "f54552f7-m3u8-5210496A0.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 396
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5226245U0/5226245U0.m3u8",
+   "file": "af574321-m3u8-5226245U0.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 623
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5351039T0/5351039T0.m3u8",
+   "file": "ba0b42b4-m3u8-5351039T0.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 396
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5396807A0/5396807A0.m3u8",
+   "file": "49412272-m3u8-5396807A0.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 703
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5431553T0/5431553T0.m3u8",
+   "file": "64ced86a-m3u8-5431553T0.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 703
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5458120-AQMTO5/5458120-AQMTO5.m3u8",
+   "file": "94e1494c-m3u8-5458120-AQMTO5.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 1154
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5458296T0/5458296T0.m3u8",
+   "file": "f1b76a65-m3u8-5458296T0.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 703
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5459936U0/5459936U0.m3u8",
+   "file": "4e58a557-m3u8-5459936U0.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 290
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5499461-MRDLS2/5499461-MRDLS2.m3u8",
+   "file": "1664a04a-m3u8-5499461-MRDLS2.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 888
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5226245U0/asset-audio=50000-video=3550000.m3u8?tlm=hls&streams=2022/02/13/5226245U0.mp4.m3u8:3600&AliasPass=ruv-vod-app-dcp-v4.secure.footprint.net",
+   "file": "7d625508-m3u8-asset-audio=50000-video=3550000.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 65106
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5351039T0/3600/index.m3u8",
+   "file": "2f6077a8-m3u8-index.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 17169
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5396807A0/3600/index.m3u8",
+   "file": "3b503318-m3u8-index.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 4659
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5459936U0/3600/index.m3u8",
+   "file": "1353e148-m3u8-index.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 1356
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5210496A0/3600/index.m3u8",
+   "file": "b398f810-m3u8-index.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 4567
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5431553T0/3600/index.m3u8",
+   "file": "96ffab30-m3u8-index.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 13599
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5458296T0/3600/index.m3u8",
+   "file": "c8094895-m3u8-index.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 5919
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/lokad/5499461-MRDLS2/1080p/stream.m3u8",
+   "file": "da34153d-m3u8-stream.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 11196
+  },
+  {
+   "method": "GET",
+   "url": "https://ruv-vod.akamaized.net/opid/5458120-AQMTO5/1080p/stream.m3u8",
+   "file": "ec7da8af-m3u8-stream.m3u8",
+   "status": 200,
+   "content_type": "application/vnd.apple.mpegurl",
+   "bytes": 1791
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/30766/all",
+   "file": "2e773eb8-program-30766-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 55297,
+   "trimmed": "episodes cut from 1377 to 40"
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/31136/all",
+   "file": "31044b73-program-31136-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 56132
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/32719/all",
+   "file": "6251711b-program-32719-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 25177
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/33071/all",
+   "file": "d80ba49d-program-33071-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 5310
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/34968/all",
+   "file": "93468224-program-34968-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 27579
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/35732/all",
+   "file": "cdcfcd9e-program-35732-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 13298
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/35785/all",
+   "file": "a148dd0a-program-35785-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 96659
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/36160/all",
+   "file": "fddf72bf-program-36160-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 12796
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/37857/all",
+   "file": "eda9f89f-program-37857-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 10756
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/38169/all",
+   "file": "5442b107-program-38169-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 169026,
+   "trimmed": "episodes cut from 151 to 40"
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/38534/all",
+   "file": "59f12301-program-38534-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 26161
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/38535/all",
+   "file": "e4a4365b-program-38535-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 28689
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/38909/all",
+   "file": "bb591309-program-38909-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 24517
+  },
+  {
+   "method": "GET",
+   "url": "https://api.ruv.is/api/programs/program/39532/all",
+   "file": "0e873f1e-program-39532-all.json",
+   "status": 200,
+   "content_type": "application/json",
+   "bytes": 12651
+  }
+ ]
+}
