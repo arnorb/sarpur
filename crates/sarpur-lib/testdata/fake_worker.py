@@ -33,6 +33,9 @@ if command == "catalogue":
           "showtime": "2026-11-07T19:35:00", "duration": "300", "english_subtitled": False})
     emit({"pid": "mov1", "sid": "200", "title": "Bíómynd", "series_title": "Bíómynd",
           "showtime": "2026-11-06T21:00:00", "duration": 5400, "is_movie": True})
+    if "--refresh" in args:
+        emit({"pid": "new1", "sid": "300", "title": "Nýtt", "series_title": "Nýtt",
+              "showtime": "2026-11-08T20:00:00", "duration": 600})
 elif command == "plan":
     pid = args[1]
     if pid in PLANS:

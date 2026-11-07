@@ -100,8 +100,9 @@ async fn main() -> anyhow::Result<()> {
     {
         let catalogue = catalogue.clone();
         let worker = worker.clone();
+        let data_dir = data_dir.clone();
         tokio::spawn(async move {
-            catalogue.load(&worker, false).await;
+            catalogue.load_at_startup(&worker, &data_dir).await;
         });
     }
 

@@ -25,12 +25,14 @@ impl Quality {
         }
     }
 
-    /// Video bits per second, from ruvsarpur's `QUALITY_BITRATE`.
+    /// Bits per second for the disk-space estimate. `Normal` and `HD720` are
+    /// ruvsarpur's `QUALITY_BITRATE`; its 3.55 Mbit/s for `HD1080` undershoots
+    /// real files (about 6.2 Mbit/s), so that one is 6.5 Mbit/s.
     pub fn bits_per_second(self) -> u64 {
         match self {
             Quality::Normal => 1_150_000,
             Quality::HD720 => 2_350_000,
-            Quality::HD1080 => 3_550_000,
+            Quality::HD1080 => 6_500_000,
         }
     }
 

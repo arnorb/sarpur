@@ -191,7 +191,7 @@ async fn restart_recovery_deletes_parts_and_requeues_interactive_jobs() {
 #[tokio::test]
 async fn refuses_when_disk_space_is_short() {
     let dir = tempfile::tempdir().unwrap();
-    // 300 s at HD1080 is about 133 MB, so 200 MB free is less than twice that.
+    // 300 s at HD1080 is about 244 MB, so 200 MB free is less than twice that.
     let q = queue_with(&dir, false, 200_000_000);
     let runner = q.spawn_runner();
     let job = q
@@ -206,9 +206,9 @@ async fn refuses_when_disk_space_is_short() {
     assert!(!q.web_dir().join(&job.id).exists());
     q.shutdown(runner).await;
 
-    // With 300 MB it goes ahead.
+    // With 500 MB it goes ahead.
     let dir = tempfile::tempdir().unwrap();
-    let q = queue_with(&dir, false, 300_000_000);
+    let q = queue_with(&dir, false, 500_000_000);
     let runner = q.spawn_runner();
     let job = q
         .enqueue("web1", "", Mode::Web, Priority::Interactive, None)

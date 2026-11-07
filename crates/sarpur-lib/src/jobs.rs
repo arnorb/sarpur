@@ -315,6 +315,11 @@ impl Queue {
         self.inner.cfg.data_dir.join("web")
     }
 
+    /// Deletes a browser download's folder, if it exists.
+    async fn remove_web_dir(&self, job_id: &str) {
+        let _ = tokio::fs::remove_dir_all(self.web_dir().join(job_id)).await;
+    }
+
     pub fn subscribe(&self) -> broadcast::Receiver<Event> {
         self.inner.events.subscribe()
     }
@@ -492,7 +497,7 @@ impl Queue {
                     .call(move |c| c.execute("DELETE FROM jobs WHERE id = ?1", [&remove_id]))
                     .await?;
                 if job.mode == Mode::Web {
-                    let _ = std::fs::remove_dir_all(self.web_dir().join(&job.id));
+                    self.remove_web_dir(&job.id).await;
                 }
                 Ok(None)
             }
@@ -511,7 +516,7 @@ impl Queue {
             )));
         }
         if job.mode == Mode::Web {
-            let _ = std::fs::remove_dir_all(self.web_dir().join(&job.id));
+            self.remove_web_dir(&job.id).await;
         }
         job.state = State::Queued;
         job.progress = 0;
@@ -631,7 +636,7 @@ impl Queue {
         }
         job.finished_at = Some(crate::now_iso());
         if job.mode == Mode::Web && job.state != State::Completed {
-            let _ = std::fs::remove_dir_all(self.web_dir().join(&job.id));
+            self.remove_web_dir(&job.id).await;
         }
         if let Err(e) = self.save(&job).await {
             tracing::error!("could not save job {}: {e}", job.id);
@@ -685,9 +690,12 @@ impl Queue {
         job.final_path = Some(final_path.to_string_lossy().into_owned());
 
         if job.mode == Mode::Library {
-            if let Some(existing) =
-                library::find_existing(&final_path).map_err(|e| e.to_string())?
-            {
+            let expected = final_path.clone();
+            let found = tokio::task::spawn_blocking(move || library::find_existing(&expected))
+                .await
+                .map_err(|e| e.to_string())?
+                .map_err(|e| e.to_string())?;
+            if let Some(existing) = found {
                 tracing::info!(
                     "{} is already in the library: {}",
                     job.pid,
@@ -738,7 +746,8 @@ impl Queue {
             return Ok(None);
         }
 
-        std::fs::create_dir_all(target_dir)
+        tokio::fs::create_dir_all(target_dir)
+            .await
             .map_err(|e| format!("could not create {}: {e}", target_dir.display()))?;
         job.part_path = Some(media::part_path(&final_path).to_string_lossy().into_owned());
         job.message = Some("Downloading".into());
@@ -798,7 +807,7 @@ impl Queue {
         let pid = job.pid.clone();
         let mode = job.mode;
         let path_text = path.to_string_lossy().into_owned();
-        let meta = std::fs::metadata(path).ok();
+        let meta = tokio::fs::metadata(path).await.ok();
         let size = meta.as_ref().map(|m| m.len() as i64).unwrap_or(0);
         let mtime = meta
             .and_then(|m| m.modified().ok())
@@ -865,35 +874,43 @@ impl Queue {
                 Ok(rows)
             })
             .await?;
-        let Ok(entries) = std::fs::read_dir(self.web_dir()) else {
-            return Ok(0);
-        };
-        let mut removed = 0;
-        for entry in entries.flatten() {
-            let name = entry.file_name().to_string_lossy().into_owned();
-            if active.contains(&name) {
-                continue;
-            }
-            let modified = entry.metadata().and_then(|m| m.modified()).unwrap_or(now);
-            if now.duration_since(modified).unwrap_or_default() < WEB_RETENTION {
-                continue;
-            }
-            let path = entry.path();
-            let result = if path.is_dir() {
-                std::fs::remove_dir_all(&path)
-            } else {
-                std::fs::remove_file(&path)
-            };
-            match result {
-                Ok(()) => removed += 1,
-                Err(e) => tracing::warn!("could not sweep {}: {e}", path.display()),
-            }
-        }
+        let web_dir = self.web_dir();
+        let removed =
+            tokio::task::spawn_blocking(move || sweep_dir(&web_dir, &active, now)).await?;
         if removed > 0 {
             tracing::info!("swept {removed} expired browser download(s)");
         }
         Ok(removed)
     }
+}
+
+/// The blocking part of [`Queue::sweep_web`].
+fn sweep_dir(web_dir: &Path, active: &[String], now: SystemTime) -> usize {
+    let Ok(entries) = std::fs::read_dir(web_dir) else {
+        return 0;
+    };
+    let mut removed = 0;
+    for entry in entries.flatten() {
+        let name = entry.file_name().to_string_lossy().into_owned();
+        if active.contains(&name) {
+            continue;
+        }
+        let modified = entry.metadata().and_then(|m| m.modified()).unwrap_or(now);
+        if now.duration_since(modified).unwrap_or_default() < WEB_RETENTION {
+            continue;
+        }
+        let path = entry.path();
+        let result = if path.is_dir() {
+            std::fs::remove_dir_all(&path)
+        } else {
+            std::fs::remove_file(&path)
+        };
+        match result {
+            Ok(()) => removed += 1,
+            Err(e) => tracing::warn!("could not sweep {}: {e}", path.display()),
+        }
+    }
+    removed
 }
 
 async fn wait_for_stop(stop: &mut watch::Receiver<Option<Stop>>) -> Stop {

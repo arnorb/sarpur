@@ -1,6 +1,7 @@
 //! The catalogue, kept in memory. It is loaded from the worker's `catalogue`
 //! output in the background at startup and after a refresh.
 
+use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex, RwLock};
 
 use serde::Serialize;
@@ -55,6 +56,11 @@ pub fn content_type(value: &Value) -> &'static str {
     } else {
         "show"
     }
+}
+
+/// The worker's saved schedule in the data folder (`--portable`).
+pub fn schedule_file(data_dir: &Path) -> PathBuf {
+    data_dir.join("tvschedule.json")
 }
 
 impl CatalogueItem {
@@ -136,6 +142,18 @@ impl Catalogue {
             .collect()
     }
 
+    /// The startup load: reads the saved schedule, or fetches it from RÚV when
+    /// the data folder has none yet.
+    pub async fn load_at_startup(&self, worker: &WorkerClient, data_dir: &Path) -> bool {
+        let saved = tokio::fs::try_exists(schedule_file(data_dir))
+            .await
+            .unwrap_or(false);
+        if !saved {
+            tracing::info!("no saved catalogue; fetching it from RÚV (takes minutes)");
+        }
+        self.load(worker, !saved).await
+    }
+
     /// Loads (or with `refresh`, fetches from RÚV and then loads) the catalogue.
     /// Returns false without doing anything if a load is already running.
     pub async fn load(&self, worker: &WorkerClient, refresh: bool) -> bool {
@@ -186,5 +204,25 @@ mod tests {
         assert_eq!(movie.content_type, "movie_or_docu");
         assert_eq!(movie.duration, Some(5400));
         assert_eq!(catalogue.search("", 1).len(), 1);
+    }
+
+    #[tokio::test]
+    async fn startup_fetches_when_no_schedule_is_saved() {
+        let testdata = Path::new(env!("CARGO_MANIFEST_DIR")).join("testdata");
+        let worker = WorkerClient::new(
+            crate::config::python(),
+            testdata.join("fake_worker.py"),
+            &testdata,
+        );
+        let data = tempfile::tempdir().unwrap();
+
+        let catalogue = Catalogue::new();
+        assert!(catalogue.load_at_startup(&worker, data.path()).await);
+        assert_eq!(catalogue.status().count, 3, "fetched with --refresh");
+
+        std::fs::write(schedule_file(data.path()), "{}").unwrap();
+        let catalogue = Catalogue::new();
+        assert!(catalogue.load_at_startup(&worker, data.path()).await);
+        assert_eq!(catalogue.status().count, 2, "read the saved schedule");
     }
 }
