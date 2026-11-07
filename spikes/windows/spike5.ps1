@@ -91,8 +91,10 @@ Step 'download_and_verify_ffmpeg' {
 Step 'ffmpeg_runs_under_defender' {
     if (-not $Ffmpeg) { throw 'ffmpeg not available' }
     $zone = Get-Content -Path "$Ffmpeg`:Zone.Identifier" -ErrorAction SilentlyContinue
-    $version = & $Ffmpeg -hide_banner -version 2>&1 | Select-Object -First 1
+    # Collect all output first: cutting the pipeline short would kill ffmpeg.
+    $output = & $Ffmpeg -hide_banner -version 2>&1
     if ($LASTEXITCODE -ne 0) { throw "ffmpeg -version exit code $LASTEXITCODE" }
+    $version = @($output)[0]
     [ordered]@{ version = "$version"; mark_of_the_web = [bool]$zone }
 }
 
@@ -119,18 +121,21 @@ Step 'stop_with_q' {
     $out = Join-Path $Work 'stop-with-q.mp4'
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = $Ffmpeg
-    $psi.Arguments = "-hide_banner -loglevel error -y -i `"$VideoUrl`" -i `"$AudioUrl`" -map 0:v:0 -map 1:a:0 -c copy -bsf:a aac_adtstoasc -f mp4 `"$out`""
+    # -re reads at real-time speed, so ffmpeg is certainly still running when q is sent.
+    $psi.Arguments = "-hide_banner -loglevel error -y -re -i `"$VideoUrl`" -re -i `"$AudioUrl`" -map 0:v:0 -map 1:a:0 -c copy -bsf:a aac_adtstoasc -f mp4 `"$out`""
     $psi.RedirectStandardInput = $true
     $psi.UseShellExecute = $false
     $psi.CreateNoWindow = $true
     $p = [System.Diagnostics.Process]::Start($psi)
-    Start-Sleep -Seconds 6
+    Start-Sleep -Seconds 10
+    if ($p.HasExited) { throw "ffmpeg exited (code $($p.ExitCode)) before q was sent, so q was not tested" }
     $p.StandardInput.Write('q')
     $p.StandardInput.Flush()
     $stoppedInTime = $p.WaitForExit(15000)
     if (-not $stoppedInTime) { $p.Kill(); throw 'ffmpeg did not stop within 15 s of q' }
     $duration = & $Ffprobe -v error -show_entries format=duration -of csv=p=0 $out
     if (-not $duration) { throw 'output after q is not a readable MP4' }
+    if ([double]$duration -ge 290) { throw "output is the full episode ($duration s), so q did not stop it early" }
     [ordered]@{ exit_code = $p.ExitCode; duration_seconds = "$duration" }
 }
 
@@ -161,12 +166,13 @@ Step 'kill_with_job_object' {
     $out = Join-Path $Work 'job-object.mp4'
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = $Ffmpeg
-    $psi.Arguments = "-hide_banner -loglevel error -y -i `"$VideoUrl`" -c copy -f mp4 `"$out`""
+    $psi.Arguments = "-hide_banner -loglevel error -y -re -i `"$VideoUrl`" -c copy -f mp4 `"$out`""
     $psi.UseShellExecute = $false
     $psi.CreateNoWindow = $true
     $p = [System.Diagnostics.Process]::Start($psi)
     $job = [SpikeJob]::KillOnClose($p.Handle)
     Start-Sleep -Seconds 4
+    if ($p.HasExited) { throw "ffmpeg exited (code $($p.ExitCode)) before the job handle was closed, so the kill was not tested" }
     [SpikeJob]::CloseHandle($job) | Out-Null
     $gone = $p.WaitForExit(5000)
     if (-not $gone) { $p.Kill(); throw 'ffmpeg still running 5 s after the job handle was closed' }
