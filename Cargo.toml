@@ -1,0 +1,34 @@
+[workspace]
+resolver = "3"
+members = ["crates/sarpur-lib"]
+# The spikes are standalone crates with their own lock files.
+exclude = ["spikes"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+publish = false
+
+[workspace.dependencies]
+sarpur-lib = { path = "crates/sarpur-lib" }
+anyhow = "1.0.104"
+axum = "0.8.9"
+clap = { version = "4.6.7", features = ["derive", "env"] }
+dirs = "7.0.0"
+fs4 = "1.1.0"
+libc = "0.2.191"
+rusqlite = { version = "0.41.1", features = ["bundled"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+thiserror = "2.0.21"
+tokio = { version = "1.54.1", features = ["fs", "io-util", "macros", "process", "rt-multi-thread", "signal", "sync", "time"] }
+tokio-stream = { version = "0.1.19", features = ["sync"] }
+tokio-util = { version = "0.7.20", features = ["io"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+uuid = { version = "1.29.1", features = ["v4"] }
+# dev
+tempfile = "3.27.0"
+tower = { version = "0.5.3", features = ["util"] }
+http-body-util = "0.1.5"
