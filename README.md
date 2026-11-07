@@ -5,11 +5,11 @@ A downloader for RÚV's Sarpur, being rebuilt as one Rust program with a built-i
 | Stage | What | Status |
 | --- | --- | --- |
 | S1 | Fix the Python app in `ruvsarpur` | Done (tag `v-s1`), running on the NAS |
-| S2.0 | Spikes: check the risky parts before building | In progress |
-| S2 | Rust server, queue, database and UI; RÚV access and naming still in the Python worker | In progress: S2.1 slice 1 (see `docs/s2.1-status.md`) |
+| S2.0 | Spikes: check the risky parts before building | Mostly done; Windows PC, NAS container and end-to-end halves open |
+| S2 | Rust server, queue, database and UI; RÚV access and naming still in the Python worker | In progress: slice 1 of 4 done, slice 2 next |
 | S3 | Port the worker to Rust, checked against the Python output | Not started |
 
-The plan lives in the `ruvsarpur` repo at `.omc/plans/sarpur-rewrite.md` (not committed).
+The plan, with a status table and the decisions made since it was approved, is in [`docs/plan.md`](docs/plan.md).
 
 ## Layout
 
