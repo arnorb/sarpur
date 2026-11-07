@@ -13,6 +13,7 @@ use clap::Parser;
 use sarpur_lib::catalogue::Catalogue;
 use sarpur_lib::config;
 use sarpur_lib::db::Db;
+use sarpur_lib::eventlog::{self, EventLog};
 use sarpur_lib::follows::Follows;
 use sarpur_lib::jobs::{Queue, QueueConfig, real_free_space};
 use sarpur_lib::posters::PosterCache;
@@ -84,6 +85,9 @@ async fn main() -> anyhow::Result<()> {
         .await
         .context("recovering interrupted jobs")?;
     let runner = queue.spawn_runner();
+    // The NDJSON event log, in ruvsarpur's format and file.
+    let log = EventLog::new(&data_dir);
+    eventlog::spawn_logger(&queue, log.clone());
 
     // Browser downloads: sweep now and hourly.
     {
@@ -140,6 +144,7 @@ async fn main() -> anyhow::Result<()> {
             data_dir.join("poster-cache"),
             queue.http().clone(),
         )),
+        log,
         dry_run: args.dry_run,
         shutdown: shutdown_rx,
     });

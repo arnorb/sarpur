@@ -1,0 +1,2 @@
+{"details": {"jobId": "j1", "mode": "web", "outputDir": "", "pid": "ablmlh", "requestId": "r1"}, "event": "download_request", "status": "queued", "timestampUtc": "2026-11-07T21:41:02.123456Z"}
+{"details": {"reason": "empty_watchlist"}, "event": "auto_download_run", "status": "skipped", "timestampUtc": "2026-11-07T21:50:00.000001Z"}

@@ -4,8 +4,10 @@
 pub mod catalogue;
 pub mod config;
 pub mod db;
+pub mod eventlog;
 pub mod extras;
 pub mod follows;
+pub mod import;
 pub mod jobs;
 pub mod library;
 pub mod media;

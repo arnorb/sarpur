@@ -1,0 +1,14 @@
+{
+  "autoEnabled": false,
+  "autoIntervalMinutes": 60,
+  "libraryRootDir": "/media",
+  "moviesSubdir": "Movies",
+  "outputDir": "/data/downloads",
+  "plexBaseUrl": "",
+  "plexLibraryPath": "",
+  "plexLibrarySectionId": "",
+  "plexToken": "",
+  "showsSubdir": "TV Shows",
+  "sportsSubdir": "Sports",
+  "watchlistSids": []
+}

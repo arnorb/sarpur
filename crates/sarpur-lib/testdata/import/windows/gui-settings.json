@@ -1,0 +1,19 @@
+{
+  "autoEnabled": true,
+  "autoIntervalMinutes": 2,
+  "libraryRootDir": "",
+  "moviesSubdir": "Kvikmyndir",
+  "outputDir": "C:\\Users\\Notandi\\ruvsarpur\\downloads",
+  "plexBaseUrl": "",
+  "plexLibraryPath": "",
+  "plexLibrarySectionId": "",
+  "plexToken": "leyndó",
+  "showsSubdir": "Þættir",
+  "sportsSubdir": "D:\\Íþróttir",
+  "watchlistSids": [
+    "S",
+    "S",
+    "",
+    "gone"
+  ]
+}

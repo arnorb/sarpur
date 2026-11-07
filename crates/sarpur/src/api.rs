@@ -12,7 +12,9 @@ use axum::response::{IntoResponse, Response};
 use axum::routing::{delete, get, post};
 use axum::{Json, Router};
 use sarpur_lib::catalogue::Catalogue;
+use sarpur_lib::eventlog::EventLog;
 use sarpur_lib::follows::{self, FollowError, Follows, RunOptions};
+use sarpur_lib::import::{self, ImportError};
 use sarpur_lib::jobs::{Event, JobError, Mode, Priority, Queue, State as JobState};
 use sarpur_lib::library;
 use sarpur_lib::posters::{PosterCache, PosterError};
@@ -33,6 +35,7 @@ pub struct AppState {
     pub follows: Arc<Follows>,
     pub scanner: Arc<Scanner>,
     pub posters: Arc<PosterCache>,
+    pub log: EventLog,
     pub dry_run: bool,
     /// Flips to true on shutdown, which ends the SSE streams.
     pub shutdown: watch::Receiver<bool>,
@@ -60,6 +63,10 @@ pub fn router(state: AppState) -> Router {
         .route("/api/poster", get(poster))
         .route("/api/plex/status", get(plex_status))
         .route("/api/plex/refresh", post(plex_refresh))
+        .route("/api/import/candidates", get(import_candidates))
+        .route("/api/import/preview", post(import_preview))
+        .route("/api/import/apply", post(import_apply))
+        .route("/api/import/report", get(import_report))
         .route("/api/events", get(events))
         .with_state(state)
 }
@@ -357,6 +364,79 @@ async fn plex_refresh(State(s): State<AppState>) -> Json<Value> {
     Json(json!(s.queue.refresh_plex().await))
 }
 
+impl From<ImportError> for ApiError {
+    fn from(e: ImportError) -> Self {
+        match e {
+            ImportError::Invalid(m) => ApiError(StatusCode::BAD_REQUEST, m),
+            ImportError::Db(e) => internal(e),
+        }
+    }
+}
+
+async fn import_candidates(State(s): State<AppState>) -> Json<Value> {
+    let data_dir = s.queue.data_dir().to_path_buf();
+    let candidates = tokio::task::spawn_blocking(move || import::candidates(&data_dir))
+        .await
+        .unwrap_or_default();
+    Json(json!({ "candidates": candidates }))
+}
+
+#[derive(Deserialize)]
+struct ImportRequest {
+    source: String,
+}
+
+impl ImportRequest {
+    fn dir(&self) -> ApiResult<PathBuf> {
+        let source = self.source.trim();
+        if source.is_empty() {
+            return Err(ApiError(
+                StatusCode::BAD_REQUEST,
+                "source is required".into(),
+            ));
+        }
+        Ok(PathBuf::from(source))
+    }
+}
+
+/// What importing `source` would do, the path mapping included. Changes
+/// nothing; the UI shows it before `apply`.
+async fn import_preview(
+    State(s): State<AppState>,
+    Json(req): Json<ImportRequest>,
+) -> ApiResult<Json<Value>> {
+    let preview = import::preview(&req.dir()?, s.queue.data_dir(), s.queue.db()).await?;
+    Ok(Json(json!(preview)))
+}
+
+async fn import_apply(
+    State(s): State<AppState>,
+    Json(req): Json<ImportRequest>,
+) -> ApiResult<Json<Value>> {
+    let applied = import::apply(
+        &req.dir()?,
+        import::Services {
+            db: s.queue.db(),
+            data_dir: s.queue.data_dir(),
+            follows: &s.follows,
+            catalogue: &s.catalogue,
+            worker: &s.worker,
+            log: &s.log,
+        },
+    )
+    .await?;
+    Ok(Json(json!(applied)))
+}
+
+/// Scans the library, then lists recorded episodes missing on disk and
+/// tagged files that aren't recorded.
+async fn import_report(State(s): State<AppState>) -> ApiResult<Json<Value>> {
+    let report = import::report(s.queue.db(), &s.scanner, &s.catalogue)
+        .await
+        .map_err(internal)?;
+    Ok(Json(json!(report)))
+}
+
 /// `Content-Disposition` with an ASCII fallback and an RFC 5987 `filename*`.
 pub fn content_disposition(name: &str) -> String {
     let fallback: String = name
@@ -489,6 +569,7 @@ mod tests {
             },
         );
         let runner = queue.spawn_runner();
+        sarpur_lib::eventlog::spawn_logger(&queue, EventLog::new(dir.path()));
         let catalogue = Arc::new(Catalogue::new());
         catalogue.load(&worker, false).await;
         let (_shutdown_tx, shutdown) = watch::channel(false);
@@ -511,6 +592,7 @@ mod tests {
                 dir.path().join("poster-cache"),
                 queue.http().clone(),
             )),
+            log: EventLog::new(dir.path()),
             dry_run: false,
             shutdown,
         });
@@ -618,6 +700,28 @@ mod tests {
         .await;
         assert_eq!(status, StatusCode::UNPROCESSABLE_ENTITY);
         queue.shutdown(runner).await;
+
+        // The event log has the request and the outcome, once each.
+        let log = std::fs::read_to_string(dir.path().join("download-events.log")).unwrap();
+        let events: Vec<(String, String, String)> = log
+            .lines()
+            .map(|l| serde_json::from_str::<Value>(l).unwrap())
+            .filter(|v| v["details"]["pid"] == "web1")
+            .map(|v| {
+                (
+                    v["event"].as_str().unwrap().to_string(),
+                    v["status"].as_str().unwrap().to_string(),
+                    v["details"]["mode"].as_str().unwrap().to_string(),
+                )
+            })
+            .collect();
+        assert_eq!(
+            events[..2],
+            [
+                ("download_request".into(), "queued".into(), "web".into()),
+                ("download".into(), "completed".into(), "web".into()),
+            ]
+        );
     }
 
     /// Reads SSE text from `body` until `until` appears in it (or 20 s pass).
@@ -682,6 +786,7 @@ mod tests {
                 dir.path().join("poster-cache"),
                 queue.http().clone(),
             )),
+            log: EventLog::new(dir.path()),
             dry_run: false,
             shutdown,
         });
@@ -802,6 +907,7 @@ mod tests {
                 dir.path().join("poster-cache"),
                 queue.http().clone(),
             )),
+            log: EventLog::new(dir.path()),
             dry_run: false,
             shutdown,
         });
@@ -982,5 +1088,48 @@ mod tests {
         )
         .await;
         assert_eq!(json_body(res).await["state"], "skipped");
+
+        // Import: preview shows the mapping, apply imports, report compares.
+        let old = tempfile::tempdir().unwrap();
+        std::fs::write(
+            old.path().join("gui-settings.json"),
+            r#"{"outputDir": "/data/downloads", "watchlistSids": ["C"]}"#,
+        )
+        .unwrap();
+        std::fs::write(old.path().join("prevrecorded.log"), "x1\n").unwrap();
+        let source = json!({"source": old.path().to_string_lossy()});
+        let (status, res) = call(&app, post("/api/import/preview", source.clone())).await;
+        assert_eq!(status, StatusCode::OK);
+        let preview = json_body(res).await;
+        assert_eq!(preview["pathMapping"][0]["from"], "/data/downloads");
+        assert_eq!(preview["pathMapping"][0]["changed"], true);
+        let (status, res) = call(&app, post("/api/import/apply", source)).await;
+        assert_eq!(status, StatusCode::OK);
+        let applied = json_body(res).await;
+        assert_eq!(applied["recordedAdded"], 1);
+        assert_eq!(applied["followsAdded"], json!(["C"]));
+        let (status, res) = call(
+            &app,
+            Request::get("/api/import/report")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK);
+        assert_eq!(json_body(res).await["recordedButMissing"][0]["pid"], "x1");
+        let (status, _) = call(
+            &app,
+            post("/api/import/preview", json!({"source": "/nonexistent/x"})),
+        )
+        .await;
+        assert_eq!(status, StatusCode::BAD_REQUEST);
+        let (status, _) = call(
+            &app,
+            Request::get("/api/import/candidates")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK);
     }
 }

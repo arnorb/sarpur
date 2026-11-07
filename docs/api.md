@@ -27,6 +27,10 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 | `GET /api/poster?url=` | The poster proxy. Only `https` URLs on `myndir.ruv.is`, `d38kdhuogyllre.cloudfront.net` and `m.media-amazon.com`; anything else is a 400. Cached in `<data>/poster-cache` for 24 hours (at most 3,000 files); a stale copy is served when the fetch fails, else 502. The content type is sniffed from the bytes. |
 | `GET /api/plex/status` | `{last}`: the last Plex refresh, `{state: "ok" \| "skipped" \| "failed", message}` or `null`. |
 | `POST /api/plex/refresh` | Refreshes Plex now and returns the result. |
+| `GET /api/import/candidates` | `{candidates}`: folders holding ruvsarpur's `gui-settings.json` or `prevrecorded.log` (the data folder, `~/.ruvsarpur`, the program's folder and its parent). |
+| `POST /api/import/preview` | Body `{source}`. What importing that folder would do, changing nothing (below). 400 if it isn't a folder with ruvsarpur's files. |
+| `POST /api/import/apply` | Body `{source}`. Imports it and returns `{preview, recordedAdded, followsAdded, warnings}`. Safe to repeat: recorded pids already known are left as they are. |
+| `GET /api/import/report` | Scans the library, then `{recordedButMissing: [{pid, origin, title}], onDiskNotRecorded: [{pid, path}], scanError}`. |
 | `GET /api/events?client_id=` | Server-sent events. `event: job` (every job change, to everyone), `event: follows` (run status changes, to everyone) and `event: file_ready` (only to the `client_id` that queued the browser download; routing, not security). |
 
 ## Settings
@@ -98,6 +102,29 @@ Walks the three category folders for `*.mp4` and reads each file's `©cmt` tag (
 }
 ```
 
+## Import
+
+From ruvsarpur's folder (its Docker data folder, `~/.ruvsarpur`, or the `--portable` folder next to the old script):
+
+- `gui-settings.json`: the folder settings, mapped (`/data/...` becomes `<data>/...`; anything else, such as `/media/...` or a Windows path, is kept), after the old `outputDir` → `libraryRootDir` migration. `auto*` and `plex*` are copied; `watchlistSids` become follows.
+- `prevrecorded.log`: `recorded` rows. The origin comes from `download_request` lines in `download-events.log` and its backups: `library` if the pid was ever requested for the library, `web` if only for the browser, else `unknown`.
+- `tvschedule.json` and `imdb-cache.json` are copied when the data folder has none.
+
+```json
+{
+  "source": "C:\\Users\\…\\ruvsarpur\\src", "settingsFile": true, "recordedFile": true, "eventLogs": 2,
+  "settings": {"libraryRootDir": "…", "plexToken": "••••", "…": "…"},
+  "pathMapping": [{"key": "libraryRootDir", "from": "/data/downloads", "to": "<data>/downloads", "changed": true}],
+  "followSids": ["36706"],
+  "recorded": {"total": 4, "library": 2, "web": 1, "unknown": 1, "alreadyKnown": 0},
+  "copies": ["tvschedule.json"], "warnings": []
+}
+```
+
+## Event log
+
+`<data>/download-events.log`, one JSON object per line, as ruvsarpur wrote it: `{"details": {…}, "event": "…", "status": "…", "timestampUtc": "2026-11-07T22:17:02.123456Z"}`, rotated at 5 MB with 5 backups. Events: `download_request` (`queued`), `download` (`completed`, `failed` or `cancelled`), `follow_run`, `plex_refresh` and `import`.
+
 ## SSE payloads
 
 ```
@@ -106,6 +133,9 @@ data: {"type":"job","job":{…job…}}
 
 event: follows
 data: {"type":"follows","status":{…run status…}}
+
+event: plex
+data: {"type":"plex","result":{"state":"ok","message":"…"}}
 
 event: file_ready
 data: {"type":"file_ready","clientId":"…","jobId":"…","name":"Veður s01e299.mp4","url":"/api/jobs/…/files/…"}

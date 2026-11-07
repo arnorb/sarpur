@@ -1,0 +1,4 @@
+{"details": {"jobId": "a", "mode": "library", "outputDir": "C:\\x", "pid": "lib1"}, "event": "download_request", "status": "queued", "timestampUtc": "2026-10-01T10:00:00.000000Z"}
+{"details": {"jobId": "b", "mode": "web", "outputDir": "", "pid": "web1"}, "event": "download_request", "status": "queued", "timestampUtc": "2026-10-01T10:00:00.000000Z"}
+{"details": {"jobId": "c", "mode": "web", "outputDir": "", "pid": "both1"}, "event": "download_request", "status": "queued", "timestampUtc": "2026-10-01T10:00:00.000000Z"}
+{"details": {"contentType": "show", "outputDir": "C:\\x", "sidCount": 1}, "event": "auto_download_group", "status": "succeeded", "timestampUtc": "2026-10-01T10:00:00.000000Z"}

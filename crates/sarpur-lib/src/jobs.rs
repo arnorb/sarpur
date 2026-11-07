@@ -136,6 +136,8 @@ pub enum Event {
     Follows {
         status: Box<crate::follows::RunStatus>,
     },
+    /// A Plex refresh finished; sent to everyone.
+    Plex { result: PlexResult },
 }
 
 impl Event {
@@ -144,13 +146,14 @@ impl Event {
             Event::Job { .. } => "job",
             Event::FileReady { .. } => "file_ready",
             Event::Follows { .. } => "follows",
+            Event::Plex { .. } => "plex",
         }
     }
 
     /// Whether an SSE subscriber with `client_id` gets this event.
     pub fn visible_to(&self, client_id: Option<&str>) -> bool {
         match self {
-            Event::Job { .. } | Event::Follows { .. } => true,
+            Event::Job { .. } | Event::Follows { .. } | Event::Plex { .. } => true,
             Event::FileReady {
                 client_id: target, ..
             } => client_id == Some(target.as_str()),
@@ -343,6 +346,9 @@ impl Queue {
             },
         };
         *self.inner.last_plex.lock().unwrap() = Some(result.clone());
+        self.emit(Event::Plex {
+            result: result.clone(),
+        });
         result
     }
 
