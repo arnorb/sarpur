@@ -15,6 +15,7 @@ use sarpur_lib::config;
 use sarpur_lib::db::Db;
 use sarpur_lib::follows::Follows;
 use sarpur_lib::jobs::{Queue, QueueConfig, real_free_space};
+use sarpur_lib::posters::PosterCache;
 use sarpur_lib::scan::Scanner;
 use sarpur_lib::worker::WorkerClient;
 use tokio::sync::watch;
@@ -135,6 +136,10 @@ async fn main() -> anyhow::Result<()> {
         worker,
         follows,
         scanner,
+        posters: Arc::new(PosterCache::new(
+            data_dir.join("poster-cache"),
+            queue.http().clone(),
+        )),
         dry_run: args.dry_run,
         shutdown: shutdown_rx,
     });

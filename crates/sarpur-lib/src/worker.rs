@@ -55,6 +55,16 @@ pub struct Plan {
     pub metadata: Vec<(String, String)>,
     #[serde(default)]
     pub subtitles: Value,
+    #[serde(default)]
+    pub images: Images,
+}
+
+/// Artwork URLs for a download (`portrait_image`, `series_image`, `episode_image`).
+#[derive(Debug, Clone, Default, Deserialize, PartialEq)]
+pub struct Images {
+    pub portrait: Option<String>,
+    pub series: Option<String>,
+    pub episode: Option<String>,
 }
 
 /// One line of the worker's `names` output.

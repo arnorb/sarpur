@@ -1,0 +1,28 @@
+WEBVTT - Titill
+Kind: captions
+
+NOTE Þetta er athugasemd
+sem nær yfir tvær línur
+
+STYLE
+::cue { color: yellow }
+
+REGION
+id:fred
+
+NOTES eru líka sleppt
+
+00:00:01.000 --> 00:00:02.000
+  Inndregin lína  
+
+
+
+00:00:03.000 --> 00:00:04.000
+Fyrsta
+
+Texti án tímakóða
+00:00:05.000 --> 00:00:06.000
+
+00:00:07.000 --> 00:00:08.000
+webvtt í texta
+WEBVTT

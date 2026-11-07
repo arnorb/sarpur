@@ -4,13 +4,20 @@
 pub mod catalogue;
 pub mod config;
 pub mod db;
+pub mod extras;
 pub mod follows;
 pub mod jobs;
 pub mod library;
 pub mod media;
+pub mod plex;
+pub mod posters;
 pub mod scan;
 pub mod settings;
+pub mod subtitles;
 pub mod worker;
+
+#[cfg(test)]
+pub(crate) mod testutil;
 
 /// The current UTC time as `YYYY-MM-DDTHH:MM:SSZ`.
 pub fn now_iso() -> String {

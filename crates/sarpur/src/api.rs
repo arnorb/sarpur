@@ -15,6 +15,7 @@ use sarpur_lib::catalogue::Catalogue;
 use sarpur_lib::follows::{self, FollowError, Follows, RunOptions};
 use sarpur_lib::jobs::{Event, JobError, Mode, Priority, Queue, State as JobState};
 use sarpur_lib::library;
+use sarpur_lib::posters::{PosterCache, PosterError};
 use sarpur_lib::scan::Scanner;
 use sarpur_lib::settings;
 use sarpur_lib::worker::WorkerClient;
@@ -31,6 +32,7 @@ pub struct AppState {
     pub worker: WorkerClient,
     pub follows: Arc<Follows>,
     pub scanner: Arc<Scanner>,
+    pub posters: Arc<PosterCache>,
     pub dry_run: bool,
     /// Flips to true on shutdown, which ends the SSE streams.
     pub shutdown: watch::Receiver<bool>,
@@ -55,6 +57,9 @@ pub fn router(state: AppState) -> Router {
         .route("/api/follows/{id}/sids/{sid}", delete(delete_follow_sid))
         .route("/api/library/scan", get(scan_status).post(start_scan))
         .route("/api/recorded/{pid}/forget", post(forget_recorded))
+        .route("/api/poster", get(poster))
+        .route("/api/plex/status", get(plex_status))
+        .route("/api/plex/refresh", post(plex_refresh))
         .route("/api/events", get(events))
         .with_state(state)
 }
@@ -164,6 +169,9 @@ struct DownloadRequest {
     mode: Mode,
     #[serde(default, alias = "client_id", rename = "clientId")]
     client_id: Option<String>,
+    /// Subtitle languages to fetch; absent means all, `["none"]` none.
+    #[serde(default, rename = "subtitleLanguages")]
+    subtitle_languages: Option<Vec<String>>,
 }
 
 async fn create_download(
@@ -178,7 +186,14 @@ async fn create_download(
     let client_id = req.client_id.filter(|c| !c.trim().is_empty());
     let job = s
         .queue
-        .enqueue(&req.pid, &title, req.mode, Priority::Interactive, client_id)
+        .enqueue_with_languages(
+            &req.pid,
+            &title,
+            req.mode,
+            Priority::Interactive,
+            client_id,
+            req.subtitle_languages,
+        )
         .await?;
     Ok((StatusCode::CREATED, Json(json!(job))))
 }
@@ -303,6 +318,43 @@ async fn forget_recorded(
         .map_err(internal)?
         .ok_or_else(|| not_found(format!("recorded pid {pid}")))?;
     Ok(Json(json!(recorded)))
+}
+
+#[derive(Deserialize)]
+struct PosterQuery {
+    #[serde(default)]
+    url: String,
+}
+
+/// The poster proxy: 400 for a URL outside the allowlist, 502 when RÚV
+/// can't be reached and nothing is cached.
+async fn poster(
+    State(s): State<AppState>,
+    Query(query): Query<PosterQuery>,
+) -> ApiResult<Response> {
+    if query.url.trim().is_empty() {
+        return Err(ApiError(
+            StatusCode::BAD_REQUEST,
+            "Query parameter 'url' is required".into(),
+        ));
+    }
+    let (bytes, mime) = s.posters.get(&query.url).await.map_err(|e| match e {
+        PosterError::NotAllowed => ApiError(StatusCode::BAD_REQUEST, e.to_string()),
+        PosterError::Fetch(_) => ApiError(StatusCode::BAD_GATEWAY, e.to_string()),
+    })?;
+    Response::builder()
+        .header(header::CONTENT_TYPE, mime)
+        .header(header::CACHE_CONTROL, "public, max-age=86400")
+        .body(Body::from(bytes))
+        .map_err(internal)
+}
+
+async fn plex_status(State(s): State<AppState>) -> Json<Value> {
+    Json(json!({ "last": s.queue.last_plex() }))
+}
+
+async fn plex_refresh(State(s): State<AppState>) -> Json<Value> {
+    Json(json!(s.queue.refresh_plex().await))
 }
 
 /// `Content-Disposition` with an ASCII fallback and an RFC 5987 `filename*`.
@@ -455,6 +507,10 @@ mod tests {
             worker,
             follows,
             scanner,
+            posters: Arc::new(PosterCache::new(
+                dir.path().join("poster-cache"),
+                queue.http().clone(),
+            )),
             dry_run: false,
             shutdown,
         });
@@ -622,6 +678,10 @@ mod tests {
             worker,
             follows,
             scanner,
+            posters: Arc::new(PosterCache::new(
+                dir.path().join("poster-cache"),
+                queue.http().clone(),
+            )),
             dry_run: false,
             shutdown,
         });
@@ -738,6 +798,10 @@ mod tests {
             worker,
             follows: follows.clone(),
             scanner,
+            posters: Arc::new(PosterCache::new(
+                dir.path().join("poster-cache"),
+                queue.http().clone(),
+            )),
             dry_run: false,
             shutdown,
         });
@@ -899,5 +963,24 @@ mod tests {
         )
         .await;
         assert!(json_body(res).await["roots"].is_array());
+
+        // Criterion 14: the poster proxy refuses hosts outside the allowlist.
+        for url in [
+            "/api/poster?url=https%3A%2F%2Fevil.example%2Fx.jpg",
+            "/api/poster?url=http%3A%2F%2Fmyndir.ruv.is%2Fx.jpg",
+            "/api/poster",
+        ] {
+            let (status, res) = call(&app, Request::get(url).body(Body::empty()).unwrap()).await;
+            assert_eq!(status, StatusCode::BAD_REQUEST, "{url}");
+            assert!(json_body(res).await["error"].is_string());
+        }
+        let (_, res) = call(
+            &app,
+            Request::post("/api/plex/refresh")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(json_body(res).await["state"], "skipped");
     }
 }

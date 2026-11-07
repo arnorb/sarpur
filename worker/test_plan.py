@@ -90,6 +90,9 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(plan["quality"], "HD1080")
         self.assertEqual(plan["duration_seconds"], int(item["duration"]))
         self.assertIn(["comment", f"ruvinfo:akoha1:{item['sid']}"], plan["metadata"])
+        self.assertEqual(plan["images"], {"portrait": item["portrait_image"],
+                                          "series": item["series_image"],
+                                          "episode": item["episode_image"]})
         # The resolved item carries the full and base VOD urls.
         resolved = find.call_args[0][0]
         self.assertEqual(resolved["vod_url_full"], item["file"])

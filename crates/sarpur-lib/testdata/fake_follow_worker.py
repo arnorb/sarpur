@@ -57,7 +57,8 @@ elif command == "plan":
           "relative_path": f"{title}/Season 01/{title} - {item['pid']}.mp4",
           "content_type": "show", "playlist_url": "fake://ok", "audio_url": None,
           "quality": "HD1080", "duration_seconds": 300,
-          "metadata": [["comment", f"ruvinfo:{item['pid']}:{item['sid']}"]], "subtitles": None})
+          "metadata": [["comment", f"ruvinfo:{item['pid']}:{item['sid']}"]],
+          "subtitles": item.get("subtitles"), "images": item.get("images", {})})
 else:
     emit({"error": f"unknown command {command}"})
     sys.exit(2)

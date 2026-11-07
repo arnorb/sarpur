@@ -21,6 +21,10 @@ pub struct CatalogueItem {
     pub duration: Option<u64>,
     pub content_type: &'static str,
     pub english_subtitled: bool,
+    /// `/api/poster?url=…` for the portrait, series or episode image.
+    pub poster_url: Option<String>,
+    /// The subtitle tracks' names, lowercased and sorted.
+    pub subtitle_languages: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Default)]
@@ -82,6 +86,27 @@ impl CatalogueItem {
             Some(Value::String(s)) => s.trim().parse::<f64>().ok().map(|d| d as u64),
             _ => None,
         };
+        // gui_api's choice: the first of portrait, series and episode image
+        // that is set, if the proxy allows it.
+        let poster_url = ["portrait_image", "series_image", "episode_image"]
+            .iter()
+            .filter_map(|key| value.get(*key).and_then(Value::as_str))
+            .find(|url| !url.trim().is_empty())
+            .and_then(crate::posters::proxy_path);
+        let mut subtitle_languages: Vec<String> = value
+            .get("subtitles")
+            .and_then(Value::as_array)
+            .map(|tracks| {
+                tracks
+                    .iter()
+                    .filter_map(|t| t.get("name").and_then(Value::as_str))
+                    .map(|n| n.trim().to_lowercase())
+                    .filter(|n| !n.is_empty())
+                    .collect()
+            })
+            .unwrap_or_default();
+        subtitle_languages.sort();
+        subtitle_languages.dedup();
         Some(CatalogueItem {
             pid,
             sid: text(value, "sid"),
@@ -94,6 +119,8 @@ impl CatalogueItem {
                 .get("english_subtitled")
                 .and_then(Value::as_bool)
                 .unwrap_or(false),
+            poster_url,
+            subtitle_languages,
         })
     }
 }
@@ -243,6 +270,12 @@ mod tests {
         assert_eq!(hits.len(), 1);
         assert_eq!(hits[0].duration, Some(300));
         assert_eq!(hits[0].content_type, "show");
+        // The first image there is, through the proxy.
+        assert_eq!(
+            hits[0].poster_url.as_deref(),
+            Some("/api/poster?url=https%3A%2F%2Fmyndir.ruv.is%2Fp.jpg")
+        );
+        assert_eq!(hits[0].subtitle_languages, ["en", "is"]);
         let movie = catalogue.get("mov1").unwrap();
         assert_eq!(movie.content_type, "movie_or_docu");
         assert_eq!(movie.duration, Some(5400));

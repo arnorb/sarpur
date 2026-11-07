@@ -25,7 +25,7 @@ Last updated: 2026-11-07.
 | **S2.0** spike 7: TrueNAS permissions | Partly | Library files are `568:568`, mode `770` from the dataset ACL. Still to check: `.part` then rename from a container running as 568. |
 | **S2.0** spike 8: end to end | Mac half done | Through the slice 1 server on macOS (`spikes/README.md` row 8). NAS and Windows halves still open. |
 | **S2.1** slice 1: core download path | Done | Merged to `main` (`5c8462e`). Details below. |
-| **S2.1** slice 2: follows, scheduler, tag scan, posters/subtitles, Plex, poster proxy, import | In progress | Branch `s2.1-slice2`. Parts 1–3 done (small fixes; follows and scheduler; tag scan and §3.3); 4–5 next. See "Slice 2 progress". |
+| **S2.1** slice 2: follows, scheduler, tag scan, posters/subtitles, Plex, poster proxy, import | In progress | Branch `s2.1-slice2`. Parts 1–4 done (small fixes; follows and scheduler; tag scan and §3.3; posters, subtitles, Plex, poster proxy); 5 next. See "Slice 2 progress". |
 | **S2.1** slice 3: UI port | Open | |
 | **S2.1** slice 4: packaging (Docker, Windows zip) | Open | |
 | **S2.2** cutover on the NAS | Open | |
@@ -41,6 +41,8 @@ Last updated: 2026-11-07.
 - **2026-11-07, movie Follow:** kept. Movies are sometimes released in parts over several weeks. Known edge case for S3 naming: when RÚV's titles carry no "(N af M)", part 1 is named as a plain movie until part 2 appears, after which it would be expected as `… - part01`. The slice 2 tag check stops the re-download, but the names stay mixed.
 - **2026-11-07, slice 2 follows:** no `episodes` table in S2. The worker's `tvschedule.json` stays the catalogue cache until S3 replaces the worker. A follow is unique by `(title_key, english_flag)`; the flag is stored on `follows` and on each `follow_sids` row. A removed sid is kept as removed so runs don't add it back. A failed RÚV refresh keeps the catalogue loaded before it.
 - **2026-11-07, slice 2 scan:** the scan covers the three category folders, not all of `libraryRootDir`. A missing category folder keeps its `library` rows, so an unmounted share doesn't wipe them. Any `library` row whose file exists counts as (a), whichever source wrote it.
+- **2026-11-07, slice 2 extras and Plex:** Plex is refreshed once the queue goes idle after library downloads, not after each one (the old app refreshed after each automatic run). The poster proxy answers 502 instead of 400 when RÚV fails and nothing is cached; 400 stays for URLs outside the allowlist. Artwork keeps ruvsarpur's `.jpg` names even though RÚV now serves WebP (Plex reads both). Subtitle or artwork failures never fail a job.
+- **2026-11-07, HTTP client:** `reqwest` 0.13 with `rustls`, which uses `aws-lc-rs`. That needs a C compiler at build time; check it in the slice 4 Docker and Windows builds (fallback: `rustls-no-provider` with `ring`).
 - **2026-11-07, permissions (spike 7):** run as 568 and let the dataset ACL decide modes; criterion 16's "mode 664" follows the dataset instead.
 
 ### S2.1 slice 1: what's built
@@ -62,7 +64,8 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 - **Part 1, small fixes (done):** HD1080 estimate 6.5 Mbit/s; the catalogue is fetched from RÚV at startup when the data folder has no `tvschedule.json`; the remaining blocking file operations run off the async runtime.
 - **Part 2, follows and the scheduler (done):** `sarpur-lib::follows`, the `follows`/`follow_sids` tables (migration 2), the `/api/follows` routes and `event: follows` (`docs/api.md`). The worker gained `names` (many pids per call) and `series --save`. Criterion 7 is a test (`follows::tests::adds_only_sids_with_the_same_key_and_flag`). The run already applies all three §3.3 checks; (a) reads the `library` table, which part 3's tag scan fills. Checked live on the pinned catalogue: following *Fyrir alla muni* adds its 3 other season sids.
 - **Part 3, tag scan and the full §3.3 rule (done):** `sarpur-lib::scan` reads `©cmt` with `mp4ameta` 0.13 from the three category folders, caches results in `scan_cache` (migration 3) and keeps `library` rows with source `tag` in step. It runs in the background at startup, before each follow run and from `POST /api/library/scan`. Explicit Library downloads now also check (a). "Allow re-download" is `POST /api/recorded/{pid}/forget`. Criterion 6 is a test (`follows::tests::criterion_6_library_rule`) with a real tagged MP4 in a moved folder. Criterion 12, locally: 1,500 tagged files scanned in 224 ms cold and 33 ms warm (debug build); still to be timed on the NAS.
-- **Next:** part 4 (posters and subtitles, Plex refresh, poster proxy).
+- **Part 4, posters, subtitles, Plex, poster proxy (done):** `subtitles` (VTT → SRT, ported from R:382), `extras` (subtitles in both modes, artwork for the library, as ruvsarpur names them), `plex` (refresh with `X-Plex-Token` as a header), `posters` (the proxy: allowlist, 24 h cache, stale on failure). The worker's `plan` gained `images`; jobs gained `subtitleLanguages` (migration 4). Criterion 14: `fixtures/subtitles/` holds VTT edge cases with the SRT ruvsarpur writes, checked by `worker/test_subtitles.py` and `subtitles::tests` (byte for byte); `plex::tests::sends_the_token_as_a_header` (mock server); the API test gets 400 for hosts outside the allowlist. Checked live: a RÚV poster through the proxy.
+- **Next:** part 5 (import of the old settings and history with the report, and the NDJSON event log).
 
 ### Slice 2 scope
 

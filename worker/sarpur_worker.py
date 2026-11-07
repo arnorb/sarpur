@@ -229,6 +229,12 @@ def cmd_plan(args: argparse.Namespace, out: TextIO) -> None:
         "duration_seconds": _duration_seconds(item),
         "metadata": metadata,
         "subtitles": item.get("subtitles"),
+        # Artwork, as ruvsarpur's downloadMoviePoster / downloadTVShowPoster pick it.
+        "images": {
+            "portrait": item.get("portrait_image"),
+            "series": item.get("series_image"),
+            "episode": item.get("episode_image"),
+        },
     }
     if "fragments" in playlist:
         result["fragments"] = playlist["fragments"]

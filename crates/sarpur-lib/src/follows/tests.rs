@@ -438,3 +438,109 @@ async fn criterion_6_library_rule() {
         ]
     );
 }
+
+/// After the video: subtitles in both modes (browser downloads list them),
+/// posters for the library, and one Plex refresh once the queue is idle.
+#[tokio::test]
+async fn downloads_fetch_extras_and_refresh_plex_once() {
+    use crate::testutil::{MockServer, Reply};
+    let ruv = MockServer::start(|path| match path {
+        "/is.vtt" => Reply::ok(
+            "text/vtt",
+            "WEBVTT\n\n00:01.000 --> 00:02.000\nHalló\n".as_bytes(),
+        ),
+        "/library/sections/2/refresh" => Reply::ok("text/plain", ""),
+        _ => Reply::ok("image/jpeg", path.as_bytes()),
+    })
+    .await;
+    let with_extras = |pid: &str| {
+        let mut v = item(pid, "S", "Sería", false, "2026-01-01T20:00:00");
+        v["subtitles"] = json!([{"name": "is", "value": format!("{}/is.vtt", ruv.url)}]);
+        v["images"] = json!({"portrait": format!("{}/portrait", ruv.url),
+                             "episode": format!("{}/episode-{pid}", ruv.url)});
+        v
+    };
+    let s = Setup::new(json!({"items": [with_extras("e1"), with_extras("e2"), with_extras("w1")]}))
+        .await;
+    settings::update(
+        s.follows.db(),
+        s.dir.path(),
+        &json!({"plexBaseUrl": ruv.url, "plexToken": "tok", "plexLibrarySectionId": "2"}),
+    )
+    .await
+    .unwrap();
+
+    let runner = s.queue.spawn_runner();
+    let mut ids = Vec::new();
+    for pid in ["e1", "e2"] {
+        let job = s
+            .queue
+            .enqueue(pid, "", Mode::Library, Priority::Scheduled, None)
+            .await
+            .unwrap();
+        ids.push(job.id);
+    }
+    let web = s
+        .queue
+        .enqueue_with_languages(
+            "w1",
+            "",
+            Mode::Web,
+            Priority::Scheduled,
+            None,
+            Some(vec!["IS".into()]),
+        )
+        .await
+        .unwrap();
+    ids.push(web.id.clone());
+    for id in &ids {
+        loop {
+            let job = s.queue.get(id).await.unwrap().unwrap();
+            if job.state.is_finished() {
+                assert_eq!(job.state, State::Completed, "{:?}", job.error);
+                break;
+            }
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        }
+    }
+    for _ in 0..100 {
+        if s.queue.last_plex().is_some() {
+            break;
+        }
+        tokio::time::sleep(Duration::from_millis(20)).await;
+    }
+    s.queue.shutdown(runner).await;
+
+    let e1 = s.episode_path("Sería", "e1");
+    let season = e1.parent().unwrap();
+    assert!(season.join("Sería - e1.is.srt").is_file());
+    assert!(season.join("Sería - e1.is.vtt").is_file());
+    assert_eq!(
+        std::fs::read_to_string(season.join("Sería - e1.jpg")).unwrap(),
+        "/episode-e1"
+    );
+    assert_eq!(
+        std::fs::read_to_string(season.parent().unwrap().join("poster.jpg")).unwrap(),
+        "/portrait"
+    );
+
+    let web = s.queue.get(&web.id).await.unwrap().unwrap();
+    let names: Vec<&str> = web.files.iter().map(|f| f.name.as_str()).collect();
+    assert_eq!(names, ["Sería - w1.mp4", "Sería - w1.is.srt"]);
+    assert!(
+        !s.dir
+            .path()
+            .join("web")
+            .join(&web.id)
+            .join("poster.jpg")
+            .exists()
+    );
+
+    assert_eq!(s.queue.last_plex().unwrap().state, "ok");
+    let refreshes = ruv
+        .requests()
+        .iter()
+        .filter(|r| r.starts_with("GET /library/sections/2/refresh"))
+        .count();
+    assert_eq!(refreshes, 1, "one refresh for the batch");
+}

@@ -88,6 +88,10 @@ CREATE TABLE scan_cache (
     error TEXT
 );
 "#,
+    r#"
+-- The subtitle languages a download asked for (JSON array); NULL means all.
+ALTER TABLE jobs ADD COLUMN subtitle_languages TEXT;
+"#,
 ];
 
 #[derive(Debug, thiserror::Error)]

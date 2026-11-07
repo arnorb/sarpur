@@ -30,7 +30,9 @@ PLANS = {
 
 if command == "catalogue":
     emit({"pid": "web1", "sid": "100", "title": "Þáttur (1 af 2)", "series_title": "Þáttur",
-          "showtime": "2026-11-07T19:35:00", "duration": "300", "english_subtitled": False})
+          "showtime": "2026-11-07T19:35:00", "duration": "300", "english_subtitled": False,
+          "portrait_image": "https://myndir.ruv.is/p.jpg", "series_image": "https://evil.example/s.jpg",
+          "subtitles": [{"name": "IS", "value": "https://x/is.vtt"}, {"name": "en", "value": "https://x/en.vtt"}]})
     emit({"pid": "mov1", "sid": "200", "title": "Bíómynd", "series_title": "Bíómynd",
           "showtime": "2026-11-06T21:00:00", "duration": 5400, "is_movie": True})
     if "--refresh" in args:

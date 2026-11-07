@@ -1,0 +1,10 @@
+1
+00:01:07,000 --> 00:01:12,040
+Hæ félagi, þetta er fyrsta
+línan sem birtist
+
+2
+00:01:12,160 --> 00:01:15,360
+Og þetta er önnur
+<i>lífið er ljúft!</i>
+

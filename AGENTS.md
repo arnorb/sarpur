@@ -25,10 +25,10 @@ The worker needs ruvsarpur's Python dependencies (`pip install -r worker/require
 
 ## Layout
 
-- `crates/sarpur-lib/`: the core (`config`, `settings`, `db`, `worker`, `catalogue`, `library`, `media`, `jobs`, `follows`, `scan`).
+- `crates/sarpur-lib/`: the core (`config`, `settings`, `db`, `worker`, `catalogue`, `library`, `media`, `jobs`, `follows`, `scan`, `subtitles`, `extras`, `plex`, `posters`).
 - `crates/sarpur/`: the axum server and CLI. Routes are listed in `docs/api.md`.
 - `worker/`: ruvsarpur's Python, vendored at tag `v-s1` and ours to edit. It's run as `ruvsarpur.py --json <command>` and writes JSON lines only. In S3 each command is replaced by Rust and checked against this output.
-- `fixtures/`: the pinned catalogue (`tvschedule.json`) and recorded RÚV responses (`fixtures/ruv/`, replayed by `tools/record/`).
+- `fixtures/`: the pinned catalogue (`tvschedule.json`), recorded RÚV responses (`fixtures/ruv/`, replayed by `tools/record/`) and VTT files with the SRT ruvsarpur makes from them (`fixtures/subtitles/`; regenerate with `python worker/test_subtitles.py --regenerate`).
 - `golden/`: expected file names and IMDB data from `tools/golden/generate.py`. A change to `golden/` means naming changed. Plex already knows the existing names, so that's a bug unless it's deliberate and agreed.
 - `spikes/`: the S2.0 spikes. Raw outputs in `spikes/*/out/` are git-ignored.
 

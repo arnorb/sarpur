@@ -4,6 +4,7 @@
 
 use std::io;
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, SystemTime};
 
@@ -11,8 +12,10 @@ use serde::{Deserialize, Serialize};
 use tokio::sync::{Notify, broadcast, mpsc, watch};
 
 use crate::db::{Db, DbError, rusqlite};
+use crate::extras;
 use crate::library;
 use crate::media::{self, Download, Outcome, Stop};
+use crate::plex::{self, PlexResult};
 use crate::settings;
 use crate::worker::{NameMode, Plan, WorkerClient};
 
@@ -106,6 +109,8 @@ pub struct Job {
     pub files: Vec<JobFile>,
     pub ffmpeg_exit: Option<i32>,
     pub error: Option<String>,
+    /// The subtitle languages asked for; `None` means all of them.
+    pub subtitle_languages: Option<Vec<String>>,
     pub created_at: String,
     pub started_at: Option<String>,
     pub finished_at: Option<String>,
@@ -195,10 +200,15 @@ struct Inner {
     /// The job the runner is working on, and how to stop it.
     running: Mutex<Option<(String, watch::Sender<Option<Stop>>)>>,
     shutdown: watch::Sender<bool>,
+    http: reqwest::Client,
+    /// A library download finished since the last Plex refresh.
+    plex_pending: AtomicBool,
+    last_plex: Mutex<Option<PlexResult>>,
 }
 
 const JOB_COLUMNS: &str = "id, client_id, pid, title, mode, priority, state, progress, message, \
-     part_path, final_path, files, ffmpeg_exit, error, created_at, started_at, finished_at";
+     part_path, final_path, files, ffmpeg_exit, error, created_at, started_at, finished_at, \
+     subtitle_languages";
 
 fn job_from_row(row: &rusqlite::Row<'_>) -> rusqlite::Result<Job> {
     let id: String = row.get(0)?;
@@ -228,6 +238,9 @@ fn job_from_row(row: &rusqlite::Row<'_>) -> rusqlite::Result<Job> {
         created_at: row.get(14)?,
         started_at: row.get(15)?,
         finished_at: row.get(16)?,
+        subtitle_languages: row
+            .get::<_, Option<String>>(17)?
+            .and_then(|text| serde_json::from_str(&text).ok()),
         id,
     })
 }
@@ -304,12 +317,38 @@ impl Queue {
                 wake: Notify::new(),
                 running: Mutex::new(None),
                 shutdown,
+                http: plex::http_client(),
+                plex_pending: AtomicBool::new(false),
+                last_plex: Mutex::new(None),
             }),
         }
     }
 
     pub fn db(&self) -> &Db {
         &self.inner.db
+    }
+
+    /// The shared HTTP client (artwork, subtitles, posters, Plex).
+    pub fn http(&self) -> &reqwest::Client {
+        &self.inner.http
+    }
+
+    /// Asks Plex to rescan, with the current settings.
+    pub async fn refresh_plex(&self) -> PlexResult {
+        let result = match settings::load(&self.inner.db, &self.inner.cfg.data_dir).await {
+            Ok(settings) => plex::refresh(&self.inner.http, &settings).await,
+            Err(e) => PlexResult {
+                state: "failed",
+                message: format!("Plex refresh failed: {e}"),
+            },
+        };
+        *self.inner.last_plex.lock().unwrap() = Some(result.clone());
+        result
+    }
+
+    /// The last Plex refresh, if any.
+    pub fn last_plex(&self) -> Option<PlexResult> {
+        self.inner.last_plex.lock().unwrap().clone()
     }
 
     pub fn data_dir(&self) -> &Path {
@@ -403,6 +442,21 @@ impl Queue {
         priority: Priority,
         client_id: Option<String>,
     ) -> Result<Job, JobError> {
+        self.enqueue_with_languages(pid, title, mode, priority, client_id, None)
+            .await
+    }
+
+    /// [`Queue::enqueue`] with the subtitle languages to fetch (`None`: all;
+    /// a list holding `none`: no subtitles).
+    pub async fn enqueue_with_languages(
+        &self,
+        pid: &str,
+        title: &str,
+        mode: Mode,
+        priority: Priority,
+        client_id: Option<String>,
+        subtitle_languages: Option<Vec<String>>,
+    ) -> Result<Job, JobError> {
         let pid = pid.trim().to_string();
         if pid.is_empty() || !pid.chars().all(|c| c.is_ascii_alphanumeric()) {
             return Err(JobError::Invalid(
@@ -416,14 +470,17 @@ impl Queue {
             title.to_string()
         };
         let created = crate::now_iso();
+        let languages =
+            subtitle_languages.map(|l| serde_json::to_string(&l).unwrap_or_else(|_| "[]".into()));
         let job = self
             .inner
             .db
             .call(move |c| {
                 c.execute(
-                    "INSERT INTO jobs (id, queue_order, client_id, pid, title, mode, priority, state, message, created_at)
-                     VALUES (?1, (SELECT COALESCE(MAX(queue_order), 0) + 1 FROM jobs), ?2, ?3, ?4, ?5, ?6, 'queued', 'Queued', ?7)",
-                    rusqlite::params![id, client_id, pid, title, mode.as_str(), priority.as_str(), created],
+                    "INSERT INTO jobs (id, queue_order, client_id, pid, title, mode, priority, state, message, created_at,
+                         subtitle_languages)
+                     VALUES (?1, (SELECT COALESCE(MAX(queue_order), 0) + 1 FROM jobs), ?2, ?3, ?4, ?5, ?6, 'queued', 'Queued', ?7, ?8)",
+                    rusqlite::params![id, client_id, pid, title, mode.as_str(), priority.as_str(), created, languages],
                 )?;
                 get_job(c, &id)
             })
@@ -559,6 +616,11 @@ impl Queue {
                 }
                 match queue.inner.db.call(|c| next_queued(c)).await {
                     Ok(Some(job)) => queue.run_job(job).await,
+                    Ok(None) if queue.inner.plex_pending.swap(false, Ordering::SeqCst) => {
+                        // The queue is idle after library downloads: one Plex
+                        // refresh for the whole batch.
+                        queue.refresh_plex().await;
+                    }
                     Ok(None) => {
                         tokio::select! {
                             _ = queue.inner.wake.notified() => {}
@@ -646,6 +708,12 @@ impl Queue {
         if let Err(e) = self.save(&job).await {
             tracing::error!("could not save job {}: {e}", job.id);
         }
+        if job.mode == Mode::Library
+            && job.state == State::Completed
+            && job.message.as_deref() == Some("Downloaded")
+        {
+            self.inner.plex_pending.store(true, Ordering::SeqCst);
+        }
         if job.state == State::Completed {
             if let (Mode::Web, Some(client_id), Some(file)) =
                 (job.mode, job.client_id.clone(), job.files.first())
@@ -682,9 +750,9 @@ impl Queue {
         };
         job.title = plan.title.clone();
 
+        let library_root = library::output_dir(&settings, &plan.content_type, &cfg.data_dir);
         let final_path = match job.mode {
-            Mode::Library => library::output_dir(&settings, &plan.content_type, &cfg.data_dir)
-                .join(&plan.relative_path),
+            Mode::Library => library_root.join(&plan.relative_path),
             Mode::Web => {
                 let name = Path::new(&plan.relative_path)
                     .file_name()
@@ -707,7 +775,7 @@ impl Queue {
                     existing.display()
                 );
                 job.final_path = Some(existing.to_string_lossy().into_owned());
-                self.complete(job, ALREADY_IN_LIBRARY, &existing, &plan)
+                self.complete(job, ALREADY_IN_LIBRARY, &existing, &plan, &[])
                     .await;
                 return Ok(None);
             }
@@ -723,7 +791,7 @@ impl Queue {
                     existing.display()
                 );
                 job.final_path = Some(existing.to_string_lossy().into_owned());
-                self.complete(job, ALREADY_IN_LIBRARY, &existing, &plan)
+                self.complete(job, ALREADY_IN_LIBRARY, &existing, &plan, &[])
                     .await;
                 return Ok(None);
             }
@@ -800,7 +868,24 @@ impl Queue {
         match outcome.map_err(|e| format!("could not run ffmpeg ({}): {e}", cfg.ffmpeg))? {
             Outcome::Completed => {
                 job.part_path = None;
-                self.complete(job, "Downloaded", &final_path, &plan).await;
+                job.message = Some("Fetching subtitles and artwork".into());
+                self.save(job).await.map_err(|e| e.to_string())?;
+                let fetched = extras::fetch(extras::Request {
+                    client: &self.inner.http,
+                    plan: &plan,
+                    video: &final_path,
+                    library_root: (job.mode == Mode::Library).then_some(library_root.as_path()),
+                    languages: job.subtitle_languages.as_deref(),
+                })
+                .await;
+                self.complete(
+                    job,
+                    "Downloaded",
+                    &final_path,
+                    &plan,
+                    &fetched.subtitle_files,
+                )
+                .await;
                 Ok(None)
             }
             Outcome::Failed { exit, message } => {
@@ -811,19 +896,31 @@ impl Queue {
         }
     }
 
-    /// Marks `job` completed with the file at `path`, and records it.
-    async fn complete(&self, job: &mut Job, message: &str, path: &Path, plan: &Plan) {
+    /// Marks `job` completed with the file at `path` (and, for a browser
+    /// download, the subtitle files next to it), and records it.
+    async fn complete(
+        &self,
+        job: &mut Job,
+        message: &str,
+        path: &Path,
+        plan: &Plan,
+        sidecars: &[PathBuf],
+    ) {
         job.state = State::Completed;
         job.progress = 100;
         job.message = Some(message.into());
         if job.mode == Mode::Web {
-            if let Some(name) = path.file_name() {
-                let name = name.to_string_lossy().into_owned();
-                job.files = vec![JobFile {
-                    url: file_url(&job.id, &name),
-                    name,
-                }];
-            }
+            job.files = std::iter::once(path)
+                .chain(sidecars.iter().map(PathBuf::as_path))
+                .filter_map(Path::file_name)
+                .map(|name| {
+                    let name = name.to_string_lossy().into_owned();
+                    JobFile {
+                        url: file_url(&job.id, &name),
+                        name,
+                    }
+                })
+                .collect();
         }
         let pid = job.pid.clone();
         let mode = job.mode;

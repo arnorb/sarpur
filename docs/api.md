@@ -7,10 +7,10 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 | `GET /api/health` | `{ok, version, dryRun, catalogue: <status>}` |
 | `GET /api/settings` | The settings (below). |
 | `POST /api/settings` | Applies the known keys of the JSON body and returns the settings. Unknown keys, including `watchlistSids`, are ignored. A known key with the wrong type is a 400. |
-| `GET /api/catalogue?q=&limit=` | `{items, status}`. Case-insensitive substring search over `title` and `seriesTitle`, newest first. `limit` defaults to 100 (max 1000). Each item: `pid, sid, title, seriesTitle, showtime, duration, contentType, englishSubtitled`. |
+| `GET /api/catalogue?q=&limit=` | `{items, status}`. Case-insensitive substring search over `title` and `seriesTitle`, newest first. `limit` defaults to 100 (max 1000). Each item: `pid, sid, title, seriesTitle, showtime, duration, contentType, englishSubtitled, posterUrl, subtitleLanguages`. `posterUrl` is `/api/poster?url=…` for the first of the portrait, series and episode image (`null` if none or not allowed). |
 | `GET /api/catalogue/status` | `{state, count, loadedAt, error}`; `state` is `empty`, `loading`, `refreshing`, `ready` or `failed`. |
 | `POST /api/catalogue/refresh` | 202. Fetches the catalogue from RÚV in the background (takes minutes), then reloads it. |
-| `POST /api/downloads` | Body `{pid, mode: "web" \| "library", clientId?}` (`client_id` also accepted). 201 with the new job. |
+| `POST /api/downloads` | Body `{pid, mode: "web" \| "library", clientId?, subtitleLanguages?}` (`client_id` also accepted). `subtitleLanguages` limits the subtitle tracks (absent: all; `["none"]`: none). 201 with the new job. |
 | `GET /api/jobs` | `{jobs}`, newest first. |
 | `DELETE /api/jobs/{id}` | Queued: cancelled. Running: ffmpeg is stopped, the `.part` deleted, then the job becomes `cancelled`. Finished: removed from the list (a browser download's file goes too). Returns `{removed, job}`. 404 for an unknown id. |
 | `POST /api/jobs/{id}/retry` | Puts a finished job back at the end of the queue. 400 if it is still queued or running. |
@@ -24,6 +24,9 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 | `GET /api/library/scan` | The library scan status (below). |
 | `POST /api/library/scan` | 202 and a scan starts in the background. Scans also run at startup and before each follow run. |
 | `POST /api/recorded/{pid}/forget` | "Allow re-download": follow runs stop skipping the pid for being recorded (a file still on disk is still skipped). Returns `{pid, origin, recordedAt, forgottenAt}`; 404 if the pid isn't recorded. |
+| `GET /api/poster?url=` | The poster proxy. Only `https` URLs on `myndir.ruv.is`, `d38kdhuogyllre.cloudfront.net` and `m.media-amazon.com`; anything else is a 400. Cached in `<data>/poster-cache` for 24 hours (at most 3,000 files); a stale copy is served when the fetch fails, else 502. The content type is sniffed from the bytes. |
+| `GET /api/plex/status` | `{last}`: the last Plex refresh, `{state: "ok" \| "skipped" \| "failed", message}` or `null`. |
+| `POST /api/plex/refresh` | Refreshes Plex now and returns the result. |
 | `GET /api/events?client_id=` | Server-sent events. `event: job` (every job change, to everyone), `event: follows` (run status changes, to everyone) and `event: file_ready` (only to the `client_id` that queued the browser download; routing, not security). |
 
 ## Settings
@@ -37,7 +40,7 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 }
 ```
 
-`quality` is `Normal`, `HD720` or `HD1080`. Library downloads go to `libraryRootDir/<subdir>/<Plex path>`; an absolute subfolder stands on its own. With `autoEnabled`, a follow run starts every `autoIntervalMinutes` (at least 5), the first one shortly after startup. `plex*` are stored but not used yet.
+`quality` is `Normal`, `HD720` or `HD1080`. `plex*` configure the Plex refresh: `GET {plexBaseUrl}/library/sections/{plexLibrarySectionId}/refresh[?path={plexLibraryPath}]` with the token in the `X-Plex-Token` header. It runs once the queue is idle after one or more library downloads. Library downloads go to `libraryRootDir/<subdir>/<Plex path>`; an absolute subfolder stands on its own. With `autoEnabled`, a follow run starts every `autoIntervalMinutes` (at least 5), the first one shortly after startup.
 
 ## Follow runs
 
@@ -80,7 +83,9 @@ If the refresh fails (RÚV down), the run ends as a `warning` and the next one t
 }
 ```
 
-`files` is only filled for browser (`web`) downloads. A library download that finds a matching file already on disk completes with the message `Already in the library` and runs no ffmpeg.
+`files` is only filled for browser (`web`) downloads: the video, then its `.srt` subtitles, then any `.vtt` that has no `.srt`. `subtitleLanguages` is what the request asked for (`null`: all).
+
+After the video, a download fetches its subtitles as `<video>.<lang>.vtt` plus a converted `.srt` (both modes). Library downloads also fetch artwork: a movie's `poster.jpg` in its folder, an episode's image as `<video>.jpg` and the series `poster.jpg` two folders up (never overwritten); nothing goes in the category folder itself. Failures there are logged and don't fail the job. A library download that finds a matching file already on disk completes with the message `Already in the library` and runs no ffmpeg.
 
 ## Library scan
 
