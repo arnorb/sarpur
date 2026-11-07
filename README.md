@@ -6,7 +6,7 @@ A downloader for RÚV's Sarpur, being rebuilt as one Rust program with a built-i
 | --- | --- | --- |
 | S1 | Fix the Python app in `ruvsarpur` | Done (tag `v-s1`), running on the NAS |
 | S2.0 | Spikes: check the risky parts before building | Mostly done; Windows PC, NAS container and end-to-end halves open |
-| S2 | Rust server, queue, database and UI; RÚV access and naming still in the Python worker | In progress: slice 1 of 4 done, slice 2 next |
+| S2 | Rust server, queue, database and UI; RÚV access and naming still in the Python worker | In progress: slice 1 of 4 done, slice 2 under way |
 | S3 | Port the worker to Rust, checked against the Python output | Not started |
 
 The plan, with a status table and the decisions made since it was approved, is in [`docs/plan.md`](docs/plan.md).
@@ -15,7 +15,7 @@ The plan, with a status table and the decisions made since it was approved, is i
 
 - `crates/sarpur-lib/`: the core (database, queue, worker client, ffmpeg runner, library rules, catalogue).
 - `crates/sarpur/`: the server binary. `docs/api.md` lists its routes.
-- `worker/`: the Python worker, vendored from `ruvsarpur` at tag `v-s1`. Run it as `python worker/ruvsarpur.py --json <command>`. It writes JSON lines only. Commands: `catalogue`, `series`, `resolve`, `plan`, `name`, `imdb`, plus `--now` to freeze the clock.
+- `worker/`: the Python worker, vendored from `ruvsarpur` at tag `v-s1`. Run it as `python worker/ruvsarpur.py --json <command>`. It writes JSON lines only. Commands: `catalogue`, `series` (`--save` merges into the saved schedule), `resolve`, `plan`, `name`, `names` (the `plan` names of many pids), `imdb`, plus `--now` to freeze the clock.
 - `fixtures/tvschedule.json`: the pinned catalogue (8,508 items, schedule date 2026-03-21, sha256 `78eb107c…df1b6e`).
 - `golden/`: names in three modes and IMDB data, generated from the worker by `tools/golden/generate.py` with a frozen clock. Each line carries the input fields that produce it. `manifest.json` records the hashes.
 - `spikes/`: the S2.0 spikes and their results (see `spikes/README.md`).

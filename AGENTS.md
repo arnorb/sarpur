@@ -25,7 +25,7 @@ The worker needs ruvsarpur's Python dependencies (`pip install -r worker/require
 
 ## Layout
 
-- `crates/sarpur-lib/`: the core (`config`, `settings`, `db`, `worker`, `catalogue`, `library`, `media`, `jobs`).
+- `crates/sarpur-lib/`: the core (`config`, `settings`, `db`, `worker`, `catalogue`, `library`, `media`, `jobs`, `follows`).
 - `crates/sarpur/`: the axum server and CLI. Routes are listed in `docs/api.md`.
 - `worker/`: ruvsarpur's Python, vendored at tag `v-s1` and ours to edit. It's run as `ruvsarpur.py --json <command>` and writes JSON lines only. In S3 each command is replaced by Rust and checked against this output.
 - `fixtures/`: the pinned catalogue (`tvschedule.json`) and recorded RÚV responses (`fixtures/ruv/`, replayed by `tools/record/`).

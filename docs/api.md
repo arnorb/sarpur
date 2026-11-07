@@ -1,4 +1,4 @@
-# sarpur HTTP API (S2.1 slice 1)
+# sarpur HTTP API (S2.1 slices 1–2)
 
 JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_api.py`. Errors come back as `{"error": "..."}` with a 4xx or 5xx status.
 
@@ -15,7 +15,13 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 | `DELETE /api/jobs/{id}` | Queued: cancelled. Running: ffmpeg is stopped, the `.part` deleted, then the job becomes `cancelled`. Finished: removed from the list (a browser download's file goes too). Returns `{removed, job}`. 404 for an unknown id. |
 | `POST /api/jobs/{id}/retry` | Puts a finished job back at the end of the queue. 400 if it is still queued or running. |
 | `GET /api/jobs/{id}/files/{name}` | The file of a completed browser download, for 24 hours. `Content-Disposition` carries an ASCII `filename` and an RFC 5987 `filename*`. |
-| `GET /api/events?client_id=` | Server-sent events. `event: job` (every job change, to everyone) and `event: file_ready` (only to the `client_id` that queued the browser download; routing, not security). |
+| `GET /api/follows` | `{follows, status}`. Each follow: `id, titleKey, label, englishSubtitled, createdAt, sids: [{sid, seriesTitle, addedBy: "user" \| "auto", addedAt}]`. |
+| `POST /api/follows` | Body `{sid}`. Follows the series for its strict title key and English flag (looked up in the catalogue, else on RÚV); 201 with the follow. 404 for an unknown sid. |
+| `DELETE /api/follows/{id}` | Stops following the show. `{removed: true}`, or 404. |
+| `DELETE /api/follows/{id}/sids/{sid}` | Stops following one sid. It is remembered, so a run won't add it back. `{follow}` (`null` when that was the last sid and the follow is gone), or 404. |
+| `GET /api/follows/status` | The run status (below). |
+| `POST /api/follows/run` | Optional body `{dryRun?: false, refresh?: true}`. 202 and the run starts in the background; 409 while one is running. With the server's `--dry-run`, every run is a dry run. |
+| `GET /api/events?client_id=` | Server-sent events. `event: job` (every job change, to everyone), `event: follows` (run status changes, to everyone) and `event: file_ready` (only to the `client_id` that queued the browser download; routing, not security). |
 
 ## Settings
 
@@ -28,7 +34,32 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 }
 ```
 
-`quality` is `Normal`, `HD720` or `HD1080`. Library downloads go to `libraryRootDir/<subdir>/<Plex path>`; an absolute subfolder stands on its own. `auto*` and `plex*` are stored but not used yet.
+`quality` is `Normal`, `HD720` or `HD1080`. Library downloads go to `libraryRootDir/<subdir>/<Plex path>`; an absolute subfolder stands on its own. With `autoEnabled`, a follow run starts every `autoIntervalMinutes` (at least 5), the first one shortly after startup. `plex*` are stored but not used yet.
+
+## Follow runs
+
+A run refreshes the catalogue (incremental), adds sids whose strict title key and English flag match a follow, fetches followed sids that aren't in the catalogue, and queues a `scheduled` library job for each episode except those that are:
+
+- on disk: a `library` row for the pid whose file exists (`onDisk`);
+- matched by name: a file with the expected name as a prefix (`nameMatch`);
+- recorded with origin `library` or `unknown` and not forgotten (`recorded`);
+- already queued or running (`inQueue`).
+
+If the refresh fails (RÚV down), the run ends as a `warning` and the next one tries again.
+
+```json
+{
+  "running": false, "lastRunAt": "…", "lastRunState": "ok | warning | error",
+  "lastRunMessage": "Queued 2 episode(s) from 1 followed show(s)",
+  "lastReport": {
+    "dryRun": false, "follows": 1, "episodes": 25,
+    "addedSids": [{"followId": 1, "sid": "27447", "seriesTitle": "Fyrir alla muni"}],
+    "scheduled": [{"pid": "85o53h", "title": "…", "path": "…/Fyrir alla muni - s01e01.mp4"}],
+    "skipped": {"onDisk": 0, "nameMatch": 0, "recorded": 23, "inQueue": 0},
+    "warnings": []
+  }
+}
+```
 
 ## Jobs
 
@@ -51,6 +82,9 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 ```
 event: job
 data: {"type":"job","job":{…job…}}
+
+event: follows
+data: {"type":"follows","status":{…run status…}}
 
 event: file_ready
 data: {"type":"file_ready","clientId":"…","jobId":"…","name":"Veður s01e299.mp4","url":"/api/jobs/…/files/…"}

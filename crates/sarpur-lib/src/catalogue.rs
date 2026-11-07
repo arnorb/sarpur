@@ -1,6 +1,7 @@
 //! The catalogue, kept in memory. It is loaded from the worker's `catalogue`
 //! output in the background at startup and after a refresh.
 
+use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex, RwLock};
 
@@ -30,6 +31,13 @@ pub struct CatalogueStatus {
     pub count: usize,
     pub loaded_at: Option<String>,
     pub error: Option<String>,
+}
+
+/// What the catalogue says about one series id.
+#[derive(Debug, Clone, PartialEq)]
+pub struct SeriesInfo {
+    pub series_title: String,
+    pub english_subtitled: bool,
 }
 
 #[derive(Default)]
@@ -108,6 +116,41 @@ impl Catalogue {
             .iter()
             .find(|i| i.pid == pid)
             .cloned()
+    }
+
+    /// Each series id with its series title (or the episode title when the
+    /// series title is empty) and English flag, from its newest episode.
+    pub fn series_index(&self) -> HashMap<String, SeriesInfo> {
+        let items = self.items.read().unwrap().clone();
+        let mut index = HashMap::new();
+        for item in items.iter().filter(|i| !i.sid.is_empty()) {
+            index.entry(item.sid.clone()).or_insert_with(|| SeriesInfo {
+                series_title: if item.series_title.trim().is_empty() {
+                    item.title.clone()
+                } else {
+                    item.series_title.clone()
+                },
+                english_subtitled: item.english_subtitled,
+            });
+        }
+        index
+    }
+
+    /// The episodes of the given series ids, newest first.
+    pub fn items_for_sids(&self, sids: &HashSet<String>) -> Vec<CatalogueItem> {
+        let items = self.items.read().unwrap().clone();
+        items
+            .iter()
+            .filter(|i| sids.contains(&i.sid))
+            .cloned()
+            .collect()
+    }
+
+    /// Waits until no load or refresh is running.
+    pub async fn wait_idle(&self) {
+        while matches!(self.status().state, "loading" | "refreshing") {
+            tokio::time::sleep(std::time::Duration::from_millis(200)).await;
+        }
     }
 
     pub fn set_items(&self, values: &[Value]) {

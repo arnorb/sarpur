@@ -1,9 +1,10 @@
-//! sarpur's core: database, download queue, Python worker client, ffmpeg
-//! runner, library folder rules and the in-memory catalogue.
+//! sarpur's core: database, download queue, follows, Python worker client,
+//! ffmpeg runner, library folder rules and the in-memory catalogue.
 
 pub mod catalogue;
 pub mod config;
 pub mod db;
+pub mod follows;
 pub mod jobs;
 pub mod library;
 pub mod media;

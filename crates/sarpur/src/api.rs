@@ -12,6 +12,7 @@ use axum::response::{IntoResponse, Response};
 use axum::routing::{delete, get, post};
 use axum::{Json, Router};
 use sarpur_lib::catalogue::Catalogue;
+use sarpur_lib::follows::{self, FollowError, Follows, RunOptions};
 use sarpur_lib::jobs::{Event, JobError, Mode, Priority, Queue, State as JobState};
 use sarpur_lib::settings;
 use sarpur_lib::worker::WorkerClient;
@@ -26,6 +27,7 @@ pub struct AppState {
     pub queue: Queue,
     pub catalogue: Arc<Catalogue>,
     pub worker: WorkerClient,
+    pub follows: Arc<Follows>,
     pub dry_run: bool,
     /// Flips to true on shutdown, which ends the SSE streams.
     pub shutdown: watch::Receiver<bool>,
@@ -43,6 +45,11 @@ pub fn router(state: AppState) -> Router {
         .route("/api/jobs/{id}", delete(delete_job))
         .route("/api/jobs/{id}/retry", post(retry_job))
         .route("/api/jobs/{id}/files/{name}", get(job_file))
+        .route("/api/follows", get(list_follows).post(add_follow))
+        .route("/api/follows/status", get(follow_status))
+        .route("/api/follows/run", post(run_follows))
+        .route("/api/follows/{id}", delete(delete_follow))
+        .route("/api/follows/{id}/sids/{sid}", delete(delete_follow_sid))
         .route("/api/events", get(events))
         .with_state(state)
 }
@@ -68,6 +75,16 @@ impl From<JobError> for ApiError {
         match e {
             JobError::Invalid(m) => ApiError(StatusCode::BAD_REQUEST, m),
             JobError::Db(e) => internal(e),
+        }
+    }
+}
+
+impl From<FollowError> for ApiError {
+    fn from(e: FollowError) -> Self {
+        match e {
+            FollowError::NotFound(m) => ApiError(StatusCode::NOT_FOUND, m),
+            FollowError::AlreadyRunning => ApiError(StatusCode::CONFLICT, e.to_string()),
+            FollowError::Db(e) => internal(e),
         }
     }
 }
@@ -179,6 +196,81 @@ async fn retry_job(State(s): State<AppState>, Path(id): Path<String>) -> ApiResu
         return Err(not_found(format!("job {id}")));
     }
     Ok(Json(json!(s.queue.retry(&id).await?)))
+}
+
+async fn list_follows(State(s): State<AppState>) -> ApiResult<Json<Value>> {
+    let list = follows::list(s.follows.db()).await.map_err(internal)?;
+    Ok(Json(
+        json!({ "follows": list, "status": s.follows.status() }),
+    ))
+}
+
+#[derive(Deserialize)]
+struct FollowRequest {
+    sid: String,
+}
+
+async fn add_follow(
+    State(s): State<AppState>,
+    Json(req): Json<FollowRequest>,
+) -> ApiResult<(StatusCode, Json<Value>)> {
+    if req.sid.trim().is_empty() {
+        return Err(ApiError(StatusCode::BAD_REQUEST, "sid is required".into()));
+    }
+    let follow = s.follows.follow_sid(&req.sid).await?;
+    Ok((StatusCode::CREATED, Json(json!(follow))))
+}
+
+async fn delete_follow(State(s): State<AppState>, Path(id): Path<i64>) -> ApiResult<Json<Value>> {
+    if !follows::remove(s.follows.db(), id)
+        .await
+        .map_err(internal)?
+    {
+        return Err(not_found(format!("follow {id}")));
+    }
+    Ok(Json(json!({ "removed": true })))
+}
+
+async fn delete_follow_sid(
+    State(s): State<AppState>,
+    Path((id, sid)): Path<(i64, String)>,
+) -> ApiResult<Json<Value>> {
+    let follow = follows::remove_sid(s.follows.db(), id, &sid).await?;
+    Ok(Json(json!({ "follow": follow })))
+}
+
+async fn follow_status(State(s): State<AppState>) -> Json<Value> {
+    Json(json!(s.follows.status()))
+}
+
+#[derive(Deserialize, Default)]
+#[serde(rename_all = "camelCase")]
+struct RunRequest {
+    #[serde(default)]
+    dry_run: bool,
+    refresh: Option<bool>,
+}
+
+/// Starts a follow run in the background; 409 while one is running. The
+/// server's `--dry-run` makes every run a dry run.
+async fn run_follows(
+    State(s): State<AppState>,
+    body: Option<Json<RunRequest>>,
+) -> ApiResult<(StatusCode, Json<Value>)> {
+    let req = body.map(|Json(r)| r).unwrap_or_default();
+    if s.follows.status().running {
+        return Err(FollowError::AlreadyRunning.into());
+    }
+    let opts = RunOptions {
+        refresh: req.refresh.unwrap_or(true),
+        dry_run: req.dry_run || s.dry_run,
+    };
+    let runner = s.follows.clone();
+    tokio::spawn(async move {
+        let _ = runner.run(opts).await;
+    });
+    tokio::task::yield_now().await;
+    Ok((StatusCode::ACCEPTED, Json(json!(s.follows.status()))))
 }
 
 /// `Content-Disposition` with an ASCII fallback and an RFC 5987 `filename*`.
@@ -316,10 +408,18 @@ mod tests {
         let catalogue = Arc::new(Catalogue::new());
         catalogue.load(&worker, false).await;
         let (_shutdown_tx, shutdown) = watch::channel(false);
+        let follows = Arc::new(Follows::new(
+            queue.db().clone(),
+            worker.clone(),
+            catalogue.clone(),
+            queue.clone(),
+            dir.path().to_path_buf(),
+        ));
         let app = router(AppState {
             queue: queue.clone(),
             catalogue,
             worker,
+            follows,
             dry_run: false,
             shutdown,
         });
@@ -471,10 +571,19 @@ mod tests {
         );
         let runner = queue.spawn_runner();
         let (shutdown_tx, shutdown) = watch::channel(false);
+        let catalogue = Arc::new(Catalogue::new());
+        let follows = Arc::new(Follows::new(
+            queue.db().clone(),
+            worker.clone(),
+            catalogue.clone(),
+            queue.clone(),
+            dir.path().to_path_buf(),
+        ));
         let app = router(AppState {
             queue: queue.clone(),
-            catalogue: Arc::new(Catalogue::new()),
+            catalogue,
             worker,
+            follows,
             dry_run: false,
             shutdown,
         });
@@ -537,5 +646,170 @@ mod tests {
         assert!(!ready.visible_to(Some("b")));
         assert!(!ready.visible_to(None));
         assert_eq!(ready.name(), "file_ready");
+    }
+
+    #[tokio::test]
+    async fn follow_endpoints() {
+        let dir = tempfile::tempdir().unwrap();
+        let item = |pid: &str, sid: &str, title: &str| {
+            json!({"pid": pid, "sid": sid, "title": title, "series_title": title,
+                   "showtime": format!("2026-01-01T20:00:0{}", pid.len()), "duration": 60})
+        };
+        let fixture = json!({"items": [
+            item("a1", "A", "Þáttur"),
+            item("b11", "B", "Þáttur 2"),
+            item("c1", "C", "Annað"),
+        ]});
+        std::fs::write(
+            dir.path().join("fake_catalogue.json"),
+            serde_json::to_vec(&fixture).unwrap(),
+        )
+        .unwrap();
+        let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
+        let worker = WorkerClient::new(
+            sarpur_lib::config::python(),
+            testdata().join("fake_follow_worker.py"),
+            dir.path(),
+        );
+        let queue = Queue::new(
+            db.clone(),
+            worker.clone(),
+            QueueConfig {
+                data_dir: dir.path().to_path_buf(),
+                ffmpeg: "ffmpeg".into(),
+                dry_run: false,
+                stop_grace: Duration::from_secs(1),
+                free_space: Arc::new(|_| Ok(u64::MAX)),
+            },
+        );
+        let catalogue = Arc::new(Catalogue::new());
+        catalogue.load(&worker, false).await;
+        let follows = Arc::new(Follows::new(
+            db,
+            worker.clone(),
+            catalogue.clone(),
+            queue.clone(),
+            dir.path().to_path_buf(),
+        ));
+        let (_shutdown_tx, shutdown) = watch::channel(false);
+        let app = router(AppState {
+            queue: queue.clone(),
+            catalogue,
+            worker,
+            follows: follows.clone(),
+            dry_run: false,
+            shutdown,
+        });
+        let post = |uri: &str, body: Value| {
+            Request::post(uri)
+                .header("content-type", "application/json")
+                .body(Body::from(body.to_string()))
+                .unwrap()
+        };
+
+        let (status, _) = call(&app, post("/api/follows", json!({"sid": " "}))).await;
+        assert_eq!(status, StatusCode::BAD_REQUEST);
+        let (status, res) = call(&app, post("/api/follows", json!({"sid": "A"}))).await;
+        assert_eq!(status, StatusCode::CREATED);
+        let follow = json_body(res).await;
+        assert_eq!(follow["label"], "Þáttur");
+        assert_eq!(follow["sids"][0]["addedBy"], "user");
+        let id = follow["id"].as_i64().unwrap();
+
+        // A dry run reports and queues nothing.
+        let (status, _) = call(
+            &app,
+            post(
+                "/api/follows/run",
+                json!({"dryRun": true, "refresh": false}),
+            ),
+        )
+        .await;
+        assert_eq!(status, StatusCode::ACCEPTED);
+        let mut report = Value::Null;
+        for _ in 0..100 {
+            let (_, res) = call(
+                &app,
+                Request::get("/api/follows/status")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await;
+            let status = json_body(res).await;
+            if status["running"] == false && !status["lastReport"].is_null() {
+                report = status["lastReport"].clone();
+                break;
+            }
+            tokio::time::sleep(Duration::from_millis(50)).await;
+        }
+        assert_eq!(report["dryRun"], true);
+        assert_eq!(report["addedSids"][0]["sid"], "B");
+        assert_eq!(report["scheduled"].as_array().unwrap().len(), 2);
+        assert!(queue.list().await.unwrap().is_empty());
+
+        // Running again needs no body; a run in progress is a 409.
+        let (status, _) = call(
+            &app,
+            Request::post("/api/follows/run")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::ACCEPTED);
+        let (status, _) = call(&app, post("/api/follows/run", json!({}))).await;
+        assert_eq!(status, StatusCode::CONFLICT);
+        while follows.status().running {
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        }
+        assert_eq!(queue.list().await.unwrap().len(), 2);
+
+        let (_, res) = call(
+            &app,
+            Request::get("/api/follows").body(Body::empty()).unwrap(),
+        )
+        .await;
+        let body = json_body(res).await;
+        assert_eq!(body["follows"][0]["sids"][1]["addedBy"], "auto");
+        assert_eq!(body["status"]["lastRunState"], "ok");
+
+        let (status, res) = call(
+            &app,
+            Request::delete(format!("/api/follows/{id}/sids/B"))
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK);
+        assert_eq!(
+            json_body(res).await["follow"]["sids"]
+                .as_array()
+                .unwrap()
+                .len(),
+            1
+        );
+        let (status, _) = call(
+            &app,
+            Request::delete(format!("/api/follows/{id}/sids/B"))
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::NOT_FOUND);
+        let (status, _) = call(
+            &app,
+            Request::delete(format!("/api/follows/{id}"))
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK);
+        let (status, _) = call(
+            &app,
+            Request::delete(format!("/api/follows/{id}"))
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::NOT_FOUND);
     }
 }

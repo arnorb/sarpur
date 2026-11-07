@@ -13,6 +13,7 @@ use clap::Parser;
 use sarpur_lib::catalogue::Catalogue;
 use sarpur_lib::config;
 use sarpur_lib::db::Db;
+use sarpur_lib::follows::Follows;
 use sarpur_lib::jobs::{Queue, QueueConfig, real_free_space};
 use sarpur_lib::worker::WorkerClient;
 use tokio::sync::watch;
@@ -31,7 +32,7 @@ struct Args {
     #[arg(long)]
     data_dir: Option<PathBuf>,
     /// Run jobs without ffmpeg: log what would be downloaded and finish them
-    /// as "dry run".
+    /// as "dry run". Follow runs only report what they would queue.
     #[arg(long)]
     dry_run: bool,
 }
@@ -66,7 +67,7 @@ async fn main() -> anyhow::Result<()> {
     let db = Db::open(&data_dir.join("sarpur.db")).context("opening the database")?;
     let worker = WorkerClient::new(config::python(), worker_script, &data_dir);
     let queue = Queue::new(
-        db,
+        db.clone(),
         worker.clone(),
         QueueConfig {
             data_dir: data_dir.clone(),
@@ -106,11 +107,22 @@ async fn main() -> anyhow::Result<()> {
         });
     }
 
+    // Follow runs on the settings' interval while autoEnabled is on.
+    let follows = Arc::new(Follows::new(
+        db,
+        worker.clone(),
+        catalogue.clone(),
+        queue.clone(),
+        data_dir.clone(),
+    ));
+    follows.spawn_scheduler(args.dry_run);
+
     let (shutdown_tx, shutdown_rx) = watch::channel(false);
     let app = api::router(api::AppState {
         queue: queue.clone(),
         catalogue,
         worker,
+        follows,
         dry_run: args.dry_run,
         shutdown: shutdown_rx,
     });

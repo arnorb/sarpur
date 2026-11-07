@@ -10,7 +10,8 @@ pub use rusqlite;
 
 /// Each entry moves the schema up one version. Never edit a shipped entry;
 /// add a new one.
-const MIGRATIONS: &[&str] = &[r#"
+const MIGRATIONS: &[&str] = &[
+    r#"
 CREATE TABLE settings (
     key   TEXT PRIMARY KEY,
     value TEXT NOT NULL            -- JSON
@@ -51,7 +52,31 @@ CREATE TABLE library (
     verified_at TEXT NOT NULL
 );
 CREATE INDEX library_pid ON library (pid);
-"#];
+"#,
+    r#"
+-- A follow is one show: the sids the user chose plus sids added because their
+-- strict title key and English flag match (plan §3.5).
+CREATE TABLE follows (
+    id           INTEGER PRIMARY KEY,
+    title_key    TEXT NOT NULL,
+    english_flag INTEGER NOT NULL,
+    label        TEXT NOT NULL,
+    created_at   TEXT NOT NULL,
+    UNIQUE (title_key, english_flag)
+);
+CREATE TABLE follow_sids (
+    follow_id    INTEGER NOT NULL REFERENCES follows (id) ON DELETE CASCADE,
+    sid          TEXT NOT NULL,
+    series_title TEXT NOT NULL,
+    english_flag INTEGER NOT NULL,
+    added_by     TEXT NOT NULL CHECK (added_by IN ('user', 'auto')),
+    added_at     TEXT NOT NULL,
+    removed_at   TEXT,              -- set when removed, so it isn't added again
+    PRIMARY KEY (follow_id, sid)
+);
+CREATE INDEX follow_sids_sid ON follow_sids (sid);
+"#,
+];
 
 #[derive(Debug, thiserror::Error)]
 pub enum DbError {

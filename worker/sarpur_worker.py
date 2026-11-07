@@ -139,6 +139,13 @@ def cmd_catalogue(args: argparse.Namespace, out: TextIO) -> None:
 def cmd_series(args: argparse.Namespace, out: TextIO) -> None:
     imdb_cache = _load_imdb_cache(args.portable)
     episodes = ruvsarpur.getVodSeriesSchedule(args.sid, None, imdb_cache, None)
+    if args.save and episodes:
+        # Merge into the saved schedule so `plan` can find these pids, as
+        # ruvsarpur's --sid does for series that aren't in the catalogue.
+        schedule = _load_schedule(args.portable)
+        if schedule is not None:
+            schedule.update(episodes)
+            ruvsarpur.saveCurrentTvSchedule(schedule, _schedule_path(args.portable))
     for item in _items(episodes or {}):
         _emit(out, item)
 
@@ -195,14 +202,19 @@ def _duration_seconds(item: Dict[str, Any]) -> Optional[int]:
         return None
 
 
-def cmd_plan(args: argparse.Namespace, out: TextIO) -> None:
-    """Everything the server needs to download one episode, in one call."""
-    item = dict(_require_item(args.portable, args.pid))
-    plex = args.mode == "plex"
+def _relative_path(item: Dict[str, Any], plex: bool) -> str:
     relative_path = ruvsarpur.createLocalFileName(item, False, plex)
     # download_m3u8_playlist_using_ffmpeg appends .mp4 the same way.
     if not relative_path.endswith(".mp4"):
         relative_path += ".mp4"
+    return relative_path
+
+
+def cmd_plan(args: argparse.Namespace, out: TextIO) -> None:
+    """Everything the server needs to download one episode, in one call."""
+    item = dict(_require_item(args.portable, args.pid))
+    plex = args.mode == "plex"
+    relative_path = _relative_path(item, plex)
     metadata = ruvsarpur.buildFfmpegMetadata(item)
     playlist = _resolve_playlist(item, args.quality)
     result: Dict[str, Any] = {
@@ -233,6 +245,24 @@ def cmd_name(args: argparse.Namespace, out: TextIO) -> None:
     })
 
 
+def cmd_names(args: argparse.Namespace, out: TextIO) -> None:
+    """The file name `plan` would use, for many pids in one call. An unknown
+    pid gets `"not_found": true` instead of failing the batch (an `error` line
+    would end the command, by the worker contract)."""
+    schedule = _load_schedule(args.portable) or {}
+    plex = args.mode == "plex"
+    for pid in args.pids:
+        item = schedule.get(pid)
+        if not isinstance(item, dict):
+            _emit(out, {"pid": pid, "not_found": True})
+            continue
+        _emit(out, {
+            "pid": pid,
+            "relative_path": _relative_path(dict(item), plex),
+            "content_type": _content_type(item),
+        })
+
+
 def cmd_imdb(args: argparse.Namespace, out: TextIO) -> None:
     schedule = _load_schedule(args.portable)
     imdb = None
@@ -253,6 +283,7 @@ COMMANDS: Dict[str, Callable[[argparse.Namespace, TextIO], None]] = {
     "resolve": cmd_resolve,
     "plan": cmd_plan,
     "name": cmd_name,
+    "names": cmd_names,
     "imdb": cmd_imdb,
 }
 
@@ -273,6 +304,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("series", parents=[common])
     p.add_argument("sid")
+    p.add_argument("--save", action="store_true", help="merge into the saved schedule")
 
     p = sub.add_parser("resolve", parents=[common])
     p.add_argument("pid")
@@ -288,6 +320,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--mode", choices=["web", "plex"], required=True)
     p.add_argument("--originaltitle", action="store_true")
     p.add_argument("--suffix", default="")
+
+    p = sub.add_parser("names", parents=[common])
+    p.add_argument("pids", nargs="+")
+    p.add_argument("--mode", choices=["web", "plex"], required=True)
 
     p = sub.add_parser("imdb", parents=[common])
     p.add_argument("sid")

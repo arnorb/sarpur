@@ -57,6 +57,18 @@ pub struct Plan {
     pub subtitles: Value,
 }
 
+/// One line of the worker's `names` output.
+#[derive(Debug, Clone, Deserialize, PartialEq)]
+pub struct Name {
+    pub pid: String,
+    #[serde(default)]
+    pub relative_path: Option<String>,
+    #[serde(default)]
+    pub content_type: Option<String>,
+    #[serde(default)]
+    pub not_found: bool,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum NameMode {
     Web,
@@ -181,6 +193,32 @@ impl WorkerClient {
             .pop()
             .ok_or_else(|| WorkerError::BadOutput("plan returned nothing".into()))?;
         serde_json::from_value(value).map_err(|e| WorkerError::BadOutput(e.to_string()))
+    }
+
+    /// The `plan` file names of many pids, in batches.
+    pub async fn names(&self, pids: &[String], mode: NameMode) -> Result<Vec<Name>, WorkerError> {
+        let mode = match mode {
+            NameMode::Web => "web",
+            NameMode::Plex => "plex",
+        };
+        let mut names = Vec::with_capacity(pids.len());
+        for chunk in pids.chunks(400) {
+            let mut args = vec!["names", "--mode", mode];
+            args.extend(chunk.iter().map(String::as_str));
+            for value in self.run(&args, QUICK_TIMEOUT).await? {
+                names.push(
+                    serde_json::from_value(value)
+                        .map_err(|e| WorkerError::BadOutput(e.to_string()))?,
+                );
+            }
+        }
+        Ok(names)
+    }
+
+    /// All episodes of one series from RÚV, merged into the saved schedule so
+    /// `plan` can find them.
+    pub async fn series(&self, sid: &str) -> Result<Vec<Value>, WorkerError> {
+        self.run(&["series", sid, "--save"], QUICK_TIMEOUT).await
     }
 
     /// The schedule items. With `refresh`, the worker fetches the catalogue

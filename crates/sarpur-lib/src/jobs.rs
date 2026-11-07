@@ -127,6 +127,10 @@ pub enum Event {
         name: String,
         url: String,
     },
+    /// The follow run status changed; sent to everyone.
+    Follows {
+        status: Box<crate::follows::RunStatus>,
+    },
 }
 
 impl Event {
@@ -134,13 +138,14 @@ impl Event {
         match self {
             Event::Job { .. } => "job",
             Event::FileReady { .. } => "file_ready",
+            Event::Follows { .. } => "follows",
         }
     }
 
     /// Whether an SSE subscriber with `client_id` gets this event.
     pub fn visible_to(&self, client_id: Option<&str>) -> bool {
         match self {
-            Event::Job { .. } => true,
+            Event::Job { .. } | Event::Follows { .. } => true,
             Event::FileReady {
                 client_id: target, ..
             } => client_id == Some(target.as_str()),
@@ -324,7 +329,7 @@ impl Queue {
         self.inner.events.subscribe()
     }
 
-    fn emit(&self, event: Event) {
+    pub fn emit(&self, event: Event) {
         let _ = self.inner.events.send(event);
     }
 

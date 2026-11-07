@@ -125,6 +125,29 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("not found", lines[-1]["error"])
 
+    def test_names_match_plan_and_skip_unknown_pids(self):
+        code, lines, find = self.run_worker("names", *self.pids, "nosuch", "--mode", "plex", "--portable")
+        self.assertEqual(code, 0)
+        find.assert_not_called()
+        self.assertEqual([line["pid"] for line in lines], self.pids + ["nosuch"])
+        self.assertEqual(lines[-1], {"pid": "nosuch", "not_found": True})
+        for line in lines[:-1]:
+            _, plans, _ = self.run_worker("plan", line["pid"], "--mode", "plex", "--portable")
+            self.assertEqual(line["relative_path"], plans[0]["relative_path"])
+            self.assertEqual(line["content_type"], plans[0]["content_type"])
+
+    def test_series_save_merges_into_the_schedule(self):
+        episode = {"pid": "zz9", "sid": "99999", "title": "Nýtt", "series_title": "Nýtt"}
+        with mock.patch.object(ruvsarpur, "getVodSeriesSchedule", return_value={"zz9": episode}):
+            code, lines, _ = self.run_worker("series", "99999", "--portable")
+            self.assertEqual((code, lines), (0, [episode]))
+            self.assertNotIn("zz9", ruvsarpur.getExistingTvSchedule("./tvschedule.json"))
+            code, _, _ = self.run_worker("series", "99999", "--save", "--portable")
+        self.assertEqual(code, 0)
+        saved = ruvsarpur.getExistingTvSchedule("./tvschedule.json")
+        self.assertEqual(saved["zz9"]["title"], "Nýtt")
+        self.assertIn("akoha1", saved)
+
 
 if __name__ == "__main__":
     unittest.main()
