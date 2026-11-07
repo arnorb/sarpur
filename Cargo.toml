@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/sarpur-lib"]
+members = ["crates/sarpur-lib", "crates/sarpur"]
 # The spikes are standalone crates with their own lock files.
 exclude = ["spikes"]
 
