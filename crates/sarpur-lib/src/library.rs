@@ -3,6 +3,7 @@
 use std::io;
 use std::path::{Path, PathBuf};
 
+use crate::db::{Db, DbError};
 use crate::settings::Settings;
 
 /// The category folder for a library download, as ruvsarpur's
@@ -64,6 +65,59 @@ pub fn find_existing(final_path: &Path) -> io::Result<Option<PathBuf>> {
         }
     }
     Ok(None)
+}
+
+/// §3.3 (a): a file the `library` table knows for `pid` (from its tag or a
+/// finished job) that still exists, wherever it was moved within the library.
+pub async fn known_file(db: &Db, pid: &str) -> Result<Option<PathBuf>, DbError> {
+    let pid = pid.to_string();
+    let paths: Vec<String> = db
+        .call(move |c| {
+            c.prepare("SELECT path FROM library WHERE pid = ?1 ORDER BY source = 'tag' DESC, path")?
+                .query_map([pid], |r| r.get(0))?
+                .collect()
+        })
+        .await?;
+    Ok(tokio::task::spawn_blocking(move || {
+        paths.into_iter().map(PathBuf::from).find(|p| p.is_file())
+    })
+    .await?)
+}
+
+/// What `recorded` says about a pid.
+#[derive(Debug, Clone, serde::Serialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct Recorded {
+    pub pid: String,
+    pub origin: String,
+    pub recorded_at: String,
+    pub forgotten_at: Option<String>,
+}
+
+/// "Allow re-download": sets `forgotten_at`, so follow runs no longer skip the
+/// pid because it was recorded (a file still on disk is still skipped).
+/// `None` when the pid isn't recorded.
+pub async fn forget(db: &Db, pid: &str) -> Result<Option<Recorded>, DbError> {
+    let pid = pid.to_string();
+    db.call(move |c| {
+        c.execute(
+            "UPDATE recorded SET forgotten_at = COALESCE(forgotten_at, ?2) WHERE pid = ?1",
+            (&pid, crate::now_iso()),
+        )?;
+        let mut stmt = c.prepare(
+            "SELECT pid, origin, recorded_at, forgotten_at FROM recorded WHERE pid = ?1",
+        )?;
+        let mut rows = stmt.query_map([&pid], |r| {
+            Ok(Recorded {
+                pid: r.get(0)?,
+                origin: r.get(1)?,
+                recorded_at: r.get(2)?,
+                forgotten_at: r.get(3)?,
+            })
+        })?;
+        rows.next().transpose()
+    })
+    .await
 }
 
 #[cfg(test)]

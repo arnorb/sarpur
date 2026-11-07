@@ -14,6 +14,8 @@ use axum::{Json, Router};
 use sarpur_lib::catalogue::Catalogue;
 use sarpur_lib::follows::{self, FollowError, Follows, RunOptions};
 use sarpur_lib::jobs::{Event, JobError, Mode, Priority, Queue, State as JobState};
+use sarpur_lib::library;
+use sarpur_lib::scan::Scanner;
 use sarpur_lib::settings;
 use sarpur_lib::worker::WorkerClient;
 use serde::Deserialize;
@@ -28,6 +30,7 @@ pub struct AppState {
     pub catalogue: Arc<Catalogue>,
     pub worker: WorkerClient,
     pub follows: Arc<Follows>,
+    pub scanner: Arc<Scanner>,
     pub dry_run: bool,
     /// Flips to true on shutdown, which ends the SSE streams.
     pub shutdown: watch::Receiver<bool>,
@@ -50,6 +53,8 @@ pub fn router(state: AppState) -> Router {
         .route("/api/follows/run", post(run_follows))
         .route("/api/follows/{id}", delete(delete_follow))
         .route("/api/follows/{id}/sids/{sid}", delete(delete_follow_sid))
+        .route("/api/library/scan", get(scan_status).post(start_scan))
+        .route("/api/recorded/{pid}/forget", post(forget_recorded))
         .route("/api/events", get(events))
         .with_state(state)
 }
@@ -273,6 +278,33 @@ async fn run_follows(
     Ok((StatusCode::ACCEPTED, Json(json!(s.follows.status()))))
 }
 
+async fn scan_status(State(s): State<AppState>) -> Json<Value> {
+    Json(json!(s.scanner.status()))
+}
+
+/// Starts a library scan in the background (202).
+async fn start_scan(State(s): State<AppState>) -> (StatusCode, Json<Value>) {
+    let scanner = s.scanner.clone();
+    tokio::spawn(async move {
+        let _ = scanner.scan().await;
+    });
+    tokio::task::yield_now().await;
+    (StatusCode::ACCEPTED, Json(json!(s.scanner.status())))
+}
+
+/// "Allow re-download": follow runs no longer skip the pid for being
+/// recorded. 404 if it isn't recorded.
+async fn forget_recorded(
+    State(s): State<AppState>,
+    Path(pid): Path<String>,
+) -> ApiResult<Json<Value>> {
+    let recorded = library::forget(s.queue.db(), &pid)
+        .await
+        .map_err(internal)?
+        .ok_or_else(|| not_found(format!("recorded pid {pid}")))?;
+    Ok(Json(json!(recorded)))
+}
+
 /// `Content-Disposition` with an ASCII fallback and an RFC 5987 `filename*`.
 pub fn content_disposition(name: &str) -> String {
     let fallback: String = name
@@ -408,11 +440,13 @@ mod tests {
         let catalogue = Arc::new(Catalogue::new());
         catalogue.load(&worker, false).await;
         let (_shutdown_tx, shutdown) = watch::channel(false);
+        let scanner = Arc::new(Scanner::new(queue.db().clone(), dir.path().to_path_buf()));
         let follows = Arc::new(Follows::new(
             queue.db().clone(),
             worker.clone(),
             catalogue.clone(),
             queue.clone(),
+            scanner.clone(),
             dir.path().to_path_buf(),
         ));
         let app = router(AppState {
@@ -420,6 +454,7 @@ mod tests {
             catalogue,
             worker,
             follows,
+            scanner,
             dry_run: false,
             shutdown,
         });
@@ -572,11 +607,13 @@ mod tests {
         let runner = queue.spawn_runner();
         let (shutdown_tx, shutdown) = watch::channel(false);
         let catalogue = Arc::new(Catalogue::new());
+        let scanner = Arc::new(Scanner::new(queue.db().clone(), dir.path().to_path_buf()));
         let follows = Arc::new(Follows::new(
             queue.db().clone(),
             worker.clone(),
             catalogue.clone(),
             queue.clone(),
+            scanner.clone(),
             dir.path().to_path_buf(),
         ));
         let app = router(AppState {
@@ -584,6 +621,7 @@ mod tests {
             catalogue,
             worker,
             follows,
+            scanner,
             dry_run: false,
             shutdown,
         });
@@ -684,11 +722,13 @@ mod tests {
         );
         let catalogue = Arc::new(Catalogue::new());
         catalogue.load(&worker, false).await;
+        let scanner = Arc::new(Scanner::new(db.clone(), dir.path().to_path_buf()));
         let follows = Arc::new(Follows::new(
             db,
             worker.clone(),
             catalogue.clone(),
             queue.clone(),
+            scanner.clone(),
             dir.path().to_path_buf(),
         ));
         let (_shutdown_tx, shutdown) = watch::channel(false);
@@ -697,6 +737,7 @@ mod tests {
             catalogue,
             worker,
             follows: follows.clone(),
+            scanner,
             dry_run: false,
             shutdown,
         });
@@ -811,5 +852,52 @@ mod tests {
         )
         .await;
         assert_eq!(status, StatusCode::NOT_FOUND);
+
+        // The library scan and "Allow re-download".
+        let (status, _) = call(
+            &app,
+            Request::post("/api/library/scan")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::ACCEPTED);
+        let (status, _) = call(
+            &app,
+            Request::post("/api/recorded/a1/forget")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::NOT_FOUND);
+        queue
+            .db()
+            .call(|c| {
+                c.execute(
+                    "INSERT INTO recorded (pid, origin, recorded_at) VALUES ('a1', 'library', 'now')",
+                    [],
+                )
+            })
+            .await
+            .unwrap();
+        let (status, res) = call(
+            &app,
+            Request::post("/api/recorded/a1/forget")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK);
+        let recorded = json_body(res).await;
+        assert_eq!(recorded["origin"], "library");
+        assert!(recorded["forgottenAt"].is_string());
+        let (_, res) = call(
+            &app,
+            Request::get("/api/library/scan")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await;
+        assert!(json_body(res).await["roots"].is_array());
     }
 }

@@ -1,5 +1,6 @@
 use super::*;
-use crate::jobs::{QueueConfig, State};
+use crate::jobs::{ALREADY_IN_LIBRARY, QueueConfig, State};
+use crate::scan::tests::mp4_with_comment;
 use serde_json::{Value, json};
 use tempfile::TempDir;
 
@@ -67,7 +68,10 @@ impl Setup {
             worker.clone(),
             QueueConfig {
                 data_dir: dir.path().to_path_buf(),
-                ffmpeg: "ffmpeg".into(),
+                ffmpeg: testdata
+                    .join("fake_ffmpeg.py")
+                    .to_string_lossy()
+                    .into_owned(),
                 dry_run: false,
                 stop_grace: Duration::from_secs(1),
                 free_space: Arc::new(|_| Ok(u64::MAX)),
@@ -75,7 +79,15 @@ impl Setup {
         );
         let cat = Arc::new(Catalogue::new());
         assert!(cat.load(&worker, false).await);
-        let follows = Follows::new(db, worker, cat, queue.clone(), dir.path().to_path_buf());
+        let scanner = Arc::new(Scanner::new(db.clone(), dir.path().to_path_buf()));
+        let follows = Follows::new(
+            db,
+            worker,
+            cat,
+            queue.clone(),
+            scanner,
+            dir.path().to_path_buf(),
+        );
         Setup {
             dir,
             queue,
@@ -328,4 +340,101 @@ async fn a_followed_sid_outside_the_catalogue_is_fetched() {
         s.follows.follow_sid("nosuch").await,
         Err(FollowError::NotFound(_))
     ));
+}
+
+/// Criterion 6: a deleted-but-recorded pid, a renamed file (prefix match), a
+/// tagged file in a moved folder and a browser-only pid. A follow run
+/// schedules only the browser-only pid; Library downloads also download the
+/// deleted one.
+#[tokio::test]
+async fn criterion_6_library_rule() {
+    let s = Setup::new(json!({"items": [
+        item("del1", "S", "Sería", false, "2026-01-01T20:00:00"),
+        item("ren1", "S", "Sería", false, "2026-01-02T20:00:00"),
+        item("tag1", "S", "Sería", false, "2026-01-03T20:00:00"),
+        item("web1", "S", "Sería", false, "2026-01-04T20:00:00"),
+    ]}))
+    .await;
+    s.follows.follow_sid("S").await.unwrap();
+    // del1 was downloaded to the library, then deleted on purpose.
+    // web1 was only ever a browser download.
+    s.sql(
+        "INSERT INTO recorded (pid, origin, recorded_at) VALUES
+           ('del1', 'library', 'now'), ('web1', 'web', 'now');",
+    )
+    .await;
+    // ren1: the user added text to the end of the name.
+    let renamed = s.episode_path("Sería", "ren1").with_extension("");
+    let renamed = PathBuf::from(format!("{} - gamalt.mp4", renamed.display()));
+    mp4_with_comment(&renamed, None);
+    // tag1: tagged, in a folder the user moved; nothing in the database.
+    let moved = s
+        .dir
+        .path()
+        .join("downloads/shows/Sería (gamla möppan)/tag1.mp4");
+    mp4_with_comment(&moved, Some("ruvinfo:tag1:S"));
+
+    let report = s
+        .follows
+        .run(RunOptions {
+            refresh: false,
+            dry_run: true,
+        })
+        .await
+        .unwrap();
+    let scheduled: Vec<&str> = report.scheduled.iter().map(|e| e.pid.as_str()).collect();
+    assert_eq!(scheduled, ["web1"]);
+    assert_eq!(
+        report.skipped,
+        Skipped {
+            on_disk: 1,
+            name_match: 1,
+            recorded: 1,
+            in_queue: 0,
+        }
+    );
+
+    let runner = s.queue.spawn_runner();
+    let mut messages = Vec::new();
+    for pid in ["del1", "ren1", "tag1", "web1"] {
+        let job = s
+            .queue
+            .enqueue(pid, "", Mode::Library, Priority::Interactive, None)
+            .await
+            .unwrap();
+        let job = loop {
+            let job = s.queue.get(&job.id).await.unwrap().unwrap();
+            if job.state.is_finished() {
+                break job;
+            }
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        };
+        assert_eq!(job.state, State::Completed, "{pid}: {:?}", job.error);
+        messages.push((pid, job.message.unwrap(), job.final_path.unwrap()));
+    }
+    s.queue.shutdown(runner).await;
+    let downloaded = |pid| {
+        (
+            pid,
+            "Downloaded".to_string(),
+            s.episode_path("Sería", pid).to_string_lossy().into_owned(),
+        )
+    };
+    assert_eq!(
+        messages,
+        [
+            downloaded("del1"),
+            (
+                "ren1",
+                ALREADY_IN_LIBRARY.into(),
+                renamed.to_string_lossy().into_owned()
+            ),
+            (
+                "tag1",
+                ALREADY_IN_LIBRARY.into(),
+                moved.to_string_lossy().into_owned()
+            ),
+            downloaded("web1"),
+        ]
+    );
 }

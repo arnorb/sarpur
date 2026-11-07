@@ -76,6 +76,18 @@ CREATE TABLE follow_sids (
 );
 CREATE INDEX follow_sids_sid ON follow_sids (sid);
 "#,
+    r#"
+-- What the disk scan last read from each .mp4, so a warm scan only reads the
+-- tags of new or changed files. `pid`/`sid` are NULL for untagged files.
+CREATE TABLE scan_cache (
+    path  TEXT PRIMARY KEY,
+    size  INTEGER NOT NULL,
+    mtime INTEGER NOT NULL,
+    pid   TEXT,
+    sid   TEXT,
+    error TEXT
+);
+"#,
 ];
 
 #[derive(Debug, thiserror::Error)]

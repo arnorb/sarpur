@@ -695,6 +695,22 @@ impl Queue {
         job.final_path = Some(final_path.to_string_lossy().into_owned());
 
         if job.mode == Mode::Library {
+            // §3.3: an explicit library download checks only (a) and (b), so a
+            // browser download or a deleted file never blocks it.
+            let tagged = library::known_file(&self.inner.db, &job.pid)
+                .await
+                .map_err(|e| e.to_string())?;
+            if let Some(existing) = tagged {
+                tracing::info!(
+                    "{} is already in the library (tag): {}",
+                    job.pid,
+                    existing.display()
+                );
+                job.final_path = Some(existing.to_string_lossy().into_owned());
+                self.complete(job, ALREADY_IN_LIBRARY, &existing, &plan)
+                    .await;
+                return Ok(None);
+            }
             let expected = final_path.clone();
             let found = tokio::task::spawn_blocking(move || library::find_existing(&expected))
                 .await
@@ -850,7 +866,9 @@ impl Queue {
                             "INSERT INTO library (path, pid, size, mtime, source, verified_at)
                              VALUES (?1, ?2, ?3, ?4, ?5, ?6)
                              ON CONFLICT (path) DO UPDATE SET pid = excluded.pid, size = excluded.size,
-                                 mtime = excluded.mtime, source = excluded.source,
+                                 mtime = excluded.mtime,
+                                 source = CASE WHEN library.source = 'tag' THEN 'tag'
+                                     ELSE excluded.source END,
                                  verified_at = excluded.verified_at",
                             rusqlite::params![path_text, pid, size, mtime, source, now],
                         )?;

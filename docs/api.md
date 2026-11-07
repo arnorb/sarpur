@@ -21,6 +21,9 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 | `DELETE /api/follows/{id}/sids/{sid}` | Stops following one sid. It is remembered, so a run won't add it back. `{follow}` (`null` when that was the last sid and the follow is gone), or 404. |
 | `GET /api/follows/status` | The run status (below). |
 | `POST /api/follows/run` | Optional body `{dryRun?: false, refresh?: true}`. 202 and the run starts in the background; 409 while one is running. With the server's `--dry-run`, every run is a dry run. |
+| `GET /api/library/scan` | The library scan status (below). |
+| `POST /api/library/scan` | 202 and a scan starts in the background. Scans also run at startup and before each follow run. |
+| `POST /api/recorded/{pid}/forget` | "Allow re-download": follow runs stop skipping the pid for being recorded (a file still on disk is still skipped). Returns `{pid, origin, recordedAt, forgottenAt}`; 404 if the pid isn't recorded. |
 | `GET /api/events?client_id=` | Server-sent events. `event: job` (every job change, to everyone), `event: follows` (run status changes, to everyone) and `event: file_ready` (only to the `client_id` that queued the browser download; routing, not security). |
 
 ## Settings
@@ -40,10 +43,12 @@ JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_a
 
 A run refreshes the catalogue (incremental), adds sids whose strict title key and English flag match a follow, fetches followed sids that aren't in the catalogue, and queues a `scheduled` library job for each episode except those that are:
 
-- on disk: a `library` row for the pid whose file exists (`onDisk`);
+- on disk: a `library` row for the pid whose file exists, from the tag scan or a finished job (`onDisk`);
 - matched by name: a file with the expected name as a prefix (`nameMatch`);
 - recorded with origin `library` or `unknown` and not forgotten (`recorded`);
 - already queued or running (`inQueue`).
+
+An explicit Library download checks only the first two (a tagged file anywhere in the library, or a name match) and then completes as `Already in the library`. Being recorded never blocks it.
 
 If the refresh fails (RÚV down), the run ends as a `warning` and the next one tries again.
 
@@ -76,6 +81,17 @@ If the refresh fails (RÚV down), the run ends as a `warning` and the next one t
 ```
 
 `files` is only filled for browser (`web`) downloads. A library download that finds a matching file already on disk completes with the message `Already in the library` and runs no ffmpeg.
+
+## Library scan
+
+Walks the three category folders for `*.mp4` and reads each file's `©cmt` tag (`ruvinfo:{pid}:{sid}`). Tags are only read for new or changed files (cached by path, size and mtime). Tagged files get a `library` row with source `tag`; rows under a scanned folder whose file is gone are removed. A category folder that doesn't exist (an unmounted share) is skipped and keeps its rows.
+
+```json
+{
+  "running": false, "lastScanAt": "…", "roots": ["/media/TV Shows", "…"],
+  "files": 79, "tagged": 15, "read": 0, "removed": 0, "errors": 0, "elapsedMs": 70, "error": null
+}
+```
 
 ## SSE payloads
 

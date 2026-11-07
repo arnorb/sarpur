@@ -47,6 +47,17 @@ elif command == "names":
         title = item.get("series_title") or item["title"]
         emit({"pid": pid, "relative_path": f"{title}/Season 01/{title} - {pid}.mp4",
               "content_type": "show"})
+elif command == "plan":
+    item = next((i for i in data["items"] if i["pid"] == args[1]), None)
+    if item is None:
+        emit({"error": f"pid {args[1]} not found in the schedule"})
+        sys.exit(1)
+    title = item.get("series_title") or item["title"]
+    emit({"pid": item["pid"], "sid": item["sid"], "title": item["title"],
+          "relative_path": f"{title}/Season 01/{title} - {item['pid']}.mp4",
+          "content_type": "show", "playlist_url": "fake://ok", "audio_url": None,
+          "quality": "HD1080", "duration_seconds": 300,
+          "metadata": [["comment", f"ruvinfo:{item['pid']}:{item['sid']}"]], "subtitles": None})
 else:
     emit({"error": f"unknown command {command}"})
     sys.exit(2)

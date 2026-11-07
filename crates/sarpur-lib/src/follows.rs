@@ -17,6 +17,7 @@ use crate::catalogue::{Catalogue, CatalogueItem};
 use crate::db::{Db, DbError, rusqlite};
 use crate::jobs::{Event, JobError, Mode, Priority, Queue};
 use crate::library;
+use crate::scan::Scanner;
 use crate::settings;
 use crate::worker::{NameMode, WorkerClient};
 
@@ -283,6 +284,7 @@ pub struct Follows {
     worker: WorkerClient,
     catalogue: Arc<Catalogue>,
     queue: Queue,
+    scanner: Arc<Scanner>,
     data_dir: PathBuf,
     status: Mutex<RunStatus>,
     run_lock: tokio::sync::Mutex<()>,
@@ -335,6 +337,7 @@ impl Follows {
         worker: WorkerClient,
         catalogue: Arc<Catalogue>,
         queue: Queue,
+        scanner: Arc<Scanner>,
         data_dir: PathBuf,
     ) -> Follows {
         Follows {
@@ -342,6 +345,7 @@ impl Follows {
             worker,
             catalogue,
             queue,
+            scanner,
             data_dir,
             status: Mutex::new(RunStatus::default()),
             run_lock: tokio::sync::Mutex::new(()),
@@ -549,6 +553,13 @@ impl Follows {
         }
         if fetched {
             self.catalogue.load(&self.worker, false).await;
+        }
+
+        // (a) reads the library table, so bring it up to date first.
+        if let Err(e) = self.scanner.scan().await {
+            report
+                .warnings
+                .push(format!("The library scan failed: {e}"));
         }
 
         // Oldest first, so a show's episodes arrive in order.

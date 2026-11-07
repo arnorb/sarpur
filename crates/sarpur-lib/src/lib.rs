@@ -8,6 +8,7 @@ pub mod follows;
 pub mod jobs;
 pub mod library;
 pub mod media;
+pub mod scan;
 pub mod settings;
 pub mod worker;
 

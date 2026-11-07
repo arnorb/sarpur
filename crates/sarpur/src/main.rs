@@ -15,6 +15,7 @@ use sarpur_lib::config;
 use sarpur_lib::db::Db;
 use sarpur_lib::follows::Follows;
 use sarpur_lib::jobs::{Queue, QueueConfig, real_free_space};
+use sarpur_lib::scan::Scanner;
 use sarpur_lib::worker::WorkerClient;
 use tokio::sync::watch;
 
@@ -107,12 +108,22 @@ async fn main() -> anyhow::Result<()> {
         });
     }
 
+    // The library scan runs in the background, never blocking startup.
+    let scanner = Arc::new(Scanner::new(db.clone(), data_dir.clone()));
+    {
+        let scanner = scanner.clone();
+        tokio::spawn(async move {
+            let _ = scanner.scan().await;
+        });
+    }
+
     // Follow runs on the settings' interval while autoEnabled is on.
     let follows = Arc::new(Follows::new(
         db,
         worker.clone(),
         catalogue.clone(),
         queue.clone(),
+        scanner.clone(),
         data_dir.clone(),
     ));
     follows.spawn_scheduler(args.dry_run);
@@ -123,6 +134,7 @@ async fn main() -> anyhow::Result<()> {
         catalogue,
         worker,
         follows,
+        scanner,
         dry_run: args.dry_run,
         shutdown: shutdown_rx,
     });
