@@ -21,13 +21,13 @@ Last updated: 2026-11-07.
 | **S1** steps 1–6: fix the Python app | Done | `ruvsarpur` tag `v-s1`. A follow-up fix (ffmpeg writes `.part`, renamed on success) is in `212bf1c`. |
 | **S1** step 7: deploy to the NAS | Done | Both TrueNAS apps redeployed with the new images on 2026-11-07. No PyInstaller build (decision below). |
 | **S2.0** spikes 1–4, 6 | Done | `spikes/README.md` and each spike's `RESULTS.md` |
-| **S2.0** spike 5: ffmpeg on Windows | Mostly done | Passes on a GitHub Windows runner. Waiting on the Windows user's PC for Defender/SmartScreen (`spikes/windows/README.md`). |
+| **S2.0** spike 5: ffmpeg on Windows | Deferred | Passes on a GitHub Windows runner. The Defender/SmartScreen check on the Windows user's PC waits for the Windows add-on (decision below). |
 | **S2.0** spike 7: TrueNAS permissions | Partly | Library files are `568:568`, mode `770` from the dataset ACL. Still to check: `.part` then rename from a container running as 568. |
-| **S2.0** spike 8: end to end | Mac half done | Through the slice 1 server on macOS (`spikes/README.md` row 8). NAS and Windows halves still open. |
+| **S2.0** spike 8: end to end | Mac half done | Through the slice 1 server on macOS (`spikes/README.md` row 8). NAS half at cutover; Windows half deferred. |
 | **S2.1** slice 1: core download path | Done | Merged to `main` (`5c8462e`). Details below. |
 | **S2.1** slice 2: follows, scheduler, tag scan, posters/subtitles, Plex, poster proxy, import | Done | Merged to `main`. Criteria 6, 7 and 14 are tests; 11, 12 and 13 have their local halves (below). See "Slice 2 progress". |
 | **S2.1** slice 3: UI port | Next | |
-| **S2.1** slice 4: packaging (Docker, Windows zip) | Open | |
+| **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Open | |
 | **S2.2** cutover on the NAS | Open | Simpler now: the NAS can be replaced outright (decision below). |
 | **S3** port the worker to Rust | Open | |
 
@@ -44,6 +44,7 @@ Last updated: 2026-11-07.
 - **2026-11-07, slice 2 extras and Plex:** Plex is refreshed once the queue goes idle after library downloads, not after each one (the old app refreshed after each automatic run). The poster proxy answers 502 instead of 400 when RÚV fails and nothing is cached; 400 stays for URLs outside the allowlist. Artwork keeps ruvsarpur's `.jpg` names even though RÚV now serves WebP (Plex reads both). Subtitle or artwork failures never fail a job.
 - **2026-11-07, HTTP client:** `reqwest` 0.13 with `rustls`, which uses `aws-lc-rs`. That needs a C compiler at build time; check it in the slice 4 Docker and Windows builds (fallback: `rustls-no-provider` with `ring`).
 - **2026-11-07, NAS replaced outright (owner):** the NAS hasn't really been running ruvsarpur, so it can be taken down and replaced by sarpur as soon as sarpur can run there (the Docker image, slice 4) — no import or side-by-side period. Criterion 11 becomes a dry run on the fresh NAS install; the import is mainly for the Windows user.
+- **2026-11-07, Windows is a later add-on (owner):** Windows work doesn't block anything. Deferred: spike 5's PC check, the Windows zip and console/Job Object work (§3.8), the Windows-only sanitising and long paths, criterion 15, and criterion 13 with the Windows user's real data. The code stays portable and the CI smoke test stays, but the path to "done" is Mac for development and the NAS for production.
 - **2026-11-07, slice 2 import and log:** pids from automatic runs import as `unknown`, because the old log only recorded sids for them (`unknown` still blocks follow re-downloads, like `library`). The import never overwrites a `recorded` row. sarpur writes the same `download-events.log` as ruvsarpur, in the same shape, so a reused data folder keeps one history.
 - **2026-11-07, permissions (spike 7):** run as 568 and let the dataset ACL decide modes; criterion 16's "mode 664" follows the dataset instead.
 
@@ -68,7 +69,7 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 - **Part 3, tag scan and the full §3.3 rule (done):** `sarpur-lib::scan` reads `©cmt` with `mp4ameta` 0.13 from the three category folders, caches results in `scan_cache` (migration 3) and keeps `library` rows with source `tag` in step. It runs in the background at startup, before each follow run and from `POST /api/library/scan`. Explicit Library downloads now also check (a). "Allow re-download" is `POST /api/recorded/{pid}/forget`. Criterion 6 is a test (`follows::tests::criterion_6_library_rule`) with a real tagged MP4 in a moved folder. Criterion 12, locally: 1,500 tagged files scanned in 224 ms cold and 33 ms warm (debug build); still to be timed on the NAS.
 - **Part 4, posters, subtitles, Plex, poster proxy (done):** `subtitles` (VTT → SRT, ported from R:382), `extras` (subtitles in both modes, artwork for the library, as ruvsarpur names them), `plex` (refresh with `X-Plex-Token` as a header), `posters` (the proxy: allowlist, 24 h cache, stale on failure). The worker's `plan` gained `images`; jobs gained `subtitleLanguages` (migration 4). Criterion 14: `fixtures/subtitles/` holds VTT edge cases with the SRT ruvsarpur writes, checked by `worker/test_subtitles.py` and `subtitles::tests` (byte for byte); `plex::tests::sends_the_token_as_a_header` (mock server); the API test gets 400 for hosts outside the allowlist. Checked live: a RÚV poster through the proxy.
 - **Part 5, import and the event log (done):** `import` (preview with the path mapping, apply, report) and `eventlog` (ruvsarpur's `download-events.log` format and rotation; queue, follow-run, Plex and import events). Criterion 13 is tested on the NAS's real `gui-settings.json` (redacted) and a Windows portable folder built from the old formats (`testdata/import/`). Checked live with the real worker.
-- **Still open from slice 2's criteria, needing the machines:** 12 on the NAS (cold under 60 s, warm under 5 s; spike 4 suggests about 10 s and 0.1 s); 13 with the Windows user's real folder; 11 as a dry run on the NAS after cutover (see the NAS decision).
+- **Still open from slice 2's criteria, needing the NAS:** 12 (cold under 60 s, warm under 5 s; spike 4 suggests about 10 s and 0.1 s) and 11 as a dry run on the fresh install. 13's Windows half waits for the Windows add-on.
 
 ### Slice 2 scope
 
