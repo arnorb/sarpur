@@ -2,6 +2,8 @@
 //! Python worker for RÚV access and naming, and ffmpeg for the video.
 
 mod api;
+mod auth;
+mod web;
 
 use std::net::{IpAddr, SocketAddr};
 use std::path::PathBuf;
@@ -145,6 +147,7 @@ async fn main() -> anyhow::Result<()> {
             queue.http().clone(),
         )),
         log,
+        auth: auth::Auth::from_env(&data_dir).context("setting up SARPUR_PASSWORD")?,
         dry_run: args.dry_run,
         shutdown: shutdown_rx,
     });

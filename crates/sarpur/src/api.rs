@@ -5,6 +5,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 use axum::body::Body;
+use axum::extract::FromRef;
 use axum::extract::{Path, Query, State};
 use axum::http::{StatusCode, header};
 use axum::response::sse::{Event as SseEvent, KeepAlive, Sse};
@@ -12,6 +13,11 @@ use axum::response::{IntoResponse, Response};
 use axum::routing::{delete, get, post};
 use axum::{Json, Router};
 use sarpur_lib::catalogue::Catalogue;
+use tower_http::compression::predicate::{NotForContentType, Predicate};
+use tower_http::compression::{CompressionLayer, DefaultPredicate};
+
+use crate::auth::{self, Auth};
+use crate::web;
 use sarpur_lib::eventlog::EventLog;
 use sarpur_lib::follows::{self, FollowError, Follows, RunOptions};
 use sarpur_lib::import::{self, ImportError};
@@ -21,7 +27,7 @@ use sarpur_lib::posters::{PosterCache, PosterError};
 use sarpur_lib::scan::Scanner;
 use sarpur_lib::settings;
 use sarpur_lib::worker::WorkerClient;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use tokio::sync::watch;
 use tokio_stream::StreamExt;
@@ -36,15 +42,29 @@ pub struct AppState {
     pub scanner: Arc<Scanner>,
     pub posters: Arc<PosterCache>,
     pub log: EventLog,
+    pub auth: Arc<Auth>,
     pub dry_run: bool,
     /// Flips to true on shutdown, which ends the SSE streams.
     pub shutdown: watch::Receiver<bool>,
 }
 
+impl FromRef<AppState> for Arc<Auth> {
+    fn from_ref(state: &AppState) -> Arc<Auth> {
+        state.auth.clone()
+    }
+}
+
 pub fn router(state: AppState) -> Router {
+    // gzip for JSON and the UI (the full show list is several MB), but not
+    // for SSE, images or videos.
+    let compress = DefaultPredicate::new().and(NotForContentType::const_new("video/"));
     Router::new()
+        .route("/api/session", get(auth::session))
+        .route("/api/login", post(auth::login))
+        .route("/api/logout", post(auth::logout))
         .route("/api/health", get(health))
         .route("/api/settings", get(get_settings).post(post_settings))
+        .route("/api/shows", get(list_shows))
         .route("/api/catalogue", get(search_catalogue))
         .route("/api/catalogue/status", get(catalogue_status))
         .route("/api/catalogue/refresh", post(refresh_catalogue))
@@ -68,6 +88,12 @@ pub fn router(state: AppState) -> Router {
         .route("/api/import/apply", post(import_apply))
         .route("/api/import/report", get(import_report))
         .route("/api/events", get(events))
+        .fallback(web::serve)
+        .layer(axum::middleware::from_fn_with_state(
+            state.auth.clone(),
+            auth::middleware,
+        ))
+        .layer(CompressionLayer::new().compress_when(compress))
         .with_state(state)
 }
 
@@ -153,6 +179,62 @@ async fn search_catalogue(
         "items": s.catalogue.search(&query.q, limit),
         "status": s.catalogue.status(),
     }))
+}
+
+#[derive(Deserialize)]
+struct ShowsQuery {
+    #[serde(default, alias = "query")]
+    q: String,
+}
+
+/// A catalogue item as the UI shows it.
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct Show {
+    #[serde(flatten)]
+    item: sarpur_lib::catalogue::CatalogueItem,
+    is_followed: bool,
+    /// `library`, `recorded` or `null` (see `library::download_states`).
+    download_state: Option<&'static str>,
+}
+
+/// Every episode (the UI groups, filters and sorts them itself), or with `q`
+/// those matching ruvsarpur's fuzzy search.
+async fn list_shows(
+    State(s): State<AppState>,
+    Query(query): Query<ShowsQuery>,
+) -> ApiResult<Json<Value>> {
+    let q = query.q.trim();
+    let items: Vec<_> = if q.is_empty() {
+        s.catalogue.all().iter().cloned().collect()
+    } else {
+        let pids = s
+            .worker
+            .search(q)
+            .await
+            .map_err(|e| ApiError(StatusCode::BAD_GATEWAY, format!("search failed: {e}")))?;
+        s.catalogue.items_for_pids(&pids)
+    };
+    let followed: std::collections::HashSet<String> = follows::list(s.queue.db())
+        .await
+        .map_err(internal)?
+        .into_iter()
+        .flat_map(|f| f.sids.into_iter().map(|sid| sid.sid))
+        .collect();
+    let states = library::download_states(s.queue.db())
+        .await
+        .map_err(internal)?;
+    let shows: Vec<Show> = items
+        .into_iter()
+        .map(|item| Show {
+            is_followed: followed.contains(&item.sid),
+            download_state: states.get(&item.pid).copied(),
+            item,
+        })
+        .collect();
+    Ok(Json(
+        json!({ "shows": shows, "status": s.catalogue.status() }),
+    ))
 }
 
 async fn catalogue_status(State(s): State<AppState>) -> Json<Value> {
@@ -593,6 +675,7 @@ mod tests {
                 queue.http().clone(),
             )),
             log: EventLog::new(dir.path()),
+            auth: Auth::open(),
             dry_run: false,
             shutdown,
         });
@@ -787,6 +870,7 @@ mod tests {
                 queue.http().clone(),
             )),
             log: EventLog::new(dir.path()),
+            auth: Auth::open(),
             dry_run: false,
             shutdown,
         });
@@ -908,6 +992,7 @@ mod tests {
                 queue.http().clone(),
             )),
             log: EventLog::new(dir.path()),
+            auth: Auth::open(),
             dry_run: false,
             shutdown,
         });
@@ -1131,5 +1216,120 @@ mod tests {
         )
         .await;
         assert_eq!(status, StatusCode::OK);
+    }
+
+    /// Criterion 9: with SARPUR_PASSWORD set, the API needs the cookie.
+    #[tokio::test]
+    async fn password_protects_the_api() {
+        let dir = tempfile::tempdir().unwrap();
+        let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
+        let worker = WorkerClient::new(
+            sarpur_lib::config::python(),
+            testdata().join("fake_worker.py"),
+            dir.path(),
+        );
+        let queue = Queue::new(
+            db.clone(),
+            worker.clone(),
+            QueueConfig {
+                data_dir: dir.path().to_path_buf(),
+                ffmpeg: "ffmpeg".into(),
+                dry_run: false,
+                stop_grace: Duration::from_secs(1),
+                free_space: Arc::new(|_| Ok(u64::MAX)),
+            },
+        );
+        let catalogue = Arc::new(Catalogue::new());
+        catalogue.load(&worker, false).await;
+        let scanner = Arc::new(Scanner::new(db.clone(), dir.path().to_path_buf()));
+        let follows = Arc::new(Follows::new(
+            db,
+            worker.clone(),
+            catalogue.clone(),
+            queue.clone(),
+            scanner.clone(),
+            dir.path().to_path_buf(),
+        ));
+        let (_shutdown_tx, shutdown) = watch::channel(false);
+        let app = router(AppState {
+            queue: queue.clone(),
+            catalogue,
+            worker,
+            follows,
+            scanner,
+            posters: Arc::new(PosterCache::new(
+                dir.path().join("poster-cache"),
+                queue.http().clone(),
+            )),
+            log: EventLog::new(dir.path()),
+            auth: Auth::with_password(Some("lykilorð".into()), dir.path()).unwrap(),
+            dry_run: false,
+            shutdown,
+        });
+        let get = |uri: &str, cookie: Option<&str>| {
+            let mut req = Request::get(uri);
+            if let Some(cookie) = cookie {
+                req = req.header("cookie", cookie);
+            }
+            req.body(Body::empty()).unwrap()
+        };
+        let login = |password: &str| {
+            Request::post("/api/login")
+                .header("content-type", "application/json")
+                .body(Body::from(json!({ "password": password }).to_string()))
+                .unwrap()
+        };
+
+        for uri in ["/api/jobs", "/api/shows", "/api/settings", "/api/events"] {
+            let (status, _) = call(&app, get(uri, None)).await;
+            assert_eq!(status, StatusCode::UNAUTHORIZED, "{uri}");
+        }
+        let (status, _) = call(&app, get("/api/health", None)).await;
+        assert_eq!(status, StatusCode::OK);
+        let (_, res) = call(&app, get("/api/session", None)).await;
+        assert_eq!(
+            json_body(res).await,
+            json!({"required": true, "authenticated": false})
+        );
+        // The UI itself is public, so it can show the login form.
+        let (status, _) = call(&app, get("/title/123", None)).await;
+        assert_eq!(status, StatusCode::OK);
+        let (status, _) = call(&app, get("/api/nope", None)).await;
+        assert_eq!(status, StatusCode::UNAUTHORIZED);
+
+        let (status, _) = call(&app, login("rangt")).await;
+        assert_eq!(status, StatusCode::UNAUTHORIZED);
+        let (status, res) = call(&app, login("lykilorð")).await;
+        assert_eq!(status, StatusCode::OK);
+        let set_cookie = res.headers()["set-cookie"].to_str().unwrap().to_string();
+        assert!(set_cookie.contains("HttpOnly"), "{set_cookie}");
+        let cookie = set_cookie.split(';').next().unwrap().to_string();
+
+        let (status, res) = call(&app, get("/api/shows", Some(&cookie))).await;
+        assert_eq!(status, StatusCode::OK);
+        let shows = json_body(res).await;
+        assert_eq!(shows["shows"].as_array().unwrap().len(), 2);
+        let show = &shows["shows"][0];
+        assert_eq!(show["isFollowed"], false);
+        assert!(show["downloadState"].is_null());
+        assert!(
+            show["webUrl"]
+                .as_str()
+                .unwrap()
+                .starts_with("https://www.ruv.is/")
+        );
+        let (_, res) = call(&app, get("/api/session", Some(&cookie))).await;
+        assert_eq!(json_body(res).await["authenticated"], true);
+        let (status, _) = call(&app, get("/api/nope", Some(&cookie))).await;
+        assert_eq!(status, StatusCode::NOT_FOUND);
+
+        // Large JSON is gzipped when the client accepts it.
+        let req = Request::get("/api/shows")
+            .header("cookie", &cookie)
+            .header("accept-encoding", "gzip")
+            .body(Body::empty())
+            .unwrap();
+        let (_, res) = call(&app, req).await;
+        assert_eq!(res.headers()["content-encoding"], "gzip");
     }
 }

@@ -26,7 +26,7 @@ Last updated: 2026-11-07.
 | **S2.0** spike 8: end to end | Mac half done | Through the slice 1 server on macOS (`spikes/README.md` row 8). NAS half at cutover; Windows half deferred. |
 | **S2.1** slice 1: core download path | Done | Merged to `main` (`5c8462e`). Details below. |
 | **S2.1** slice 2: follows, scheduler, tag scan, posters/subtitles, Plex, poster proxy, import | Done | Merged to `main`. Criteria 6, 7 and 14 are tests; 11, 12 and 13 have their local halves (below). See "Slice 2 progress". |
-| **S2.1** slice 3: UI port | Next | |
+| **S2.1** slice 3: UI port | In progress | Branch `s2.1-slice3`. Scope below. |
 | **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Open | |
 | **S2.2** cutover on the NAS | Open | Simpler now: the NAS can be replaced outright (decision below). |
 | **S3** port the worker to Rust | Open | |
@@ -61,6 +61,17 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 - **Browser downloads:** `<data>/web/<job>/<name>`, served at `/api/jobs/{id}/files/{name}`, swept after 24 h (at startup and hourly).
 - **Catalogue:** kept in memory, loaded from the worker at startup (in the background) and after `POST /api/catalogue/refresh`; substring search.
 - **API:** see `docs/api.md`. SSE job updates go to everyone; `file_ready` goes only to the matching `client_id`.
+
+### Slice 3 scope
+
+The S1 UI (`ruvsarpur/frontend/src/App.tsx`, one 2,000-line file) ported to `web/` (React + Vite + TypeScript + Tailwind, as before), split into modules with a typed API client, and served from the binary.
+
+1. **Server side for the UI:** `GET /api/shows` with the fields the S1 UI shows (display title, descriptions, first aired, expiry, RÚV link, categories, followed and downloaded flags) and ruvsarpur's fuzzy search (`fuzz.partial_ratio > 85`, done by a new worker `search` command until S3 ports it); the UI built into the binary (`rust-embed`) with a fallback to `index.html` for client routes; `SARPUR_PASSWORD` with a session cookie (criterion 9); the RÚV-error banner's data.
+2. **The port:** browse (poster and list views, filters, sort, paging), the series page with episodes, the download dialog (subtitles, browser folder), and the queue, on SSE instead of polling.
+3. **What's new in the UI:** the Following list (auto-added sids with a remove button), "Allow re-download", a per-browser main action (Download or Library), settings with the import (preview, mapping, report), Plex refresh and library scan, and the banners.
+4. **Criterion 17:** Playwright for posters, the download dialog and Follow by keyboard, Escape closing dialogs, no horizontal scroll at 320 px, and text contrast of at least 4.5:1.
+
+The update banner needs published releases, so it waits for slice 4 (packaging).
 
 ### Slice 2 progress
 

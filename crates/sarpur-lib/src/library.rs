@@ -84,6 +84,30 @@ pub async fn known_file(db: &Db, pid: &str) -> Result<Option<PathBuf>, DbError> 
     .await?)
 }
 
+/// What the UI shows per episode: `library` when a file for the pid is known
+/// in the library (from its tag or a finished job), `recorded` when it was
+/// downloaded for the library before (or by the old app) but no file is
+/// known, so follow runs skip it until "Allow re-download".
+pub async fn download_states(
+    db: &Db,
+) -> Result<std::collections::HashMap<String, &'static str>, DbError> {
+    db.call(|c| {
+        let mut states = std::collections::HashMap::new();
+        let mut stmt = c.prepare(
+            "SELECT pid FROM recorded WHERE origin IN ('library', 'unknown') AND forgotten_at IS NULL",
+        )?;
+        for pid in stmt.query_map([], |r| r.get::<_, String>(0))? {
+            states.insert(pid?, "recorded");
+        }
+        let mut stmt = c.prepare("SELECT DISTINCT pid FROM library")?;
+        for pid in stmt.query_map([], |r| r.get::<_, String>(0))? {
+            states.insert(pid?, "library");
+        }
+        Ok(states)
+    })
+    .await
+}
+
 /// What `recorded` says about a pid.
 #[derive(Debug, Clone, serde::Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]

@@ -151,6 +151,27 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(saved["zz9"]["title"], "Nýtt")
         self.assertIn("akoha1", saved)
 
+    def test_catalogue_lines_carry_the_display_title(self):
+        code, lines, _ = self.run_worker("catalogue", "--portable")
+        self.assertEqual(code, 0)
+        by_pid = {line["pid"]: line for line in lines}
+        self.assertEqual(len(by_pid), len([k for k in self.schedule if k != "date"]))
+        item = self.schedule["akoha1"]
+        self.assertEqual(by_pid["akoha1"]["display_title"], ruvsarpur.createShowTitle(item, False))
+        self.assertEqual(by_pid["akoha1"]["title"], item["title"])
+
+    def test_search_is_ruvsarpurs_fuzzy_find(self):
+        code, lines, _ = self.run_worker("search", "sera brown", "--portable")
+        self.assertEqual(code, 0)
+        pids = {line["pid"] for line in lines}
+        self.assertIn("akoha1", pids)
+        expected = {i["pid"] for i in ruvsarpur.searchForItemsInTvSchedule(
+            sarpur_worker.argparse.Namespace(sid=None, pid=None, find="sera brown", originaltitle=False,
+                                             new=False, includeenglishsubs=True), self.schedule)}
+        self.assertEqual(pids, expected)
+        code, lines, _ = self.run_worker("search", "zzzqqqxxx", "--portable")
+        self.assertEqual((code, lines), (0, []))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -225,6 +225,16 @@ impl WorkerClient {
         Ok(names)
     }
 
+    /// ruvsarpur's fuzzy search over the saved schedule: the matching pids.
+    pub async fn search(&self, query: &str) -> Result<Vec<String>, WorkerError> {
+        Ok(self
+            .run(&["search", query], QUICK_TIMEOUT)
+            .await?
+            .iter()
+            .filter_map(|v| v.get("pid").and_then(Value::as_str).map(str::to_string))
+            .collect())
+    }
+
     /// All episodes of one series from RÚV, merged into the saved schedule so
     /// `plan` can find them.
     pub async fn series(&self, sid: &str) -> Result<Vec<Value>, WorkerError> {

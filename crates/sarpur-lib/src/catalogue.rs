@@ -16,6 +16,8 @@ pub struct CatalogueItem {
     pub pid: String,
     pub sid: String,
     pub title: String,
+    /// The title ruvsarpur shows (`createShowTitle`), e.g. `Séra Brown s01e01`.
+    pub display_title: String,
     pub series_title: String,
     pub showtime: String,
     pub duration: Option<u64>,
@@ -25,6 +27,16 @@ pub struct CatalogueItem {
     pub poster_url: Option<String>,
     /// The subtitle tracks' names, lowercased and sorted.
     pub subtitle_languages: Vec<String>,
+    pub episode_description: Option<String>,
+    pub series_description: Option<String>,
+    /// RÚV's own duration text (`duration_friendly`).
+    pub duration_label: Option<String>,
+    /// When the episode first aired (`episode.firstrun`, else the showtime).
+    pub first_appeared_at: Option<String>,
+    /// When RÚV takes it down; `None` when it doesn't say (or says 9999).
+    pub expires_at: Option<String>,
+    pub web_url: String,
+    pub categories: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Default)]
@@ -48,6 +60,15 @@ pub struct SeriesInfo {
 pub struct Catalogue {
     items: RwLock<Arc<Vec<CatalogueItem>>>,
     status: Mutex<CatalogueStatus>,
+}
+
+fn opt_text(value: &Value, key: &str) -> Option<String> {
+    value
+        .get(key)
+        .and_then(Value::as_str)
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string)
 }
 
 fn text(value: &Value, key: &str) -> String {
@@ -107,10 +128,52 @@ impl CatalogueItem {
             .unwrap_or_default();
         subtitle_languages.sort();
         subtitle_languages.dedup();
+        // Same fields as gui_api's /api/shows.
+        let episode = value.get("episode").filter(|e| e.is_object());
+        let expires_at = episode
+            .and_then(|e| {
+                e.pointer("/files/vodmp4/expires")
+                    .and_then(Value::as_str)
+                    .filter(|s| !s.trim().is_empty())
+                    .or_else(|| e.get("file_expires").and_then(Value::as_str))
+            })
+            .map(str::trim)
+            .filter(|s| !s.is_empty() && !s.starts_with("9999-"))
+            .map(str::to_string);
+        let first_appeared_at = episode
+            .and_then(|e| opt_text(e, "firstrun"))
+            .or_else(|| opt_text(value, "showtime"));
+        let slug = text(value, "slug");
+        let web_url = if slug.trim().is_empty() {
+            "https://www.ruv.is/sjonvarp".to_string()
+        } else {
+            format!("https://www.ruv.is/sjonvarp/spila/{}/{pid}", slug.trim())
+        };
+        let categories = value
+            .get("categories")
+            .and_then(Value::as_array)
+            .map(|c| {
+                c.iter()
+                    .filter_map(Value::as_str)
+                    .filter(|s| !s.is_empty())
+                    .map(str::to_string)
+                    .collect()
+            })
+            .unwrap_or_default();
+        let title = text(value, "title");
         Some(CatalogueItem {
+            display_title: opt_text(value, "display_title").unwrap_or_else(|| title.clone()),
+            episode_description: opt_text(value, "desc"),
+            series_description: opt_text(value, "series_sdesc")
+                .or_else(|| opt_text(value, "series_desc")),
+            duration_label: opt_text(value, "duration_friendly"),
+            first_appeared_at,
+            expires_at,
+            web_url,
+            categories,
             pid,
             sid: text(value, "sid"),
-            title: text(value, "title"),
+            title,
             series_title: text(value, "series_title"),
             showtime: text(value, "showtime"),
             duration,
@@ -169,6 +232,21 @@ impl Catalogue {
         items
             .iter()
             .filter(|i| sids.contains(&i.sid))
+            .cloned()
+            .collect()
+    }
+
+    /// Every item, newest first.
+    pub fn all(&self) -> Arc<Vec<CatalogueItem>> {
+        self.items.read().unwrap().clone()
+    }
+
+    /// The items for these pids, newest first (unknown pids are skipped).
+    pub fn items_for_pids(&self, pids: &[String]) -> Vec<CatalogueItem> {
+        let wanted: HashSet<&str> = pids.iter().map(String::as_str).collect();
+        self.all()
+            .iter()
+            .filter(|i| wanted.contains(i.pid.as_str()))
             .cloned()
             .collect()
     }

@@ -1,13 +1,21 @@
-# sarpur HTTP API (S2.1 slices 1–2)
+# sarpur HTTP API (S2.1 slices 1–3)
 
-JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_api.py`. Errors come back as `{"error": "..."}` with a 4xx or 5xx status.
+JSON over HTTP under `/api`. Field names are camelCase, as in ruvsarpur's `gui_api.py`. Errors come back as `{"error": "..."}` with a 4xx or 5xx status. Responses are gzipped when the client accepts it (except SSE, images and video).
+
+Everything outside `/api` is the UI, embedded in the binary from `web/dist`; paths that aren't files get `index.html`.
+
+**Password.** With `SARPUR_PASSWORD` set, every `/api` route except `health`, `session`, `login` and `logout` needs the `sarpur_session` cookie, else 401. The cookie is signed with the password and a secret in `<data>/session-secret`, so it survives restarts and changing the password ends every session.
 
 | Method and path | What it does |
 | --- | --- |
 | `GET /api/health` | `{ok, version, dryRun, catalogue: <status>}` |
+| `GET /api/session` | `{required, authenticated}`. |
+| `POST /api/login` | Body `{password}`. Sets the session cookie (90 days); 401 for a wrong password. |
+| `POST /api/logout` | Clears the cookie. |
 | `GET /api/settings` | The settings (below). |
 | `POST /api/settings` | Applies the known keys of the JSON body and returns the settings. Unknown keys, including `watchlistSids`, are ignored. A known key with the wrong type is a 400. |
-| `GET /api/catalogue?q=&limit=` | `{items, status}`. Case-insensitive substring search over `title` and `seriesTitle`, newest first. `limit` defaults to 100 (max 1000). Each item: `pid, sid, title, seriesTitle, showtime, duration, contentType, englishSubtitled, posterUrl, subtitleLanguages`. `posterUrl` is `/api/poster?url=…` for the first of the portrait, series and episode image (`null` if none or not allowed). |
+| `GET /api/shows?q=` | `{shows, status}`. Every episode in the catalogue (the UI groups, filters and sorts them), or with `q` those matching ruvsarpur's fuzzy search (`fuzz.partial_ratio > 85` on the titles, run by the worker). Each show is a catalogue item (below) plus `isFollowed` and `downloadState`: `library` (a file is known in the library), `recorded` (downloaded before but no file known; "Allow re-download" clears it) or `null`. |
+| `GET /api/catalogue?q=&limit=` | `{items, status}`. Case-insensitive substring search over `title` and `seriesTitle`, newest first. `limit` defaults to 100 (max 1000). Each item: `pid, sid, title, displayTitle, seriesTitle, showtime, duration, durationLabel, contentType, englishSubtitled, posterUrl, subtitleLanguages, episodeDescription, seriesDescription, firstAppearedAt, expiresAt, webUrl, categories`. `displayTitle` is ruvsarpur's `createShowTitle`. `posterUrl` is `/api/poster?url=…` for the first of the portrait, series and episode image (`null` if none or not allowed). |
 | `GET /api/catalogue/status` | `{state, count, loadedAt, error}`; `state` is `empty`, `loading`, `refreshing`, `ready` or `failed`. |
 | `POST /api/catalogue/refresh` | 202. Fetches the catalogue from RÚV in the background (takes minutes), then reloads it. |
 | `POST /api/downloads` | Body `{pid, mode: "web" \| "library", clientId?, subtitleLanguages?}` (`client_id` also accepted). `subtitleLanguages` limits the subtitle tracks (absent: all; `["none"]`: none). 201 with the new job. |

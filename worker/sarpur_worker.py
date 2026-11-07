@@ -133,7 +133,27 @@ def cmd_catalogue(args: argparse.Namespace, out: TextIO) -> None:
         if len(imdb_cache) > 0:
             ruvsarpur.saveImdbCache(imdb_cache, imdb_cache_file)
     for item in _items(schedule):
-        _emit(out, item)
+        _emit(out, _with_display_title(item))
+
+
+def _with_display_title(item: Dict[str, Any]) -> Dict[str, Any]:
+    """The item plus the title ruvsarpur shows for it (`createShowTitle`)."""
+    try:
+        display_title = ruvsarpur.createShowTitle(item, False)
+    except Exception:  # noqa: BLE001 - an odd item keeps its plain title
+        display_title = item.get("title")
+    return {**item, "display_title": display_title}
+
+
+def cmd_search(args: argparse.Namespace, out: TextIO) -> None:
+    """ruvsarpur's own search (`searchForItemsInTvSchedule` with --find, as
+    the S1 GUI used it): `fuzz.partial_ratio > 85` on the titles. One
+    `{"pid"}` line per match."""
+    schedule = _load_schedule(args.portable) or {}
+    search_args = argparse.Namespace(sid=None, pid=None, find=args.query, originaltitle=False,
+                                     new=False, includeenglishsubs=True)
+    for item in ruvsarpur.searchForItemsInTvSchedule(search_args, schedule):
+        _emit(out, {"pid": item["pid"]})
 
 
 def cmd_series(args: argparse.Namespace, out: TextIO) -> None:
@@ -290,6 +310,7 @@ COMMANDS: Dict[str, Callable[[argparse.Namespace, TextIO], None]] = {
     "plan": cmd_plan,
     "name": cmd_name,
     "names": cmd_names,
+    "search": cmd_search,
     "imdb": cmd_imdb,
 }
 
@@ -330,6 +351,9 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("names", parents=[common])
     p.add_argument("pids", nargs="+")
     p.add_argument("--mode", choices=["web", "plex"], required=True)
+
+    p = sub.add_parser("search", parents=[common])
+    p.add_argument("query")
 
     p = sub.add_parser("imdb", parents=[common])
     p.add_argument("sid")
