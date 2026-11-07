@@ -15,5 +15,5 @@ Each spike checks a risky part of the plan before S2 is built. Status as of 2026
 
 ## Live bugs found by spike 2 (in the running ruvsarpur app)
 
-- **`getProgramType` no longer works.** RÚV answers the persisted-query hash in `runMain` (and the worker's `resolve`) with `PersistedQueryNotFound`. Any episode whose `file` isn't already a full `ruv-vod.akamaized.net` URL can't be downloaded. In the pinned schedule, some `file` values are bare names like `5496770V0.mp4`.
+- **`getProgramType` no longer works.** RÚV answers the persisted-query hash in `runMain` (and the worker's `resolve`) with `PersistedQueryNotFound`. Only episodes whose top-level `file` isn't a full `ruv-vod.akamaized.net` URL reach that lookup. In the 2026-11-07 catalogue that's 4 of 8,423 items, all radio (`ruv-radio…/*.mp3`), which the video pipeline doesn't handle anyway; every TV episode has a full URL. Not fixed (2026-11-07): no TV download is affected. S2's `resolve` should drop the GraphQL fallback, or fail with a clear message, rather than port a dead lookup.
 - **`is_docu` is always false.** RÚV's documentary category slug is now `heimildarefni`, but the code checks for `heimildarmyndir`. Documentaries are named and filed as TV shows, not movies.
