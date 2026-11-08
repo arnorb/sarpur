@@ -30,6 +30,7 @@ COPY worker/requirements.txt /tmp/requirements.txt
 RUN python3 -m venv /opt/venv \
     && /opt/venv/bin/pip install --no-cache-dir -r /tmp/requirements.txt \
     && rm /tmp/requirements.txt
+COPY LICENSE /app/LICENSE
 COPY worker/*.py /app/worker/
 COPY --from=server /sarpur /app/sarpur
 
