@@ -38,5 +38,6 @@ jobs:
         run: python -m unittest discover -s worker -p "test_*.py"
       - name: Record/replay tests
         run: python -m unittest discover -s tools/record
+      # The manifest also records the Python patch version, which may differ.
       - name: Golden files unchanged
-        run: python tools/golden/generate.py && git diff --exit-code golden/
+        run: python tools/golden/generate.py && git diff --exit-code golden/names.jsonl golden/imdb.jsonl
