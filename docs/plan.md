@@ -66,6 +66,7 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 
 ### After cutover
 
+- **2026-11-08, `v0.1.2`: two upstream PRs from sverrirs/ruvsarpur in the worker.** #41 (axelpaul) also reads RÚV's category feed, which lists programmes the featured feed leaves out: the catalogue went from 8,424 to 17,786 episodes (1,063 more series ids, nothing lost), and a full refresh from about 3 to about 16 minutes (the limit is 30). A newly found episode downloaded normally. Follow runs can now auto-add older seasons of a followed show. #38 (karirafn) replaces the deprecated `utcnow()`. #43/#44 (current HLS playlists) were already in our worker; #44's exact-match search would break partial searches in the UI, so it isn't used.
 - **2026-11-08, `v0.1.1`:** fixes from a full UI review (accessibility, usability, layout, writing, typography, colour, polish): the queue no longer covers the page, Settings keeps unsaved changes and shows its results, the interval field, focus handling, Icelandic titles wrap, Undo for unfollowing, clearer errors. Four new Playwright tests.
 
 ### Cutover (S2.2, 2026-11-08)
