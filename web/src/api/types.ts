@@ -126,6 +126,15 @@ export type Health = {
   version: string;
   dryRun: boolean;
   catalogue: CatalogueStatus;
+  update: UpdateStatus;
+};
+
+/** The daily check against GitHub Releases. */
+export type UpdateStatus = {
+  available: string | null;
+  url: string | null;
+  checkedAt: string | null;
+  error: string | null;
 };
 
 export type Session = { required: boolean; authenticated: boolean };

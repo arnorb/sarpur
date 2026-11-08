@@ -184,6 +184,16 @@ export function Layout() {
                 Dry run: sarpur logs what it would download and downloads nothing.
               </p>
             ) : null}
+            {store.health?.update?.available ? (
+              <p role="status" className="rounded-lg border border-sky-500/50 bg-sky-950 px-4 py-2 text-sm text-sky-100">
+                sarpur {store.health.update.available} is out (this is {store.health.version}).{" "}
+                {store.health.update.url ? (
+                  <a className="underline underline-offset-2 hover:text-white" href={store.health.update.url} target="_blank" rel="noreferrer">
+                    What’s new
+                  </a>
+                ) : null}
+              </p>
+            ) : null}
             {catalogueFailed || ruvWarning ? (
               <p role="alert" className="rounded-lg border border-rose-500/50 bg-rose-950 px-4 py-2 text-sm text-rose-100">
                 Couldn’t get the catalogue from RÚV{store.catalogue?.error ? `: ${store.catalogue.error}` : ""}. The next refresh or follow run tries again.

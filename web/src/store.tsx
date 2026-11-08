@@ -166,6 +166,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     api.plexStatus().then((data) => setLastPlex(data.last), () => undefined);
   }, [ready, loadShows, reloadFollows, deliver, fail]);
 
+  // The update check runs daily on the server; pick its answer up hourly.
+  useEffect(() => {
+    if (!ready) return;
+    const timer = window.setInterval(() => api.health().then(setHealth, () => undefined), 3_600_000);
+    return () => window.clearInterval(timer);
+  }, [ready]);
+
   // The catalogue loads in the background at startup: reload the shows when it's ready.
   useEffect(() => {
     if (!ready || !catalogue || !["loading", "refreshing", "empty"].includes(catalogue.state)) return;

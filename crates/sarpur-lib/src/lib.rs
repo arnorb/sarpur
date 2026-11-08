@@ -16,6 +16,7 @@ pub mod posters;
 pub mod scan;
 pub mod settings;
 pub mod subtitles;
+pub mod updates;
 pub mod worker;
 
 #[cfg(test)]

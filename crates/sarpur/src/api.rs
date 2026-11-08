@@ -26,6 +26,7 @@ use sarpur_lib::library;
 use sarpur_lib::posters::{PosterCache, PosterError};
 use sarpur_lib::scan::Scanner;
 use sarpur_lib::settings;
+use sarpur_lib::updates::UpdateChecker;
 use sarpur_lib::worker::WorkerClient;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
@@ -43,6 +44,7 @@ pub struct AppState {
     pub posters: Arc<PosterCache>,
     pub log: EventLog,
     pub auth: Arc<Auth>,
+    pub updates: Arc<UpdateChecker>,
     pub dry_run: bool,
     /// Flips to true on shutdown, which ends the SSE streams.
     pub shutdown: watch::Receiver<bool>,
@@ -140,6 +142,7 @@ async fn health(State(s): State<AppState>) -> Json<Value> {
         "version": env!("CARGO_PKG_VERSION"),
         "dryRun": s.dry_run,
         "catalogue": s.catalogue.status(),
+        "update": s.updates.status(),
     }))
 }
 
@@ -676,6 +679,11 @@ mod tests {
             )),
             log: EventLog::new(dir.path()),
             auth: Auth::open(),
+            updates: Arc::new(UpdateChecker::new(
+                sarpur_lib::plex::http_client(),
+                None,
+                None,
+            )),
             dry_run: false,
             shutdown,
         });
@@ -871,6 +879,11 @@ mod tests {
             )),
             log: EventLog::new(dir.path()),
             auth: Auth::open(),
+            updates: Arc::new(UpdateChecker::new(
+                sarpur_lib::plex::http_client(),
+                None,
+                None,
+            )),
             dry_run: false,
             shutdown,
         });
@@ -993,6 +1006,11 @@ mod tests {
             )),
             log: EventLog::new(dir.path()),
             auth: Auth::open(),
+            updates: Arc::new(UpdateChecker::new(
+                sarpur_lib::plex::http_client(),
+                None,
+                None,
+            )),
             dry_run: false,
             shutdown,
         });
@@ -1263,6 +1281,11 @@ mod tests {
             )),
             log: EventLog::new(dir.path()),
             auth: Auth::with_password(Some("lykilorð".into()), dir.path()).unwrap(),
+            updates: Arc::new(UpdateChecker::new(
+                sarpur_lib::plex::http_client(),
+                None,
+                None,
+            )),
             dry_run: false,
             shutdown,
         });

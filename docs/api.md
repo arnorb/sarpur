@@ -8,7 +8,7 @@ Everything outside `/api` is the UI, embedded in the binary from `web/dist`; pat
 
 | Method and path | What it does |
 | --- | --- |
-| `GET /api/health` | `{ok, version, dryRun, catalogue: <status>}` |
+| `GET /api/health` | `{ok, version, dryRun, catalogue: <status>, update: {available, url, checkedAt, error}}`. `update.available` is the newer release's version from the daily GitHub Releases check, else `null`. |
 | `GET /api/session` | `{required, authenticated}`. |
 | `POST /api/login` | Body `{password}`. Sets the session cookie (90 days); 401 for a wrong password. |
 | `POST /api/logout` | Clears the cookie. |

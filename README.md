@@ -6,7 +6,7 @@ A downloader for RÚV's Sarpur, being rebuilt as one Rust program with a built-i
 | --- | --- | --- |
 | S1 | Fix the Python app in `ruvsarpur` | Done (tag `v-s1`), running on the NAS |
 | S2.0 | Spikes: check the risky parts before building | Mostly done; Windows PC, NAS container and end-to-end halves open |
-| S2 | Rust server, queue, database and UI; RÚV access and naming still in the Python worker | In progress: slices 1–3 of 4 done, packaging (slice 4) next |
+| S2 | Rust server, queue, database and UI; RÚV access and naming still in the Python worker | Slices 1–4 done (Docker image: `docs/docker.md`); cutover on the NAS next |
 | S3 | Port the worker to Rust, checked against the Python output | Not started |
 
 The plan, with a status table and the decisions made since it was approved, is in [`docs/plan.md`](docs/plan.md).

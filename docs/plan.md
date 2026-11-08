@@ -14,7 +14,7 @@ This file moved here from `ruvsarpur/.omc/plans/sarpur-rewrite.md` on 2026-11-07
 
 ## Status
 
-Last updated: 2026-11-07.
+Last updated: 2026-11-08.
 
 | Step | State | Where / evidence |
 | --- | --- | --- |
@@ -27,8 +27,8 @@ Last updated: 2026-11-07.
 | **S2.1** slice 1: core download path | Done | Merged to `main` (`5c8462e`). Details below. |
 | **S2.1** slice 2: follows, scheduler, tag scan, posters/subtitles, Plex, poster proxy, import | Done | Merged to `main`. Criteria 6, 7 and 14 are tests; 11, 12 and 13 have their local halves (below). See "Slice 2 progress". |
 | **S2.1** slice 3: UI port | Done | Merged to `main`. Criteria 9 (password) and 17 are tests. A UI review comes later (owner). See "Slice 3 progress". |
-| **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Next | |
-| **S2.2** cutover on the NAS | Open | Simpler now: the NAS can be replaced outright (decision below). |
+| **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Done | Merged to `main`. Criterion 16's local half passes in Docker Desktop; the NAS half is part of cutover. See "Slice 4 progress". |
+| **S2.2** cutover on the NAS | Next | Simpler now: the NAS can be replaced outright (decision below). |
 | **S3** port the worker to Rust | Open | |
 
 ### Decisions since approval
@@ -47,6 +47,7 @@ Last updated: 2026-11-07.
 - **2026-11-07, Windows is a later add-on (owner):** Windows work doesn't block anything. Deferred: spike 5's PC check, the Windows zip and console/Job Object work (§3.8), the Windows-only sanitising and long paths, criterion 15, and criterion 13 with the Windows user's real data. The code stays portable and the CI smoke test stays, but the path to "done" is Mac for development and the NAS for production.
 - **2026-11-07, slice 2 import and log:** pids from automatic runs import as `unknown`, because the old log only recorded sids for them (`unknown` still blocks follow re-downloads, like `library`). The import never overwrites a `recorded` row. sarpur writes the same `download-events.log` as ruvsarpur, in the same shape, so a reused data folder keeps one history.
 - **2026-11-08, slice 3:** search stays in the worker (ruvsarpur's `fuzz.partial_ratio`) until S3 ports it; spike 3 found no Rust crate with `partial_ratio`. Sessions are stateless signed cookies, not a session table. The Playwright tests use any complete Chromium in Playwright's cache (or `PW_CHROMIUM`), because Playwright's own browser download stalled here.
+- **2026-11-08, slice 4 packaging:** one image (`Dockerfile`: Debian bookworm, the worker in a venv, Debian's ffmpeg, `tini`), `linux/amd64` only in CI since the NAS is x86_64. It's 847 MB, mostly Debian's ffmpeg; a static ffmpeg could halve it if size ever matters. Images go to GHCR from `release.yml`: `:main` per push, `:<version>` and `:latest` per `v*` tag, which also makes the GitHub release the update banner reads. The update check is daily, in `/api/health`; while the repository is private it needs `SARPUR_GITHUB_TOKEN` (else it only logs), and the NAS needs a GHCR login to pull. The `aws-lc-rs` concern from the HTTP client decision didn't materialise: `rust:1-bookworm` builds it as is.
 - **2026-11-07, permissions (spike 7):** run as 568 and let the dataset ACL decide modes; criterion 16's "mode 664" follows the dataset instead.
 
 ### S2.1 slice 1: what's built
@@ -62,6 +63,14 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 - **Browser downloads:** `<data>/web/<job>/<name>`, served at `/api/jobs/{id}/files/{name}`, swept after 24 h (at startup and hourly).
 - **Catalogue:** kept in memory, loaded from the worker at startup (in the background) and after `POST /api/catalogue/refresh`; substring search.
 - **API:** see `docs/api.md`. SSE job updates go to everyone; `file_ready` goes only to the matching `client_id`.
+
+### Slice 4 progress
+
+- **Docker (done):** `Dockerfile`, `.dockerignore`, `docker-compose.yml` (the NAS layout) and `docs/docker.md`. `SARPUR_BIND`/`SARPUR_PORT` env vars; plain log lines when stdout isn't a terminal.
+- **Criterion 16, local half (done, Docker Desktop, arm64):** runs as `uid=568 gid=568`; healthy 2 s after start; a real RÚV library download (`b8e3po`) left the file, its folders and the poster at `568:568`, files `664` and folders `775`; `docker stop` during a download took 0.4 s with exit 0 and no ffmpeg left; on restart the `.part` was deleted and the job requeued. The NAS half (ACL, real `/Media`) waits for cutover.
+- **CI and releases (done, not yet run on GitHub):** `ci.yml` (fmt, clippy, tests, the UI build, worker and record tests, golden unchanged) and `release.yml` (image and release).
+- **Update banner (done):** `sarpur-lib::updates` checks GitHub Releases daily; `/api/health` carries `update`; the UI shows a banner and re-reads health hourly.
+- **Deferred:** the Windows zip (Windows add-on).
 
 ### Slice 3 scope
 

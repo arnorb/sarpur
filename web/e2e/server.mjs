@@ -52,6 +52,7 @@ const child = spawn(
       ...process.env,
       SARPUR_WORKER: path.join(repo, "crates/sarpur-lib/testdata/fake_follow_worker.py"),
       RUST_LOG: process.env.RUST_LOG ?? "warn",
+      SARPUR_UPDATE_REPO: "",
     },
   },
 );

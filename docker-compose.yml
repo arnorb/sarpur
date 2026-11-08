@@ -1,0 +1,19 @@
+# sarpur on the NAS (a TrueNAS Custom App) or any Docker host.
+# The data folder holds the database, the catalogue cache and browser
+# downloads; the library is the folder Plex reads. In Settings, set the
+# library folder to /media.
+services:
+  sarpur:
+    image: ghcr.io/arnorb/sarpur:latest
+    container_name: sarpur
+    user: "568:568"
+    environment:
+      TZ: Atlantic/Reykjavik
+      # SARPUR_PASSWORD: change-me
+    volumes:
+      - ./data:/data
+      - /mnt/storage/Media:/media
+    ports:
+      - "8090:8090"
+    stop_grace_period: 30s
+    restart: unless-stopped

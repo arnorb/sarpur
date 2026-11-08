@@ -20,6 +20,7 @@ use sarpur_lib::follows::Follows;
 use sarpur_lib::jobs::{Queue, QueueConfig, real_free_space};
 use sarpur_lib::posters::PosterCache;
 use sarpur_lib::scan::Scanner;
+use sarpur_lib::updates::UpdateChecker;
 use sarpur_lib::worker::WorkerClient;
 use tokio::sync::watch;
 
@@ -27,10 +28,10 @@ use tokio::sync::watch;
 #[command(version, about = "Downloads RÚV Sarpur episodes through a web API")]
 struct Args {
     /// Address to listen on.
-    #[arg(long, default_value = "127.0.0.1")]
+    #[arg(long, env = "SARPUR_BIND", default_value = "127.0.0.1")]
     bind: IpAddr,
     /// Port to listen on.
-    #[arg(long, default_value_t = 8090)]
+    #[arg(long, env = "SARPUR_PORT", default_value_t = 8090)]
     port: u16,
     /// Data folder (database, worker files, browser downloads). Default:
     /// SARPUR_DATA_DIR, else the platform's local data folder.
@@ -48,6 +49,8 @@ async fn main() -> anyhow::Result<()> {
         .with_env_filter(
             tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()),
         )
+        // Plain text in Docker logs and redirected output.
+        .with_ansi(std::io::IsTerminal::is_terminal(&std::io::stdout()))
         .init();
     // New files are group-writable unless the filesystem's ACL says otherwise.
     #[cfg(unix)]
@@ -135,6 +138,10 @@ async fn main() -> anyhow::Result<()> {
     ));
     follows.spawn_scheduler(args.dry_run);
 
+    // The update banner: GitHub Releases, daily.
+    let updates = Arc::new(UpdateChecker::from_env(queue.http().clone()));
+    updates.spawn();
+
     let (shutdown_tx, shutdown_rx) = watch::channel(false);
     let app = api::router(api::AppState {
         queue: queue.clone(),
@@ -148,6 +155,7 @@ async fn main() -> anyhow::Result<()> {
         )),
         log,
         auth: auth::Auth::from_env(&data_dir).context("setting up SARPUR_PASSWORD")?,
+        updates,
         dry_run: args.dry_run,
         shutdown: shutdown_rx,
     });
