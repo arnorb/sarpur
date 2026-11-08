@@ -1,6 +1,10 @@
 # sarpur
 
-A downloader for RÚV's Sarpur, being rebuilt as one Rust program with a built-in web UI. It will replace [ruvsarpur](https://github.com/arnorb/ruvsarpur) (a Python CLI plus a separate web GUI) in stages:
+A downloader for RÚV's Sarpur, being rebuilt as one Rust program with a built-in web UI.
+
+sarpur originates in [ruvsarpur](https://github.com/sverrirs/ruvsarpur) by Sverrir Sigmundarson, a Python command-line tool for downloading from RÚV. It grew out of a fork of that project, [arnorb/ruvsarpur](https://github.com/arnorb/ruvsarpur), which added a web GUI. The Python worker in `worker/` is ruvsarpur's code, and the file names sarpur gives downloads are ruvsarpur's, kept byte for byte so existing Plex libraries keep working.
+
+sarpur replaces the fork in stages:
 
 | Stage | What | Status |
 | --- | --- | --- |
@@ -41,3 +45,7 @@ python tools/golden/generate.py
 ```
 
 The output must match `golden/manifest.json` byte for byte. If it doesn't, the naming code or the fixture has changed.
+
+## Licence
+
+MIT, as ruvsarpur. See [`LICENSE`](LICENSE): it carries Sverrir Sigmundarson's copyright notice for ruvsarpur alongside sarpur's own.
