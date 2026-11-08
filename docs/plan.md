@@ -22,14 +22,14 @@ Last updated: 2026-11-08.
 | **S1** step 7: deploy to the NAS | Done | Both TrueNAS apps redeployed with the new images on 2026-11-07. No PyInstaller build (decision below). |
 | **S2.0** spikes 1–4, 6 | Done | `spikes/README.md` and each spike's `RESULTS.md` |
 | **S2.0** spike 5: ffmpeg on Windows | Deferred | Passes on a GitHub Windows runner. The Defender/SmartScreen check on the Windows user's PC waits for the Windows add-on (decision below). |
-| **S2.0** spike 7: TrueNAS permissions | Partly | Library files are `568:568`, mode `770` from the dataset ACL. Still to check: `.part` then rename from a container running as 568. |
+| **S2.0** spike 7: TrueNAS permissions | Done | Library files are `568:568`, mode `770` from the dataset ACL; `.part` then rename works from the sarpur container running as 568 (2026-11-08). |
 | **S2.0** spike 8: end to end | Mac half done | Through the slice 1 server on macOS (`spikes/README.md` row 8). NAS half at cutover; Windows half deferred. |
 | **S2.1** slice 1: core download path | Done | Merged to `main` (`5c8462e`). Details below. |
 | **S2.1** slice 2: follows, scheduler, tag scan, posters/subtitles, Plex, poster proxy, import | Done | Merged to `main`. Criteria 6, 7 and 14 are tests; 11, 12 and 13 have their local halves (below). See "Slice 2 progress". |
 | **S2.1** slice 3: UI port | Done | Merged to `main`. Criteria 9 (password) and 17 are tests. A UI review comes later (owner). See "Slice 3 progress". |
 | **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Done | Merged to `main`. Criterion 16's local half passes in Docker Desktop; the NAS half is part of cutover. See "Slice 4 progress". |
-| **S2.2** cutover on the NAS | Next | Simpler now: the NAS can be replaced outright (decision below). |
-| **S3** port the worker to Rust | Open | |
+| **S2.2** cutover on the NAS | Done | 2026-11-08: sarpur `v0.1.0` runs on the NAS; the old apps are stopped, not deleted. Criteria 11, 12 and 16 checked there. See "Cutover". |
+| **S3** port the worker to Rust | Next | |
 
 ### Decisions since approval
 
@@ -63,6 +63,16 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 - **Browser downloads:** `<data>/web/<job>/<name>`, served at `/api/jobs/{id}/files/{name}`, swept after 24 h (at startup and hourly).
 - **Catalogue:** kept in memory, loaded from the worker at startup (in the background) and after `POST /api/catalogue/refresh`; substring search.
 - **API:** see `docs/api.md`. SSE job updates go to everyone; `file_ready` goes only to the matching `client_id`.
+
+### Cutover (S2.2, 2026-11-08)
+
+- Released `v0.1.0` (image `ghcr.io/arnorb/sarpur:latest`; the repository is now public, so neither the pull nor the update check needs a token).
+- NAS: dataset `storage/apps/sarpur` (568:568) at `/data`, `/mnt/storage/Media` at `/media`, Custom App `sarpur` on port 8090 as 568:568 with a Web UI portal. Settings: `/media` with `TV Shows`, `Movies`, `Sports`, as the old app. Nothing imported: the old app had no follows, no Plex settings and automation off.
+- Criterion 12: the three category folders hold 83 MP4 files (15 tagged); a scan takes about 20 ms. The rest of `/Media` is the *arr apps' MKV files, which the scan doesn't cover.
+- Criterion 11: in `--dry-run`, a Library download of an episode already on disk (`9bnbqi`, Vigdís) ended as "Already in the library", and a new one as "dry run"; no follows, so the follow run schedules nothing.
+- Criterion 16: a real Library download landed as `568:568`, mode `770` with the dataset's inherited ACL, through `.part` and rename. Healthcheck green; the stop timing was checked locally (0.4 s).
+- The old apps `ruvsarpur-api` and `ruvsarpur-web` are stopped, not deleted. `~/homelab/CLAUDE.md` is updated.
+- Open: Plex settings in sarpur (the old app had none), and whether to delete the old apps and the `storage/apps/ruvsarpur` dataset.
 
 ### Slice 4 progress
 

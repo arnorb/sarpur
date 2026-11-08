@@ -44,7 +44,7 @@ The worker needs ruvsarpur's Python dependencies (`pip install -r worker/require
 
 ## Environment
 
-- The owner's TrueNAS SCALE NAS runs the old app (two Custom Apps, `ruvsarpur-api` and `ruvsarpur-web`). Its notes are in `~/homelab/CLAUDE.md`. `ssh truenas` logs in as `admin` with key auth. `/home`, `/tmp` and `/run` are `noexec`, and root needs the TrueNAS API. Ask before changing anything on the NAS.
+- The owner's TrueNAS SCALE NAS runs sarpur as the Custom App `sarpur` (port 8090, `ghcr.io/arnorb/sarpur:latest`, data in `/mnt/storage/apps/sarpur`). The old ruvsarpur apps are stopped, not deleted. Its notes are in `~/homelab/CLAUDE.md`. `ssh truenas` logs in as `admin` with key auth. `/home`, `/tmp` and `/run` are `noexec`, and root needs the TrueNAS API. Ask before changing anything on the NAS.
 - A second user runs the app on Windows and runs the Windows checks on their own PC (`spikes/windows/README.md`). Windows support is a later add-on: don't let it block a slice (`docs/plan.md`, decisions).
 
 ## Commits
