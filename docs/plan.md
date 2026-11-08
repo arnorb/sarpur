@@ -64,6 +64,10 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 - **Catalogue:** kept in memory, loaded from the worker at startup (in the background) and after `POST /api/catalogue/refresh`; substring search.
 - **API:** see `docs/api.md`. SSE job updates go to everyone; `file_ready` goes only to the matching `client_id`.
 
+### After cutover
+
+- **2026-11-08, `v0.1.1`:** fixes from a full UI review (accessibility, usability, layout, writing, typography, colour, polish): the queue no longer covers the page, Settings keeps unsaved changes and shows its results, the interval field, focus handling, Icelandic titles wrap, Undo for unfollowing, clearer errors. Four new Playwright tests.
+
 ### Cutover (S2.2, 2026-11-08)
 
 - Released `v0.1.0` (image `ghcr.io/arnorb/sarpur:latest`; the repository is now public, so neither the pull nor the update check needs a token).
