@@ -5,3 +5,10 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
+
+const plural = new Intl.PluralRules("en");
+
+/** "1 episode", "3 episodes". */
+export function count(n: number, one: string, other: string): string {
+  return `${n} ${plural.select(n) === "one" ? one : other}`;
+}

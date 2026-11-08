@@ -1,7 +1,7 @@
-import { type CSSProperties, useEffect, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { EpisodeActions, FollowButton, SubtitleBadges, secondaryButton } from "@/components/common";
+import { EpisodeActions, FollowButton, SubtitleBadges } from "@/components/common";
 import { type DownloadChoice, DownloadDialog } from "@/components/DownloadDialog";
 import { useBrowse } from "@/components/Layout";
 import { savePosterColumns } from "@/lib/browser";
@@ -17,15 +17,23 @@ import {
   type SortBy,
   type SubtitleFilter,
 } from "@/lib/shows";
+import { scrollBehavior, usePageTitle } from "@/lib/page";
+import { count } from "@/lib/utils";
 import { useStore } from "@/store";
 
 const PAGE_SIZE = 100;
-const select = "h-8 rounded-md border border-slate-600 bg-slate-800 px-2 text-sm text-slate-100";
+const focusRing = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400";
+const select = `h-8 rounded-md border border-slate-500 bg-slate-800 px-2 text-base text-slate-100 sm:text-sm ${focusRing}`;
+const CONTENT_LABEL: Record<string, string> = { show: "Shows", movie_or_docu: "Movies", sport: "Sports" };
 
 export function BrowsePage() {
   const { shows, showsLoading, query } = useStore();
   const { filters, setFilters, view, page, setPage, columns, setColumns } = useBrowse();
   const [choice, setChoice] = useState<DownloadChoice | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const categoriesRef = useRef<HTMLDetailsElement>(null);
+  const heading = query ? `Search results for “${query}”` : (CONTENT_LABEL[filters.contentType] ?? "Catalogue");
+  usePageTitle(heading);
 
   const groups = useMemo(() => groupBySid(shows), [shows]);
   const categories = useMemo(
@@ -40,22 +48,45 @@ export function BrowsePage() {
   const pageGroups = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const changePage = (next: number) => {
     setPage(next);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
+    // Screen-reader and keyboard users continue at the new page's first item.
+    resultsRef.current?.focus({ preventScroll: true });
+  };
+  const closeCategories = (refocus: boolean) => {
+    const details = categoriesRef.current;
+    if (!details?.open) return;
+    details.open = false;
+    if (refocus) details.querySelector("summary")?.focus();
   };
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center gap-2 md:gap-3">
+      <h1 tabIndex={-1} className="sr-only">
+        {heading}
+      </h1>
+      {/* relative: the categories popup is anchored to this row, so it stays on screen at 320 px. */}
+      <div className="relative mb-4 flex flex-wrap items-center gap-2 md:gap-3">
         <span className="text-xs font-medium uppercase tracking-wide text-slate-300">Filters</span>
-        <details className="relative">
-          <summary className="flex h-8 cursor-pointer list-none items-center rounded-md border border-slate-600 bg-slate-800 px-3 text-sm text-slate-100 hover:bg-slate-700">
-            {filters.categories.length === 0 ? "All categories" : `${filters.categories.length} categories`}
+        <details
+          ref={categoriesRef}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              e.preventDefault();
+              closeCategories(true);
+            }
+          }}
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) closeCategories(false);
+          }}
+        >
+          <summary className={`flex h-8 cursor-pointer list-none items-center rounded-md border border-slate-500 bg-slate-800 px-3 text-sm text-slate-100 hover:bg-slate-700 ${focusRing}`}>
+            {filters.categories.length === 0 ? "All categories" : count(filters.categories.length, "category", "categories")}
           </summary>
-          <div className="absolute left-0 top-10 z-30 max-h-80 w-64 max-w-[80vw] overflow-y-auto rounded-lg border border-slate-700 bg-slate-900 p-2 shadow-2xl">
+          <div className="absolute left-0 top-10 z-30 max-h-80 w-64 max-w-full overflow-y-auto overscroll-contain rounded-lg border border-slate-700 bg-slate-900 p-2 shadow-2xl">
             <div className="mb-1 flex items-center justify-between border-b border-slate-800 px-2 pb-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-slate-300">Categories</span>
               {filters.categories.length > 0 ? (
-                <button type="button" className="text-xs text-sky-200 hover:text-white" onClick={() => setFilters({ ...filters, categories: [] })}>
+                <button type="button" className={`rounded text-xs text-sky-200 hover:text-white ${focusRing}`} onClick={() => setFilters({ ...filters, categories: [] })}>
                   Clear
                 </button>
               ) : null}
@@ -73,7 +104,7 @@ export function BrowsePage() {
                     })
                   }
                 />
-                {category}
+                <span lang="is">{category}</span>
               </label>
             ))}
           </div>
@@ -96,7 +127,7 @@ export function BrowsePage() {
           <option value="desc">Descending</option>
         </select>
         {filters.categories.length > 0 || filters.subtitles !== "all" ? (
-          <button type="button" className="text-xs text-sky-200 hover:text-white" onClick={() => setFilters({ ...filters, categories: [], subtitles: "all" })}>
+          <button type="button" className={`rounded text-xs text-sky-200 hover:text-white ${focusRing}`} onClick={() => setFilters({ ...filters, categories: [], subtitles: "all" })}>
             Clear filters
           </button>
         ) : null}
@@ -114,11 +145,12 @@ export function BrowsePage() {
                 savePosterColumns(Number(e.target.value));
               }}
             />
-            <span className="w-5 text-right font-semibold text-slate-100">{columns}</span>
+            <span className="w-5 text-right font-semibold tabular-nums text-slate-100">{columns}</span>
           </label>
         ) : null}
       </div>
 
+      <div ref={resultsRef} tabIndex={-1} aria-label={`${heading}, page ${page}`} className="focus:outline-none">
       {showsLoading && shows.length === 0 ? (
         <p className="text-sm text-slate-300">Loading…</p>
       ) : visible.length === 0 ? (
@@ -136,20 +168,21 @@ export function BrowsePage() {
           ))}
         </div>
       )}
+      </div>
 
       {visible.length > 0 ? (
         <nav aria-label="Pages" className="mt-6 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm text-slate-300">
+          <p className="text-sm tabular-nums text-slate-300">
             Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, visible.length)} of {visible.length}
           </p>
           <div className="flex items-center gap-2">
-            <Button size="sm" className={secondaryButton} disabled={page === 1} onClick={() => changePage(page - 1)}>
+            <Button size="sm" variant="secondary" disabled={page === 1} onClick={() => changePage(page - 1)}>
               Previous
             </Button>
-            <span className="text-sm text-slate-300">
+            <span className="text-sm tabular-nums text-slate-300">
               {page} / {pages}
             </span>
-            <Button size="sm" className={secondaryButton} disabled={page === pages} onClick={() => changePage(page + 1)}>
+            <Button size="sm" variant="secondary" disabled={page === pages} onClick={() => changePage(page + 1)}>
               Next
             </Button>
           </div>
@@ -187,14 +220,14 @@ function PosterCard({ group }: { group: Group }) {
         {/* The follow bar: on hover or keyboard focus, always when followed. */}
         <div
           className={`absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 to-transparent px-2 pb-2 pt-6 transition-opacity duration-200 ${
-            followed ? "opacity-100" : "opacity-0 group-focus-within:opacity-100 group-hover:opacity-100"
+            followed ? "opacity-100" : "opacity-0 group-focus-within:opacity-100 group-hover:opacity-100 pointer-coarse:opacity-100"
           }`}
         >
           <FollowButton sid={group.sid} followed={followed} label={title} compact />
         </div>
       </div>
       <div className="pt-2">
-        <Link to={href} className="line-clamp-2 rounded text-sm font-semibold text-slate-100 hover:text-sky-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+        <Link lang="is" to={href} className="block wrap-anywhere hyphens-auto rounded text-sm font-semibold text-slate-100 hover:text-sky-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
           {title}
         </Link>
         {duration ? <p className="mt-0.5 text-xs text-slate-300">{duration}</p> : null}
@@ -209,10 +242,14 @@ function ListGroup({ group, onChoose }: { group: Group; onChoose: DownloadChoice
     <section aria-label={title}>
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div className="min-w-0">
-          <Link to={`/title/${encodeURIComponent(group.sid)}`} className="text-sm font-semibold text-slate-100 hover:text-sky-200">
+          <Link
+            lang="is"
+            to={`/title/${encodeURIComponent(group.sid)}`}
+            className={`wrap-anywhere hyphens-auto rounded text-base font-semibold text-slate-100 hover:text-sky-200 ${focusRing}`}
+          >
             {title}
           </Link>
-          <p className="text-xs text-slate-300">{group.shows.length} episode(s)</p>
+          <p className="text-xs text-slate-300">{count(group.shows.length, "episode", "episodes")}</p>
         </div>
         <FollowButton sid={group.sid} followed={groupFollowed(group)} label={title} />
       </div>
@@ -220,7 +257,9 @@ function ListGroup({ group, onChoose }: { group: Group; onChoose: DownloadChoice
         {group.shows.map((show) => (
           <li key={show.pid} className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-slate-800 bg-slate-900 p-3">
             <div className="min-w-0 flex-1 basis-48">
-              <p className="truncate font-medium text-slate-100">{show.displayTitle}</p>
+              <p lang="is" className="wrap-anywhere hyphens-auto text-sm font-medium text-slate-100">
+                {show.displayTitle}
+              </p>
               <p className="text-xs text-slate-300">{episodeMeta(show)}</p>
               <SubtitleBadges show={show} />
             </div>

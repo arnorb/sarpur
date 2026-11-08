@@ -423,9 +423,9 @@ impl Follows {
                     "Queued"
                 };
                 let message = format!(
-                    "{verb} {} episode(s) from {} followed show(s)",
-                    report.scheduled.len(),
-                    report.follows
+                    "{verb} {} from {}",
+                    count(report.scheduled.len(), "episode", "episodes"),
+                    count(report.follows, "followed show", "followed shows")
                 );
                 (state, message, Some(report))
             }
@@ -722,6 +722,11 @@ impl RunProblem {
     fn error(e: impl std::fmt::Display) -> RunProblem {
         RunProblem::Error(e.to_string())
     }
+}
+
+/// "1 episode", "3 episodes".
+fn count(n: usize, one: &str, other: &str) -> String {
+    format!("{n} {}", if n == 1 { one } else { other })
 }
 
 #[cfg(test)]

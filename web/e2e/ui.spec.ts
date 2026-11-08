@@ -60,11 +60,14 @@ test("download dialog by keyboard; Escape closes it and focus returns", async ({
   // Queue a library download by keyboard; the dry run completes it.
   await tabTo(page, page.getByRole("button", { name: "Library: Ófærð s01e03" }));
   await page.keyboard.press("Enter");
-  const library = page.getByRole("dialog", { name: "Download to the library" });
+  const library = page.getByRole("dialog", { name: "Download to library" });
   await tabTo(page, library.getByRole("button", { name: "Download to library" }));
   await page.keyboard.press("Enter");
+  // The queue starts collapsed so it doesn't cover the page; open it.
+  await page.getByRole("button", { name: /^Downloads/ }).click();
   const queue = page.getByRole("complementary", { name: "Download queue" });
-  await expect(queue.getByText("Completed")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Close the download queue" })).toBeFocused();
+  await expect(queue.getByText("Completed", { exact: true })).toBeVisible();
 });
 
 test("Follow by keyboard from a poster, then on the Following page", async ({ page }) => {
@@ -74,13 +77,58 @@ test("Follow by keyboard from a poster, then on the Following page", async ({ pa
   // The follow bar shows when the poster has keyboard focus.
   await expect(follow).toBeVisible();
   await page.keyboard.press("Enter");
-  const following = page.getByRole("button", { name: "Following Fréttir" });
-  await expect(following).toHaveAttribute("aria-pressed", "true");
+  await expect(follow).toHaveAttribute("aria-pressed", "true");
+  // Focused, a followed button says what Enter would do.
+  await expect(follow).toContainText("Unfollow");
 
   await page.getByRole("link", { name: "Following" }).click();
+  await expect(page.getByRole("heading", { name: "Following", level: 1 })).toBeFocused();
+  await expect(page).toHaveTitle("Following – RÚV Sarpur");
   await expect(page.getByRole("heading", { name: "Fréttir" })).toBeVisible();
   await page.getByRole("button", { name: "Unfollow" }).click();
   await expect(page.getByText("You don’t follow anything yet.")).toBeVisible();
+  // Unfollowing can be undone.
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect(page.getByRole("heading", { name: "Fréttir" })).toBeVisible();
+  await page.getByRole("button", { name: "Unfollow" }).click();
+  await expect(page.getByText("You don’t follow anything yet.")).toBeVisible();
+});
+
+test("the search field shows keyboard focus", async ({ page }) => {
+  await open(page);
+  await page.getByRole("searchbox", { name: "Search by title" }).or(page.getByRole("textbox", { name: "Search by title" })).focus();
+  const ring = await page.getByRole("search").evaluate((form) => getComputedStyle(form).boxShadow);
+  expect(ring).not.toBe("none");
+});
+
+test("Settings keeps unsaved changes and shows results inside the dialog", async ({ page }) => {
+  await open(page);
+  await page.getByRole("button", { name: "Settings" }).click();
+  const dialog = page.getByRole("dialog", { name: "Settings" });
+  await dialog.getByRole("button", { name: "Automatic downloads", exact: true }).click();
+  const interval = dialog.getByRole("spinbutton", { name: "Check every (minutes)" });
+  await expect(dialog.getByRole("button", { name: "Saved" })).toBeVisible();
+  // The typed number stays as typed (no clamping per keystroke)…
+  await interval.fill("");
+  await interval.pressSequentially("15");
+  await expect(interval).toHaveValue("15");
+  await interval.fill("3");
+  await interval.blur();
+  // …and is corrected only on leaving the field.
+  await expect(interval).toHaveValue("5");
+  const auto = dialog.getByRole("checkbox", { name: /automatically/ });
+  await auto.check();
+  await dialog.getByRole("button", { name: "Library", exact: true }).click();
+  await dialog.getByRole("button", { name: "Automatic downloads", exact: true }).click();
+  await expect(auto).toBeChecked();
+  await expect(dialog.getByRole("button", { name: "Save changes" })).toBeVisible();
+
+  // An error from an action in Settings is shown in the dialog, not behind it.
+  await dialog.getByRole("button", { name: "Import", exact: true }).click();
+  await dialog.getByLabel("ruvsarpur’s folder").fill("/no/such/folder");
+  await dialog.getByRole("button", { name: "Preview" }).click();
+  // The visible notice (a span), not its screen-reader copy in the live region.
+  await expect(dialog.locator("span").filter({ hasText: /Couldn't preview the import/ })).toBeVisible();
 });
 
 test("Escape closes Settings", async ({ page }) => {
@@ -117,6 +165,8 @@ test.describe("at 320 px wide", () => {
 
 test.describe("text contrast is at least 4.5:1", () => {
   const check = async (page: Page) => {
+    // Let colour transitions (150 ms) finish first.
+    await page.waitForTimeout(300);
     const results = await new AxeBuilder({ page }).withRules(["color-contrast"]).analyze();
     const failures = results.violations.flatMap((v) => v.nodes.map((n) => `${n.target.join(" ")}: ${n.failureSummary}`));
     expect(failures).toEqual([]);

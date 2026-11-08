@@ -1,12 +1,12 @@
-import { createContext, type FormEvent, useContext, useEffect, useState } from "react";
-import { Clapperboard, Film, Heart, RefreshCw, Search, Settings as SettingsIcon, Tv, Volleyball, X, XCircle } from "lucide-react";
+import { createContext, type FormEvent, useContext, useEffect, useRef, useState } from "react";
+import { Clapperboard, Film, Heart, RefreshCw, Search, Settings as SettingsIcon, Tv, Volleyball, XCircle } from "lucide-react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import type { ContentType } from "@/api/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { primaryButton } from "@/components/common";
 import { DownloadQueue } from "@/components/DownloadQueue";
-import { SettingsDialog } from "@/components/SettingsDialog";
+import { LiveNotice, NoticeBar } from "@/components/common";
+import { type Section, SettingsDialog } from "@/components/SettingsDialog";
 import { loadPosterColumns } from "@/lib/browser";
 import { DEFAULT_FILTERS, type Filters } from "@/lib/shows";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,8 @@ export type BrowseState = {
   setPage: (p: number) => void;
   columns: number;
   setColumns: (c: number) => void;
+  /** Opens Settings, at a section if given. */
+  openSettings: (section?: Section) => void;
 };
 
 const BrowseContext = createContext<BrowseState | null>(null);
@@ -52,8 +54,12 @@ export function Layout() {
   const [view, setView] = useState<"poster" | "list">("poster");
   const [page, setPage] = useState(1);
   const [columns, setColumns] = useState(loadPosterColumns);
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState<Section | null>(null);
+  const openSettings = (section: Section = "This browser") => setSettingsOpen(section);
   const [search, setSearch] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const firstPath = useRef(true);
   const setFilters = (f: Filters) => {
     setFiltersState(f);
     setPage(1);
@@ -61,6 +67,17 @@ export function Layout() {
   const onBrowse = location.pathname === "/";
 
   useEffect(() => setSearch(store.query), [store.query]);
+
+  // After navigating, move focus to the new page's heading so keyboard and
+  // screen-reader users start there (each page sets its own title).
+  useEffect(() => {
+    if (firstPath.current) {
+      firstPath.current = false;
+      return;
+    }
+    const heading = contentRef.current?.querySelector<HTMLElement>("h1");
+    (heading ?? contentRef.current)?.focus({ preventScroll: true });
+  }, [location.pathname]);
 
   const submitSearch = (event: FormEvent) => {
     event.preventDefault();
@@ -82,9 +99,9 @@ export function Layout() {
   const ruvWarning = store.runStatus?.lastRunState === "warning" && /RÚV/.test(store.runStatus.lastRunMessage ?? "");
 
   return (
-    <BrowseContext.Provider value={{ filters, setFilters, view, setView, page, setPage, columns, setColumns }}>
+    <BrowseContext.Provider value={{ filters, setFilters, view, setView, page, setPage, columns, setColumns, openSettings }}>
       <div className="flex min-h-screen bg-slate-950 text-slate-100">
-        <aside className="sticky top-0 flex h-screen w-12 shrink-0 flex-col border-r border-slate-800 bg-slate-900 px-1 py-4 md:w-44 md:px-3">
+        <aside className="sticky top-0 flex h-dvh w-12 shrink-0 flex-col border-r border-slate-800 bg-slate-900 px-1 py-4 md:w-44 md:px-3">
           <button
             type="button"
             onClick={reset}
@@ -115,7 +132,7 @@ export function Layout() {
               <span className="sr-only md:not-sr-only">Following</span>
             </NavLink>
           </nav>
-          <button type="button" className={navClass(false)} onClick={() => setSettingsOpen(true)}>
+          <button type="button" className={navClass(false)} onClick={() => openSettings()}>
             <SettingsIcon className="h-5 w-5 shrink-0" aria-hidden />
             <span className="sr-only md:not-sr-only">Settings</span>
           </button>
@@ -123,21 +140,23 @@ export function Layout() {
 
         <main className="flex min-w-0 flex-1 flex-col">
           <header className="flex flex-wrap items-center gap-2 border-b border-slate-800 bg-slate-900 px-3 py-3 md:gap-3 md:px-4">
-            <form role="search" onSubmit={submitSearch} className="flex h-9 min-w-0 flex-1 basis-48 items-center overflow-hidden rounded-md border border-slate-600 bg-slate-800">
+            <form role="search" onSubmit={submitSearch} className="flex h-9 min-w-0 flex-1 basis-48 items-center overflow-hidden rounded-md border border-slate-500 bg-slate-800 focus-within:ring-2 focus-within:ring-sky-400">
               <Search className="ml-3 h-4 w-4 shrink-0 text-slate-300" aria-hidden />
               <Input
+                ref={searchRef}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by title"
                 aria-label="Search by title"
-                className="h-9 min-w-0 border-0 bg-transparent text-slate-100 placeholder:text-slate-400 focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="h-9 min-w-0 border-0 bg-transparent focus-visible:ring-0"
               />
               {search ? (
                 <button
                   type="button"
                   aria-label="Clear the search"
-                  className="mr-1 rounded-full p-1 text-slate-300 hover:bg-slate-700 hover:text-white"
+                  className="mr-1 rounded-full p-1 text-slate-300 hover:bg-slate-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
                   onClick={() => {
+                    searchRef.current?.focus();
                     setSearch("");
                     void store.loadShows("");
                   }}
@@ -145,7 +164,13 @@ export function Layout() {
                   <XCircle className="h-4 w-4" aria-hidden />
                 </button>
               ) : null}
-              <Button type="submit" size="sm" disabled={store.showsLoading} className="mr-1 h-7 bg-slate-600 px-3 text-xs text-white hover:bg-slate-500">
+              <Button
+                type="submit"
+                variant="secondary"
+                size="sm"
+                aria-disabled={store.showsLoading}
+                className="mr-1 h-7 border-0 bg-slate-600 px-3 text-xs text-white hover:bg-slate-500"
+              >
                 Search
               </Button>
             </form>
@@ -155,9 +180,10 @@ export function Layout() {
                   <Button
                     key={v}
                     size="sm"
+                    variant="secondary"
                     aria-pressed={view === v}
                     onClick={() => setView(v)}
-                    className={view === v ? "h-9 bg-slate-100 text-slate-900 hover:bg-white" : "h-9 border border-slate-600 bg-slate-800 text-slate-100 hover:bg-slate-700"}
+                    className={cn("h-9", view === v && "border-slate-100 bg-slate-100 text-slate-900 hover:bg-white")}
                   >
                     {v === "list" ? <Tv className="mr-2 h-4 w-4" aria-hidden /> : <Clapperboard className="mr-2 h-4 w-4" aria-hidden />}
                     {v === "list" ? "List" : "Posters"}
@@ -168,13 +194,13 @@ export function Layout() {
             <div className="hidden items-center gap-2 text-xs text-slate-200 lg:flex">
               <span className="rounded-full border border-slate-600 bg-slate-800 px-3 py-1">{store.shows.length} episodes</span>
               <span className="rounded-full border border-slate-600 bg-slate-800 px-3 py-1">{followedCount} followed</span>
-              <span className={cn("rounded-full border px-3 py-1", store.runStatus?.running ? "border-emerald-500 bg-emerald-900 text-emerald-100" : "border-slate-600 bg-slate-800")}>
-                {store.runStatus?.running ? "follow run active" : "follow runs idle"}
+              <span className={cn("rounded-full border px-3 py-1", store.runStatus?.running ? "border-sky-500/50 bg-sky-950 text-sky-100" : "border-slate-600 bg-slate-800")}>
+                {store.runStatus?.running ? "Follow run active" : "Follows idle"}
               </span>
             </div>
-            <Button size="sm" className={cn("h-9 shrink-0", primaryButton)} disabled={refreshing} onClick={() => void store.refreshCatalogue()}>
+            <Button size="sm" className="h-9 shrink-0" aria-disabled={refreshing} onClick={() => !refreshing && void store.refreshCatalogue()}>
               <RefreshCw className={cn("mr-2 h-4 w-4", refreshing && "motion-safe:animate-spin")} aria-hidden />
-              {refreshing ? "Refreshing…" : "Refresh"}
+              {refreshing ? "Refreshing…" : "Refresh catalogue"}
             </Button>
           </header>
 
@@ -188,7 +214,7 @@ export function Layout() {
               <p role="status" className="rounded-lg border border-sky-500/50 bg-sky-950 px-4 py-2 text-sm text-sky-100">
                 sarpur {store.health.update.available} is out (this is {store.health.version}).{" "}
                 {store.health.update.url ? (
-                  <a className="underline underline-offset-2 hover:text-white" href={store.health.update.url} target="_blank" rel="noreferrer">
+                  <a className="rounded underline underline-offset-2 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400" href={store.health.update.url} target="_blank" rel="noreferrer">
                     What’s new
                   </a>
                 ) : null}
@@ -207,34 +233,23 @@ export function Layout() {
             {store.settings && !store.settings.autoEnabled && followedCount > 0 ? (
               <div role="status" className="flex flex-wrap items-center gap-3 rounded-lg border border-amber-500/50 bg-amber-950 px-4 py-2 text-sm text-amber-100">
                 <span>Followed shows aren’t downloaded: automatic downloads are off.</span>
-                <Button size="sm" className={cn("h-7 px-3 text-xs", primaryButton)} onClick={() => setSettingsOpen(true)}>
+                <Button size="sm" className="h-7 px-3 text-xs" onClick={() => openSettings("Automatic downloads")}>
                   Turn on
                 </Button>
               </div>
             ) : null}
-            {store.notice ? (
-              <div
-                role={store.notice.kind === "error" ? "alert" : "status"}
-                className={cn(
-                  "flex items-start justify-between gap-3 rounded-md border px-3 py-2 text-sm",
-                  store.notice.kind === "error" ? "border-rose-500/50 bg-rose-950 text-rose-100" : "border-emerald-500/50 bg-emerald-950 text-emerald-100",
-                )}
-              >
-                <span className="break-words">{store.notice.text}</span>
-                <button type="button" aria-label="Dismiss" className="rounded p-0.5 hover:bg-white/10" onClick={store.clearNotice}>
-                  <X className="h-4 w-4" aria-hidden />
-                </button>
-              </div>
-            ) : null}
+            <NoticeBar onDismiss={() => contentRef.current?.focus({ preventScroll: true })} />
           </div>
 
-          <div className="flex-1 p-3 md:p-6">
+          {/* pb-24: the download queue button never covers the last row. */}
+          <div ref={contentRef} tabIndex={-1} className="flex-1 p-3 pb-24 focus:outline-none md:p-6 md:pb-24">
             <Outlet />
           </div>
         </main>
 
+        <LiveNotice />
         <DownloadQueue />
-        {settingsOpen ? <SettingsDialog onClose={() => setSettingsOpen(false)} /> : null}
+        {settingsOpen ? <SettingsDialog initialSection={settingsOpen} onClose={() => setSettingsOpen(null)} /> : null}
       </div>
     </BrowseContext.Provider>
   );

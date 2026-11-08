@@ -70,7 +70,7 @@ If the refresh fails (RÚV down), the run ends as a `warning` and the next one t
 ```json
 {
   "running": false, "lastRunAt": "…", "lastRunState": "ok | warning | error",
-  "lastRunMessage": "Queued 2 episode(s) from 1 followed show(s)",
+  "lastRunMessage": "Queued 2 episodes from 1 followed show",
   "lastReport": {
     "dryRun": false, "follows": 1, "episodes": 25,
     "addedSids": [{"followId": 1, "sid": "27447", "seriesTitle": "Fyrir alla muni"}],

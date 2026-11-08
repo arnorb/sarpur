@@ -7,13 +7,14 @@
 body {
   margin: 0;
   font-family:
-    Inter,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background: #020617;
-  color: #e2e8f0;
+  background: var(--color-slate-950);
+  color: var(--color-slate-100);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -31,8 +32,13 @@ body {
   }
 }
 
+/* From 1024px the slider picks the column count, but a column never gets
+   narrower than 8rem: titles need the room, so fewer columns are used. */
 @media (min-width: 1024px) {
   .poster-grid {
-    grid-template-columns: repeat(var(--poster-columns, 10), minmax(0, 1fr));
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(max(8rem, calc((100% - (var(--poster-columns, 10) - 1) * 1rem) / var(--poster-columns, 10))), 1fr)
+    );
   }
 }

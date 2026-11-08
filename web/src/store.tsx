@@ -25,8 +25,10 @@ import {
   saveMainAction,
   startBrowserDownloads,
 } from "@/lib/browser";
+import { count } from "@/lib/utils";
 
-type Notice = { kind: "status" | "error"; text: string } | null;
+/** A message for the user; `undo` puts back what the action just removed. */
+type Notice = { kind: "status" | "error"; text: string; undo?: () => Promise<void> } | null;
 
 type Store = {
   session: Session | null;
@@ -58,8 +60,9 @@ type Store = {
   clearFinished(): Promise<void>;
   allowRedownload(show: Show): Promise<void>;
   setMainAction(mode: DownloadMode): void;
-  say(text: string): void;
-  fail(error: unknown): void;
+  say(text: string, undo?: () => Promise<void>): void;
+  /** Shows an error; `action` says what failed ("Couldn't save the settings"). */
+  fail(error: unknown, action?: string): void;
   clearNotice(): void;
 };
 
@@ -91,8 +94,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const handled = useRef<Set<string>>(loadHandledJobs());
   const folders = useRef<Record<string, DirectoryHandle>>({});
 
-  const say = useCallback((text: string) => setNotice({ kind: "status", text }), []);
-  const fail = useCallback((error: unknown) => setNotice({ kind: "error", text: message(error) }), []);
+  const say = useCallback((text: string, undo?: () => Promise<void>) => setNotice({ kind: "status", text, undo }), []);
+  const fail = useCallback(
+    (error: unknown, action?: string) =>
+      setNotice({ kind: "error", text: action ? `${action}. ${message(error)}` : message(error) }),
+    [],
+  );
   const clearNotice = useCallback(() => setNotice(null), []);
 
   useEffect(() => {
@@ -117,7 +124,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           startBrowserDownloads(job.files);
         }
       } catch (error) {
-        fail(error);
+        fail(error, "Couldn't save the downloaded file");
       }
     },
     [fail],
@@ -137,14 +144,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const loadShows = useCallback(
     async (q: string) => {
-      setQuery(q);
       setShowsLoading(true);
       try {
         const data = await api.shows(q);
+        // Only now: a failed search must not label the old list as its results.
+        setQuery(q);
         setShows(data.shows);
         setCatalogue(data.status);
       } catch (error) {
-        fail(error);
+        fail(error, q ? `Couldn't search for “${q}”` : "Couldn't load the catalogue");
       } finally {
         setShowsLoading(false);
       }
@@ -157,12 +165,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     if (!ready) return;
     api.health().then(setHealth, () => undefined);
     void loadShows("");
-    api.settings().then(setSettings, fail);
-    reloadFollows().catch(fail);
+    api.settings().then(setSettings, (error) => fail(error, "Couldn't load the settings"));
+    reloadFollows().catch((error) => fail(error, "Couldn't load the followed shows"));
     api.jobs().then((data) => {
       setJobs(data.jobs);
       data.jobs.forEach((job) => void deliver(job));
-    }, fail);
+    }, (error) => fail(error, "Couldn't load the download queue"));
     api.plexStatus().then((data) => setLastPlex(data.last), () => undefined);
   }, [ready, loadShows, reloadFollows, deliver, fail]);
 
@@ -257,8 +265,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setSession(await api.login(password));
       },
       async logout() {
-        await api.logout();
-        setSession({ required: true, authenticated: false });
+        try {
+          await api.logout();
+          setSession({ required: true, authenticated: false });
+        } catch (error) {
+          fail(error, "Couldn't log out");
+        }
       },
       loadShows,
       async refreshCatalogue() {
@@ -266,7 +278,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           setCatalogue(await api.refreshCatalogue());
           say("Fetching the catalogue from RÚV. This takes a few minutes.");
         } catch (error) {
-          fail(error);
+          fail(error, "Couldn't refresh the catalogue");
         }
       },
       async saveSettings(patch) {
@@ -275,7 +287,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           say("Settings saved.");
           return true;
         } catch (error) {
-          fail(error);
+          fail(error, "Couldn't save the settings");
           return false;
         }
       },
@@ -283,36 +295,50 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         try {
           if (follow) {
             await api.follow(sid);
+            await reloadFollows();
           } else {
             const owner = follows.find((f) => f.sids.some((s) => s.sid === sid));
-            if (owner) await api.removeFollowSid(owner.id, sid);
+            if (!owner) return;
+            await api.removeFollowSid(owner.id, sid);
+            await reloadFollows();
+            say(`Stopped following ${owner.sids.find((s) => s.sid === sid)?.seriesTitle ?? owner.label}.`, async () => {
+              await api.follow(sid);
+              await reloadFollows();
+            });
           }
-          await reloadFollows();
         } catch (error) {
-          fail(error);
+          fail(error, follow ? "Couldn't follow the show" : "Couldn't stop following the show");
         }
       },
       async removeFollowSid(follow, sid) {
         try {
           await api.removeFollowSid(follow.id, sid);
           await reloadFollows();
+          say(`Removed ${follow.sids.find((s) => s.sid === sid)?.seriesTitle ?? sid} from ${follow.label}.`, async () => {
+            await api.follow(sid);
+            await reloadFollows();
+          });
         } catch (error) {
-          fail(error);
+          fail(error, "Couldn't remove the season");
         }
       },
       async unfollow(follow) {
         try {
           await api.unfollow(follow.id);
           await reloadFollows();
+          say(`Stopped following ${follow.label}.`, async () => {
+            for (const { sid } of follow.sids) await api.follow(sid);
+            await reloadFollows();
+          });
         } catch (error) {
-          fail(error);
+          fail(error, `Couldn't stop following ${follow.label}`);
         }
       },
       async runFollows(dryRun) {
         try {
           setRunStatus(await api.runFollows(dryRun));
         } catch (error) {
-          fail(error);
+          fail(error, dryRun ? "Couldn't preview the follow run" : "Couldn't start the follow run");
         }
       },
       async download(list, mode, languages, folder) {
@@ -330,9 +356,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             const fresh = queued.reverse().filter((q) => !current.some((j) => j.id === q.id));
             return [...fresh, ...current];
           });
-          say(`${list.length} item${list.length === 1 ? "" : "s"} added to the download queue.`);
+          say(`${count(list.length, "episode", "episodes")} added to the download queue.`);
         } catch (error) {
-          fail(error);
+          fail(error, "Couldn't add the download");
         }
       },
       async removeJob(job) {
@@ -342,7 +368,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             result.removed ? current.filter((j) => j.id !== job.id) : current.map((j) => (j.id === job.id && result.job ? result.job : j)),
           );
         } catch (error) {
-          fail(error);
+          fail(error, `Couldn't stop “${job.title}”`);
         }
       },
       async retryJob(job) {
@@ -356,28 +382,29 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           });
           say(`${job.title} is queued again.`);
         } catch (error) {
-          fail(error);
+          fail(error, `Couldn't retry “${job.title}”`);
         }
       },
       async clearFinished() {
-        const done = jobs.filter(finished);
+        // Completed only: failed and cancelled jobs keep their Retry button.
+        const done = jobs.filter((job) => job.state === "completed");
         try {
           for (const job of done) await api.removeJob(job.id);
           setJobs((current) => current.filter((j) => !done.some((d) => d.id === j.id)));
         } catch (error) {
-          fail(error);
+          fail(error, "Couldn't clear the completed downloads");
         }
       },
       async allowRedownload(show) {
         try {
           await api.forget(show.pid);
           setShows((current) => current.map((s) => (s.pid === show.pid ? { ...s, downloadState: null } : s)));
-          say(`Follow runs may download “${show.displayTitle}” again.`);
+          say(`Follow runs will include “${show.displayTitle}” again.`);
         } catch (error) {
           if (error instanceof ApiError && error.status === 404) {
             setShows((current) => current.map((s) => (s.pid === show.pid ? { ...s, downloadState: null } : s)));
           } else {
-            fail(error);
+            fail(error, "Couldn't include the episode in follow runs again");
           }
         }
       },

@@ -1,14 +1,14 @@
-import React, { type FormEvent, useState } from "react";
+import React, { type FormEvent, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Clapperboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { inputClass, primaryButton } from "@/components/common";
 import { Layout } from "@/components/Layout";
 import { BrowsePage } from "@/pages/BrowsePage";
 import { FollowingPage } from "@/pages/FollowingPage";
 import { SeriesPage } from "@/pages/SeriesPage";
+import { usePageTitle } from "@/lib/page";
 import { StoreProvider, useStore } from "@/store";
 import "./index.css";
 
@@ -17,14 +17,23 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  usePageTitle("Log in");
   const submit = async (event: FormEvent) => {
     event.preventDefault();
+    if (busy) return;
+    if (!password) {
+      setError("Enter the password.");
+      inputRef.current?.focus();
+      return;
+    }
     setBusy(true);
     setError("");
     try {
       await login(password);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
+      inputRef.current?.focus();
     } finally {
       setBusy(false);
     }
@@ -38,14 +47,22 @@ function LoginPage() {
         </h1>
         <label className="block text-sm text-slate-200">
           Password
-          <Input type="password" autoFocus autoComplete="current-password" className={`mt-1 ${inputClass}`} value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input
+            ref={inputRef}
+            type="password"
+            autoFocus
+            autoComplete="current-password"
+            className="mt-1"
+            aria-invalid={error ? true : undefined}
+            aria-describedby="login-error"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </label>
-        {error ? (
-          <p role="alert" className="text-sm text-rose-200">
-            {error}
-          </p>
-        ) : null}
-        <Button type="submit" className={`w-full ${primaryButton}`} disabled={busy || !password}>
+        <p id="login-error" role="alert" className="text-sm text-rose-200 empty:hidden">
+          {error}
+        </p>
+        <Button type="submit" className="w-full" aria-disabled={busy}>
           Log in
         </Button>
       </form>

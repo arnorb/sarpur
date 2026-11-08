@@ -59,7 +59,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
       serverError ||
       ([502, 503, 504].includes(response.status)
         ? "sarpur isn't answering yet. Try again in a moment."
-        : `Request failed (${response.status})`);
+        : `sarpur couldn't do that (error ${response.status}). Try again; if it keeps failing, check the server log.`);
     throw new ApiError(message, response.status);
   }
   return data as T;
