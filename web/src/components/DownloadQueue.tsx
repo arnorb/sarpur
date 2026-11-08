@@ -21,7 +21,9 @@ const STATE_CLASS: Record<Job["state"], string> = {
 
 export function DownloadQueue() {
   const { jobs, removeJob, retryJob, clearFinished } = useStore();
-  const [open, setOpen] = useState(true);
+  // On a phone the open panel would cover the page (and the sidebar's
+  // Settings button), so it starts collapsed there.
+  const [open, setOpen] = useState(() => window.matchMedia("(min-width: 640px)").matches);
   if (jobs.length === 0) return null;
   const active = jobs.filter(isActive).length;
   const done = jobs.filter(isFinished).length;

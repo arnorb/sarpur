@@ -26,8 +26,8 @@ Last updated: 2026-11-07.
 | **S2.0** spike 8: end to end | Mac half done | Through the slice 1 server on macOS (`spikes/README.md` row 8). NAS half at cutover; Windows half deferred. |
 | **S2.1** slice 1: core download path | Done | Merged to `main` (`5c8462e`). Details below. |
 | **S2.1** slice 2: follows, scheduler, tag scan, posters/subtitles, Plex, poster proxy, import | Done | Merged to `main`. Criteria 6, 7 and 14 are tests; 11, 12 and 13 have their local halves (below). See "Slice 2 progress". |
-| **S2.1** slice 3: UI port | In progress | Branch `s2.1-slice3`. Scope below. |
-| **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Open | |
+| **S2.1** slice 3: UI port | Done | Merged to `main`. Criteria 9 (password) and 17 are tests. A UI review comes later (owner). See "Slice 3 progress". |
+| **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Next | |
 | **S2.2** cutover on the NAS | Open | Simpler now: the NAS can be replaced outright (decision below). |
 | **S3** port the worker to Rust | Open | |
 
@@ -46,6 +46,7 @@ Last updated: 2026-11-07.
 - **2026-11-07, NAS replaced outright (owner):** the NAS hasn't really been running ruvsarpur, so it can be taken down and replaced by sarpur as soon as sarpur can run there (the Docker image, slice 4) — no import or side-by-side period. Criterion 11 becomes a dry run on the fresh NAS install; the import is mainly for the Windows user.
 - **2026-11-07, Windows is a later add-on (owner):** Windows work doesn't block anything. Deferred: spike 5's PC check, the Windows zip and console/Job Object work (§3.8), the Windows-only sanitising and long paths, criterion 15, and criterion 13 with the Windows user's real data. The code stays portable and the CI smoke test stays, but the path to "done" is Mac for development and the NAS for production.
 - **2026-11-07, slice 2 import and log:** pids from automatic runs import as `unknown`, because the old log only recorded sids for them (`unknown` still blocks follow re-downloads, like `library`). The import never overwrites a `recorded` row. sarpur writes the same `download-events.log` as ruvsarpur, in the same shape, so a reused data folder keeps one history.
+- **2026-11-08, slice 3:** search stays in the worker (ruvsarpur's `fuzz.partial_ratio`) until S3 ports it; spike 3 found no Rust crate with `partial_ratio`. Sessions are stateless signed cookies, not a session table. The Playwright tests use any complete Chromium in Playwright's cache (or `PW_CHROMIUM`), because Playwright's own browser download stalled here.
 - **2026-11-07, permissions (spike 7):** run as 568 and let the dataset ACL decide modes; criterion 16's "mode 664" follows the dataset instead.
 
 ### S2.1 slice 1: what's built
@@ -72,6 +73,13 @@ The S1 UI (`ruvsarpur/frontend/src/App.tsx`, one 2,000-line file) ported to `web
 4. **Criterion 17:** Playwright for posters, the download dialog and Follow by keyboard, Escape closing dialogs, no horizontal scroll at 320 px, and text contrast of at least 4.5:1.
 
 The update banner needs published releases, so it waits for slice 4 (packaging).
+
+### Slice 3 progress
+
+- **Part 1, server side (done):** `GET /api/shows` (the S1 UI's fields, `isFollowed`, `downloadState`) with ruvsarpur's fuzzy search through a new worker `search` command (0.46 s on the full catalogue); worker catalogue lines carry `display_title`. `SARPUR_PASSWORD` with a signed, stateless cookie (criterion 9, `api::tests::password_protects_the_api`). The UI embedded from `web/dist` with `rust-embed` and an `index.html` fallback. gzip (the full show list is 9 MB, 0.9 MB gzipped).
+- **Part 2, the port (done):** `web/` (React 18, Vite 5, Tailwind 4, as before), split into a typed client (`src/api`), an SSE-backed store (`src/store.tsx`), pages and components. New: the Following page, "Allow re-download", the per-browser main action, Settings sections (this browser, automatic downloads, library with scan, Plex, import), login, and the dry-run, RÚV-error and catalogue banners.
+- **Part 4, criterion 17 (done):** `web/e2e/ui.spec.ts`, 12 Playwright tests against a dry-run sarpur with the fake worker (`npm run test:e2e`): posters, the download dialog and Follow by keyboard, Escape closing dialogs, no horizontal scroll at 320 px (four pages and Settings), and axe-core's colour-contrast rule on every page and dialog. They found two bugs, both fixed: a job finishing before its POST returned was shown as waiting, and the open queue panel covered the sidebar on phones.
+- **Not in this slice:** the update banner (needs published releases, slice 4).
 
 ### Slice 2 progress
 

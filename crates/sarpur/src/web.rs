@@ -7,7 +7,7 @@ use axum::http::{StatusCode, Uri, header};
 use axum::response::{IntoResponse, Response};
 
 #[derive(rust_embed::Embed)]
-#[folder = "$CARGO_MANIFEST_DIR/../../web/dist"]
+#[folder = "../../web/dist"]
 #[allow_missing = true]
 struct Assets;
 

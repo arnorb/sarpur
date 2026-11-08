@@ -317,7 +317,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             if (folder) folders.current[job.id] = folder;
             queued.push(job);
           }
-          setJobs((current) => [...queued.reverse(), ...current.filter((j) => !queued.some((q) => q.id === j.id))]);
+          // The event stream may already have newer states (a dry run or an
+          // episode already in the library finishes at once): keep those.
+          setJobs((current) => {
+            const fresh = queued.reverse().filter((q) => !current.some((j) => j.id === q.id));
+            return [...fresh, ...current];
+          });
           say(`${list.length} item${list.length === 1 ? "" : "s"} added to the download queue.`);
         } catch (error) {
           fail(error);
@@ -337,7 +342,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         try {
           const retried = await api.retryJob(job.id);
           handled.current.delete(job.id);
-          setJobs((current) => [retried, ...current.filter((j) => j.id !== job.id)]);
+          setJobs((current) => {
+            const known = current.find((j) => j.id === retried.id);
+            const latest = known && known.state !== job.state ? known : retried;
+            return [latest, ...current.filter((j) => j.id !== job.id)];
+          });
           say(`${job.title} is queued again.`);
         } catch (error) {
           fail(error);
