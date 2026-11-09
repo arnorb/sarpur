@@ -21,8 +21,9 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
-          cache-dependency-path: worker/requirements.txt
-      - run: pip install -r worker/requirements.txt
+          cache-dependency-path: tools/reference/requirements.txt
+      # ruvsarpur's Python: the reference the Rust port is checked against.
+      - run: pip install -r tools/reference/requirements.txt
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -34,10 +35,13 @@ jobs:
       - run: cargo fmt --check
       - run: cargo clippy --workspace --all-targets -- -D warnings
       - run: cargo test --workspace
-      - name: Worker tests
-        run: python -m unittest discover -s worker -p "test_*.py"
+      - name: Reference tests
+        run: python -m unittest discover -s tools/reference -p "test_*.py"
       - name: Record/replay tests
         run: python -m unittest discover -s tools/record
       # The manifest also records the Python patch version, which may differ.
       - name: Golden files unchanged
         run: python tools/golden/generate.py && git diff --exit-code golden/names.jsonl golden/imdb.jsonl
+      # Criterion 18: the Rust port against the Python on the fixtures.
+      - name: Differential check
+        run: python tools/diff/diff.py

@@ -1,5 +1,6 @@
 //! sarpur: the server. Downloads RÚV Sarpur episodes through a queue, with the
-//! Python worker for RÚV access and naming, and ffmpeg for the video.
+//! RÚV client (`sarpur_lib::ruv`) for the catalogue and naming, and ffmpeg for
+//! the video.
 
 mod api;
 mod auth;
@@ -19,9 +20,9 @@ use sarpur_lib::eventlog::{self, EventLog};
 use sarpur_lib::follows::Follows;
 use sarpur_lib::jobs::{Queue, QueueConfig, real_free_space};
 use sarpur_lib::posters::PosterCache;
+use sarpur_lib::ruv::{Ruv, http::Http};
 use sarpur_lib::scan::Scanner;
 use sarpur_lib::updates::UpdateChecker;
-use sarpur_lib::worker::WorkerClient;
 use tokio::sync::watch;
 
 #[derive(Parser, Debug)]
@@ -33,7 +34,7 @@ struct Args {
     /// Port to listen on.
     #[arg(long, env = "SARPUR_PORT", default_value_t = 8090)]
     port: u16,
-    /// Data folder (database, worker files, browser downloads). Default:
+    /// Data folder (database, schedule, browser downloads). Default:
     /// SARPUR_DATA_DIR, else the platform's local data folder.
     #[arg(long)]
     data_dir: Option<PathBuf>,
@@ -41,10 +42,43 @@ struct Args {
     /// as "dry run". Follow runs only report what they would queue.
     #[arg(long)]
     dry_run: bool,
+    /// Ask the server on 127.0.0.1:<port> for /api/health and exit 0 when it
+    /// answers 200 (the Docker health check).
+    #[arg(long)]
+    healthcheck: bool,
+}
+
+/// `--healthcheck`: a plain HTTP/1.0 request, so the image needs no curl.
+fn healthcheck(port: u16) -> std::process::ExitCode {
+    use std::io::{Read, Write};
+    let ok = (|| -> std::io::Result<bool> {
+        let addr = SocketAddr::from(([127, 0, 0, 1], port));
+        let mut stream = std::net::TcpStream::connect_timeout(&addr, Duration::from_secs(4))?;
+        stream.set_read_timeout(Some(Duration::from_secs(4)))?;
+        stream.write_all(b"GET /api/health HTTP/1.0\r\nHost: 127.0.0.1\r\n\r\n")?;
+        let mut head = [0u8; 12];
+        stream.read_exact(&mut head)?;
+        Ok(head.starts_with(b"HTTP/1.") && &head[9..12] == b"200")
+    })()
+    .unwrap_or(false);
+    if ok {
+        std::process::ExitCode::SUCCESS
+    } else {
+        std::process::ExitCode::FAILURE
+    }
+}
+
+fn main() -> anyhow::Result<std::process::ExitCode> {
+    let args = Args::parse();
+    if args.healthcheck {
+        return Ok(healthcheck(args.port));
+    }
+    serve(args)?;
+    Ok(std::process::ExitCode::SUCCESS)
 }
 
 #[tokio::main]
-async fn main() -> anyhow::Result<()> {
+async fn serve(args: Args) -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(
             tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()),
@@ -59,24 +93,27 @@ async fn main() -> anyhow::Result<()> {
         libc::umask(0o002);
     }
 
-    let args = Args::parse();
     let data_dir = args.data_dir.unwrap_or_else(config::default_data_dir);
     std::fs::create_dir_all(&data_dir)
         .with_context(|| format!("creating the data folder {}", data_dir.display()))?;
-    let worker_script = config::worker_script();
     tracing::info!(
-        "data folder {}, worker {}, ffmpeg {}{}",
+        "data folder {}, ffmpeg {}{}",
         data_dir.display(),
-        worker_script.display(),
         config::ffmpeg(),
         if args.dry_run { " (dry run)" } else { "" }
     );
 
     let db = Db::open(&data_dir.join("sarpur.db")).context("opening the database")?;
-    let worker = WorkerClient::new(config::python(), worker_script, &data_dir);
+    // SARPUR_RUV_REPLAY answers RÚV requests from recordings (the e2e tests).
+    let http = match std::env::var_os("SARPUR_RUV_REPLAY").filter(|v| !v.is_empty()) {
+        Some(dir) => Http::replay(std::path::Path::new(&dir))
+            .map_err(|e| anyhow::anyhow!("SARPUR_RUV_REPLAY: {e}"))?,
+        None => Http::live(),
+    };
+    let ruv = Ruv::new(&data_dir, http);
     let queue = Queue::new(
         db.clone(),
-        worker.clone(),
+        ruv.clone(),
         QueueConfig {
             data_dir: data_dir.clone(),
             ffmpeg: config::ffmpeg(),
@@ -111,10 +148,10 @@ async fn main() -> anyhow::Result<()> {
     let catalogue = Arc::new(Catalogue::new());
     {
         let catalogue = catalogue.clone();
-        let worker = worker.clone();
+        let ruv = ruv.clone();
         let data_dir = data_dir.clone();
         tokio::spawn(async move {
-            catalogue.load_at_startup(&worker, &data_dir).await;
+            catalogue.load_at_startup(&ruv, &data_dir).await;
         });
     }
 
@@ -130,7 +167,7 @@ async fn main() -> anyhow::Result<()> {
     // Follow runs on the settings' interval while autoEnabled is on.
     let follows = Arc::new(Follows::new(
         db,
-        worker.clone(),
+        ruv.clone(),
         catalogue.clone(),
         queue.clone(),
         scanner.clone(),
@@ -146,7 +183,7 @@ async fn main() -> anyhow::Result<()> {
     let app = api::router(api::AppState {
         queue: queue.clone(),
         catalogue,
-        worker,
+        ruv,
         follows,
         scanner,
         posters: Arc::new(PosterCache::new(

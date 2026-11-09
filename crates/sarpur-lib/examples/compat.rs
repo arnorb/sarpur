@@ -9,7 +9,8 @@ use std::io::Write;
 use std::path::Path;
 
 use sarpur_lib::ruv::http::Http;
-use sarpur_lib::ruv::{metadata, playlist};
+use sarpur_lib::ruv::schedule::{self, ImdbCache};
+use sarpur_lib::ruv::{fuzz, metadata, playlist};
 use sarpur_lib::settings::Quality;
 use serde_json::{Value, json};
 
@@ -75,6 +76,41 @@ async fn main() {
                                     "fragments": p.fragments, "quality": p.quality.as_str()}),
                     Err(_) => json!({"file": url, "error": true}),
                 });
+            }
+        }
+        "fuzz" => {
+            // stdin: one [a, b] pair per line.
+            for line in std::io::stdin().lines() {
+                let pair: (String, String) = serde_json::from_str(&line.unwrap()).expect("pair");
+                emit(json!({"ratio": fuzz::ratio(&pair.0, &pair.1),
+                            "partial": fuzz::partial_ratio(&pair.0, &pair.1)}));
+            }
+        }
+        "series" => {
+            let http = http(&mut args);
+            let cache = ImdbCache::new(Default::default(), false);
+            for sid in args {
+                match schedule::fetch_series(&http, &json!(sid), &cache, 2026).await {
+                    Ok(items) => items.into_iter().for_each(|i| emit(schedule::slim(i))),
+                    Err(_) => emit(json!({"sid": sid, "error": true})),
+                }
+            }
+        }
+        "catalogue" => {
+            let http = http(&mut args);
+            let cache = ImdbCache::new(Default::default(), false);
+            match schedule::fetch_catalogue(&http, None, &cache, 2026, None).await {
+                Ok(s) => s.items().iter().cloned().for_each(&mut emit),
+                Err(_) => emit(json!({"error": true})),
+            }
+        }
+        "search" => {
+            let path = args.remove(0);
+            let schedule = schedule::Schedule::load(Path::new(&path)).unwrap().unwrap();
+            for query in args {
+                emit(
+                    json!({"query": query, "pids": sarpur_lib::ruv::search::search(&schedule, &query)}),
+                );
             }
         }
         other => panic!("unknown command {other}"),

@@ -31,7 +31,13 @@ impl Response {
 #[derive(Debug, Clone)]
 pub struct Recording {
     status: u16,
-    file: PathBuf,
+    body: Body,
+}
+
+#[derive(Debug, Clone)]
+enum Body {
+    File(PathBuf),
+    Bytes(Arc<Vec<u8>>),
 }
 
 #[derive(Clone)]
@@ -73,11 +79,28 @@ impl Http {
                 (method.to_uppercase(), requote(url)),
                 Recording {
                     status: entry["status"].as_u64().unwrap_or(200) as u16,
-                    file: dir.join(file),
+                    body: Body::File(dir.join(file)),
                 },
             );
         }
         Ok(Http::Replay(Arc::new(map)))
+    }
+
+    /// Canned answers held in memory: `(method, url, status, body)`.
+    pub fn canned(entries: impl IntoIterator<Item = (String, String, u16, Vec<u8>)>) -> Http {
+        let map = entries
+            .into_iter()
+            .map(|(method, url, status, body)| {
+                (
+                    (method.to_uppercase(), requote(&url)),
+                    Recording {
+                        status,
+                        body: Body::Bytes(Arc::new(body)),
+                    },
+                )
+            })
+            .collect();
+        Http::Replay(Arc::new(map))
     }
 
     /// The recordings in the repository's `fixtures/ruv/`.
@@ -107,8 +130,12 @@ impl Http {
                 let recording = map
                     .get(&key)
                     .ok_or_else(|| format!("no recording for {method} {url}"))?;
-                let body = std::fs::read(&recording.file)
-                    .map_err(|e| format!("{}: {e}", recording.file.display()))?;
+                let body = match &recording.body {
+                    Body::File(path) => {
+                        std::fs::read(path).map_err(|e| format!("{}: {e}", path.display()))?
+                    }
+                    Body::Bytes(bytes) => bytes.as_ref().clone(),
+                };
                 Ok(Response {
                     status: recording.status,
                     body,

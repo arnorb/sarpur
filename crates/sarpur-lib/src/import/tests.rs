@@ -1,7 +1,7 @@
 use super::*;
 use crate::jobs::{Queue, QueueConfig};
+use crate::ruv::{Ruv, testing};
 use crate::scan::tests::mp4_with_comment;
-use crate::worker::WorkerClient;
 use std::sync::Arc;
 use std::time::Duration;
 use tempfile::TempDir;
@@ -15,7 +15,7 @@ fn fixture(name: &str) -> PathBuf {
 struct Setup {
     dir: TempDir,
     db: Db,
-    worker: WorkerClient,
+    ruv: Ruv,
     catalogue: Arc<Catalogue>,
     scanner: Arc<Scanner>,
     follows: Follows,
@@ -25,24 +25,15 @@ struct Setup {
 impl Setup {
     async fn new() -> Setup {
         let dir = tempfile::tempdir().unwrap();
-        let catalogue_json = json!({"items": [{
-            "pid": "s1", "sid": "S", "title": "Sería 1", "series_title": "Sería",
-            "showtime": "2026-01-01T20:00:00", "duration": 60,
-        }]});
-        std::fs::write(
-            dir.path().join("fake_catalogue.json"),
-            catalogue_json.to_string(),
-        )
-        .unwrap();
-        let worker = WorkerClient::new(
-            crate::config::python(),
-            Path::new(env!("CARGO_MANIFEST_DIR")).join("testdata/fake_follow_worker.py"),
-            dir.path(),
-        );
+        // No saved schedule: the import copies the old one in. Series S is
+        // on RÚV; the watch list's "gone" isn't.
+        let ruv = testing::FakeRuv::new()
+            .series_page("S", "Sería", &[("s1", "2026-01-01T20:00:00")])
+            .build_empty(dir.path());
         let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
         let queue = Queue::new(
             db.clone(),
-            worker.clone(),
+            ruv.clone(),
             QueueConfig {
                 data_dir: dir.path().to_path_buf(),
                 ffmpeg: "ffmpeg".into(),
@@ -52,11 +43,11 @@ impl Setup {
             },
         );
         let catalogue = Arc::new(Catalogue::new());
-        catalogue.load(&worker, false).await;
+        catalogue.load(&ruv, false).await;
         let scanner = Arc::new(Scanner::new(db.clone(), dir.path().to_path_buf()));
         let follows = Follows::new(
             db.clone(),
-            worker.clone(),
+            ruv.clone(),
             catalogue.clone(),
             queue,
             scanner.clone(),
@@ -66,7 +57,7 @@ impl Setup {
         Setup {
             dir,
             db,
-            worker,
+            ruv,
             catalogue,
             scanner,
             follows,
@@ -82,7 +73,7 @@ impl Setup {
                 data_dir: self.dir.path(),
                 follows: &self.follows,
                 catalogue: &self.catalogue,
-                worker: &self.worker,
+                ruv: &self.ruv,
                 log: &self.log,
             },
         )

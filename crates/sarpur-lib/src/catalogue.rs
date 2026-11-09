@@ -1,5 +1,6 @@
-//! The catalogue, kept in memory. It is loaded from the worker's `catalogue`
-//! output in the background at startup and after a refresh.
+//! The catalogue the UI shows, kept in memory: one [`CatalogueItem`] per
+//! episode of the schedule [`Ruv`] keeps. Loaded in the background at
+//! startup and after a refresh.
 
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
@@ -8,7 +9,7 @@ use std::sync::{Arc, Mutex, RwLock};
 use serde::Serialize;
 use serde_json::Value;
 
-use crate::worker::WorkerClient;
+use crate::ruv::Ruv;
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -79,25 +80,15 @@ fn text(value: &Value, key: &str) -> String {
     }
 }
 
-/// Same rule as `gui_api._content_type_from_item`.
-pub fn content_type(value: &Value) -> &'static str {
-    let flag = |key: &str| value.get(key).and_then(Value::as_bool).unwrap_or(false);
-    if flag("is_movie") || flag("is_docu") {
-        "movie_or_docu"
-    } else if flag("is_sport") {
-        "sport"
-    } else {
-        "show"
-    }
-}
+pub use crate::ruv::content_type;
 
-/// The worker's saved schedule in the data folder (`--portable`).
+/// The saved schedule in the data folder.
 pub fn schedule_file(data_dir: &Path) -> PathBuf {
-    data_dir.join("tvschedule.json")
+    data_dir.join(crate::ruv::SCHEDULE_FILE)
 }
 
 impl CatalogueItem {
-    pub fn from_worker(value: &Value) -> Option<CatalogueItem> {
+    pub fn from_item(value: &Value) -> Option<CatalogueItem> {
         let pid = text(value, "pid");
         if pid.is_empty() {
             return None;
@@ -162,7 +153,7 @@ impl CatalogueItem {
             .unwrap_or_default();
         let title = text(value, "title");
         Some(CatalogueItem {
-            display_title: opt_text(value, "display_title").unwrap_or_else(|| title.clone()),
+            display_title: crate::ruv::naming::show_title(value, false, false),
             episode_description: opt_text(value, "desc"),
             series_description: opt_text(value, "series_sdesc")
                 .or_else(|| opt_text(value, "series_desc")),
@@ -259,10 +250,8 @@ impl Catalogue {
     }
 
     pub fn set_items(&self, values: &[Value]) {
-        let mut items: Vec<CatalogueItem> = values
-            .iter()
-            .filter_map(CatalogueItem::from_worker)
-            .collect();
+        let mut items: Vec<CatalogueItem> =
+            values.iter().filter_map(CatalogueItem::from_item).collect();
         items.sort_by(|a, b| b.showtime.cmp(&a.showtime).then_with(|| a.pid.cmp(&b.pid)));
         let count = items.len();
         *self.items.write().unwrap() = Arc::new(items);
@@ -292,19 +281,19 @@ impl Catalogue {
 
     /// The startup load: reads the saved schedule, or fetches it from RÚV when
     /// the data folder has none yet.
-    pub async fn load_at_startup(&self, worker: &WorkerClient, data_dir: &Path) -> bool {
+    pub async fn load_at_startup(&self, ruv: &Ruv, data_dir: &Path) -> bool {
         let saved = tokio::fs::try_exists(schedule_file(data_dir))
             .await
             .unwrap_or(false);
         if !saved {
             tracing::info!("no saved catalogue; fetching it from RÚV (takes minutes)");
         }
-        self.load(worker, !saved).await
+        self.load(ruv, !saved).await
     }
 
     /// Loads (or with `refresh`, fetches from RÚV and then loads) the catalogue.
     /// Returns false without doing anything if a load is already running.
-    pub async fn load(&self, worker: &WorkerClient, refresh: bool) -> bool {
+    pub async fn load(&self, ruv: &Ruv, refresh: bool) -> bool {
         {
             let mut status = self.status.lock().unwrap();
             if matches!(status.state, "loading" | "refreshing") {
@@ -313,9 +302,18 @@ impl Catalogue {
             status.state = if refresh { "refreshing" } else { "loading" };
             status.error = None;
         }
-        match worker.catalogue(refresh).await {
-            Ok(values) => {
-                self.set_items(&values);
+        let result = if refresh {
+            ruv.refresh(None).await
+        } else {
+            match ruv.load().await {
+                Ok(true) => Ok(()),
+                Ok(false) => Err("no saved catalogue yet; refresh it".to_string()),
+                Err(e) => Err(e),
+            }
+        };
+        match result {
+            Ok(()) => {
+                self.set_items(ruv.schedule().items());
                 tracing::info!("catalogue loaded: {} items", self.status().count);
             }
             Err(e) => {
@@ -332,15 +330,23 @@ impl Catalogue {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::path::Path;
 
     #[tokio::test]
     async fn loads_and_searches() {
-        let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("testdata");
-        let worker = WorkerClient::new(crate::config::python(), dir.join("fake_worker.py"), &dir);
+        use crate::ruv::testing::{FakeRuv, episode, movie};
+        use serde_json::json;
+        let dir = tempfile::tempdir().unwrap();
+        let mut show = episode("web1", "100", "Þáttur", 1, 2, "2026-11-07T19:35:00");
+        show["portrait_image"] = json!("https://myndir.ruv.is/p.jpg");
+        show["series_image"] = json!("https://evil.example/s.jpg");
+        show["subtitles"] = json!([{"name": "IS", "value": "https://x/is.vtt"}, {"name": "en", "value": "https://x/en.vtt"}]);
+        let ruv = FakeRuv::new()
+            .item(show)
+            .item(movie("mov1", "200", "Bíómynd", "2026-11-06T21:00:00"))
+            .build(dir.path());
         let catalogue = Catalogue::new();
         assert_eq!(catalogue.status().state, "empty");
-        assert!(catalogue.load(&worker, false).await);
+        assert!(catalogue.load(&ruv, false).await);
         assert_eq!(catalogue.status().state, "ready");
         assert_eq!(catalogue.status().count, 2);
 
@@ -348,6 +354,7 @@ mod tests {
         assert_eq!(hits.len(), 1);
         assert_eq!(hits[0].duration, Some(300));
         assert_eq!(hits[0].content_type, "show");
+        assert_eq!(hits[0].display_title, "Þáttur s01e01");
         // The first image there is, through the proxy.
         assert_eq!(
             hits[0].poster_url.as_deref(),
@@ -362,21 +369,23 @@ mod tests {
 
     #[tokio::test]
     async fn startup_fetches_when_no_schedule_is_saved() {
-        let testdata = Path::new(env!("CARGO_MANIFEST_DIR")).join("testdata");
-        let worker = WorkerClient::new(
-            crate::config::python(),
-            testdata.join("fake_worker.py"),
-            &testdata,
-        );
+        use crate::ruv::testing::FakeRuv;
         let data = tempfile::tempdir().unwrap();
+        let ruv = FakeRuv::new()
+            .featured(&[("300", 1)])
+            .series_page("300", "Nýtt", &[("new1", "2026-11-08T20:00:00")])
+            .build_empty(data.path());
 
         let catalogue = Catalogue::new();
-        assert!(catalogue.load_at_startup(&worker, data.path()).await);
-        assert_eq!(catalogue.status().count, 3, "fetched with --refresh");
+        assert!(catalogue.load_at_startup(&ruv, data.path()).await);
+        assert_eq!(catalogue.status().count, 1, "fetched from RÚV");
+        assert!(schedule_file(data.path()).is_file(), "and saved");
 
-        std::fs::write(schedule_file(data.path()), "{}").unwrap();
+        // Next time it reads the saved schedule; RÚV isn't asked.
+        let offline = FakeRuv::new().build_empty(data.path());
         let catalogue = Catalogue::new();
-        assert!(catalogue.load_at_startup(&worker, data.path()).await);
-        assert_eq!(catalogue.status().count, 2, "read the saved schedule");
+        assert!(catalogue.load_at_startup(&offline, data.path()).await);
+        assert_eq!(catalogue.status().count, 1, "read the saved schedule");
+        assert_eq!(catalogue.get("new1").unwrap().series_title, "Nýtt");
     }
 }

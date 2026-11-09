@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""A stand-in for ffmpeg in the Rust tests. The first -i URL picks the behaviour:
-fake://ok writes the output and progress lines, fake://fail exits 1 after
-writing part of the output, fake://slow writes progress until it reads `q`."""
+"""A stand-in for ffmpeg in the Rust tests. The first -i URL picks the behaviour,
+as `fake://<kind>` or a playlist named `fake-<kind>.m3u8` (`ruv::testing`):
+ok writes the output and progress lines, fail exits 1 after writing part of
+the output, slow writes progress until it reads `q`."""
 import os
 import select
 import sys
@@ -10,6 +11,9 @@ import time
 argv = sys.argv[1:]
 url = argv[argv.index("-i") + 1]
 out = argv[-1]
+name = url.rsplit("/", 1)[-1]
+if name.startswith("fake-") and name.endswith(".m3u8"):
+    url = "fake://" + name[len("fake-"):-len(".m3u8")]
 
 
 def progress(us, end=False):

@@ -362,7 +362,7 @@ pub struct Services<'a> {
     pub data_dir: &'a Path,
     pub follows: &'a Follows,
     pub catalogue: &'a Catalogue,
-    pub worker: &'a crate::worker::WorkerClient,
+    pub ruv: &'a crate::ruv::Ruv,
     pub log: &'a EventLog,
 }
 
@@ -382,7 +382,7 @@ pub async fn apply(dir: &Path, svc: Services<'_>) -> Result<Applied, ImportError
     }
     if source.preview.copies.iter().any(|f| f == "tvschedule.json") {
         svc.catalogue.wait_idle().await;
-        svc.catalogue.load(svc.worker, false).await;
+        svc.catalogue.load(svc.ruv, false).await;
     }
 
     if !source.patch.is_empty() {

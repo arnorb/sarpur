@@ -14,8 +14,8 @@ use std::path::{Path, PathBuf};
 
 use serde_json::Value;
 
+use crate::ruv::Plan;
 use crate::subtitles;
-use crate::worker::Plan;
 
 /// One subtitle track from the plan: `{name, value}` (value is the URL).
 fn subtitle_tracks(plan: &Plan) -> Vec<(String, String)> {
@@ -188,8 +188,8 @@ pub async fn fetch(req: Request<'_>) -> Fetched {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::ruv::Images;
     use crate::testutil::{MockServer, Reply};
-    use crate::worker::Images;
     use serde_json::json;
 
     fn plan(content_type: &str, base: &str) -> Plan {

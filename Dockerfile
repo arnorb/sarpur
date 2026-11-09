@@ -1,4 +1,4 @@
-# The sarpur image: the server, the Python worker and ffmpeg.
+# The sarpur image: the server and ffmpeg.
 # Runs as 568:568 under tini; data in /data, the library mounted by the user
 # (on the NAS: /mnt/storage/Media at /media). See docs/docker.md.
 
@@ -24,23 +24,14 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 FROM debian:bookworm-slim
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        ca-certificates ffmpeg python3 python3-venv tini tzdata \
+        ca-certificates ffmpeg tini tzdata \
     && rm -rf /var/lib/apt/lists/*
-COPY worker/requirements.txt /tmp/requirements.txt
-RUN python3 -m venv /opt/venv \
-    && /opt/venv/bin/pip install --no-cache-dir -r /tmp/requirements.txt \
-    && rm /tmp/requirements.txt
 COPY LICENSE /app/LICENSE
-COPY worker/*.py /app/worker/
 COPY --from=server /sarpur /app/sarpur
 
 ENV SARPUR_DATA_DIR=/data \
     SARPUR_BIND=0.0.0.0 \
     SARPUR_PORT=8090 \
-    SARPUR_PYTHON=/opt/venv/bin/python \
-    SARPUR_WORKER=/app/worker/ruvsarpur.py \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
     HOME=/data \
     TZ=Atlantic/Reykjavik
 
@@ -49,5 +40,5 @@ VOLUME /data
 USER 568:568
 EXPOSE 8090
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --start-interval=2s --retries=3 \
-    CMD ["/opt/venv/bin/python", "-c", "import os,urllib.request; urllib.request.urlopen('http://127.0.0.1:%s/api/health' % os.environ.get('SARPUR_PORT', '8090'), timeout=4)"]
+    CMD ["/app/sarpur", "--healthcheck"]
 ENTRYPOINT ["/usr/bin/tini", "--", "/app/sarpur"]

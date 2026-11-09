@@ -16,8 +16,8 @@ use crate::extras;
 use crate::library;
 use crate::media::{self, Download, Outcome, Stop};
 use crate::plex::{self, PlexResult};
+use crate::ruv::{NameMode, Plan, Ruv};
 use crate::settings;
-use crate::worker::{NameMode, Plan, WorkerClient};
 
 /// Finished browser downloads are kept this long.
 pub const WEB_RETENTION: Duration = Duration::from_secs(24 * 3600);
@@ -196,7 +196,7 @@ pub struct Queue {
 
 struct Inner {
     db: Db,
-    worker: WorkerClient,
+    ruv: Ruv,
     cfg: QueueConfig,
     events: broadcast::Sender<Event>,
     wake: Notify,
@@ -308,13 +308,13 @@ fn next_queued(c: &rusqlite::Connection) -> rusqlite::Result<Option<Job>> {
 }
 
 impl Queue {
-    pub fn new(db: Db, worker: WorkerClient, cfg: QueueConfig) -> Queue {
+    pub fn new(db: Db, ruv: Ruv, cfg: QueueConfig) -> Queue {
         let (events, _) = broadcast::channel(256);
         let (shutdown, _) = watch::channel(false);
         Queue {
             inner: Arc::new(Inner {
                 db,
-                worker,
+                ruv,
                 cfg,
                 events,
                 wake: Notify::new(),
@@ -751,7 +751,7 @@ impl Queue {
         };
 
         let plan: Plan = tokio::select! {
-            plan = self.inner.worker.plan(&job.pid, name_mode, settings.quality) => plan.map_err(|e| e.to_string())?,
+            plan = self.inner.ruv.plan(&job.pid, name_mode, settings.quality) => plan?,
             stop = wait_for_stop(stop_rx) => return Ok(Some(stop)),
         };
         job.title = plan.title.clone();

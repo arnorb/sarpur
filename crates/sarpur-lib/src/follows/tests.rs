@@ -1,5 +1,6 @@
 use super::*;
 use crate::jobs::{ALREADY_IN_LIBRARY, QueueConfig, State};
+use crate::ruv::testing;
 use crate::scan::tests::mp4_with_comment;
 use serde_json::{Value, json};
 use tempfile::TempDir;
@@ -34,38 +35,69 @@ fn labels_drop_trailing_parentheses() {
     assert_eq!(series_label("Engir svigar"), "Engir svigar");
 }
 
+/// An episode of `series_title`. [`Setup::new`] numbers the episodes of
+/// each series in the order given.
 fn item(pid: &str, sid: &str, series_title: &str, english: bool, showtime: &str) -> Value {
-    json!({
-        "pid": pid, "sid": sid, "title": format!("{series_title} {pid}"),
-        "series_title": series_title, "showtime": showtime, "duration": 600,
-        "english_subtitled": english,
-    })
+    let mut item = testing::episode(pid, sid, series_title, 1, 1, showtime);
+    item["english_subtitled"] = json!(english);
+    item
 }
 
 struct Setup {
     dir: TempDir,
+    ruv: Ruv,
     queue: Queue,
     follows: Follows,
 }
 
 impl Setup {
+    /// `catalogue`: `{"items": [...], "series": {"<sid>": [(pid, firstrun)...]},
+    /// "refresh_fails": bool}`. Series in `series` are on RÚV but not in the
+    /// schedule.
     async fn new(catalogue: Value) -> Setup {
         let dir = tempfile::tempdir().unwrap();
-        std::fs::write(
-            dir.path().join("fake_catalogue.json"),
-            serde_json::to_vec(&catalogue).unwrap(),
-        )
-        .unwrap();
+        let items = catalogue["items"].as_array().cloned().unwrap_or_default();
+        let mut fake = testing::FakeRuv::new();
+        let mut numbers: HashMap<String, u32> = HashMap::new();
+        let totals = items
+            .iter()
+            .fold(HashMap::<String, u32>::new(), |mut m, i| {
+                *m.entry(i["sid"].as_str().unwrap().to_string()).or_default() += 1;
+                m
+            });
+        for mut item in items {
+            let sid = item["sid"].as_str().unwrap().to_string();
+            let n = numbers.entry(sid.clone()).or_default();
+            *n += 1;
+            let total = totals[&sid].max(2);
+            let series_title = item["series_title"].as_str().unwrap().to_string();
+            item["ep_num"] = json!(n.to_string());
+            item["ep_total"] = json!(total.to_string());
+            item["multiple_episodes"] = json!(true);
+            item["title"] = json!(format!("{series_title} ({n} af {total})"));
+            fake = fake.playable(item, "ok");
+        }
+        if let Some(series) = catalogue["series"].as_object() {
+            for (sid, episodes) in series {
+                let title = episodes["title"].as_str().unwrap();
+                let list: Vec<(&str, &str)> = episodes["episodes"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|e| (e[0].as_str().unwrap(), e[1].as_str().unwrap()))
+                    .collect();
+                fake = fake.series_page(sid, title, &list);
+            }
+        }
+        if !catalogue["refresh_fails"].as_bool().unwrap_or(false) {
+            fake = fake.featured(&[]);
+        }
+        let ruv = fake.build(dir.path());
         let testdata = Path::new(env!("CARGO_MANIFEST_DIR")).join("testdata");
-        let worker = WorkerClient::new(
-            crate::config::python(),
-            testdata.join("fake_follow_worker.py"),
-            dir.path(),
-        );
         let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
         let queue = Queue::new(
             db.clone(),
-            worker.clone(),
+            ruv.clone(),
             QueueConfig {
                 data_dir: dir.path().to_path_buf(),
                 ffmpeg: testdata
@@ -78,11 +110,11 @@ impl Setup {
             },
         );
         let cat = Arc::new(Catalogue::new());
-        assert!(cat.load(&worker, false).await);
+        assert!(cat.load(&ruv, false).await);
         let scanner = Arc::new(Scanner::new(db.clone(), dir.path().to_path_buf()));
         let follows = Follows::new(
             db,
-            worker,
+            ruv.clone(),
             cat,
             queue.clone(),
             scanner,
@@ -90,18 +122,22 @@ impl Setup {
         );
         Setup {
             dir,
+            ruv,
             queue,
             follows,
         }
     }
 
+    /// Where a library download of `pid` goes (`title` is its series).
     fn episode_path(&self, title: &str, pid: &str) -> PathBuf {
-        self.dir
+        let name = self.ruv.names(&[pid.to_string()], NameMode::Plex).remove(0);
+        let path = self
+            .dir
             .path()
             .join("downloads/shows")
-            .join(title)
-            .join("Season 01")
-            .join(format!("{title} - {pid}.mp4"))
+            .join(name.relative_path.expect("pid in the schedule"));
+        assert!(path.starts_with(self.dir.path().join("downloads/shows").join(title)));
+        path
     }
 
     async fn queued_pids(&self) -> Vec<String> {
@@ -303,7 +339,10 @@ async fn ruv_down_is_a_warning_and_schedules_nothing() {
     let status = s.follows.status();
     assert_eq!(status.last_run_state, Some("warning"));
     assert!(
-        status.last_run_message.unwrap().contains("RÚV is down"),
+        status
+            .last_run_message
+            .unwrap()
+            .contains("Could not refresh the catalogue"),
         "{:?}",
         s.follows.status()
     );
@@ -326,7 +365,7 @@ async fn ruv_down_is_a_warning_and_schedules_nothing() {
 async fn a_followed_sid_outside_the_catalogue_is_fetched() {
     let s = Setup::new(json!({
         "items": [item("a1", "A", "Þáttur", false, "2026-01-01T20:00:00")],
-        "series": {"Z": [item("z1", "Z", "Gamalt", false, "2020-01-01T20:00:00")]},
+        "series": {"Z": {"title": "Gamalt", "episodes": [["z1", "2020-01-01T20:00:00"]]}},
     }))
     .await;
     let follow = s.follows.follow_sid("Z").await.unwrap();
@@ -456,8 +495,8 @@ async fn downloads_fetch_extras_and_refresh_plex_once() {
     let with_extras = |pid: &str| {
         let mut v = item(pid, "S", "Sería", false, "2026-01-01T20:00:00");
         v["subtitles"] = json!([{"name": "is", "value": format!("{}/is.vtt", ruv.url)}]);
-        v["images"] = json!({"portrait": format!("{}/portrait", ruv.url),
-                             "episode": format!("{}/episode-{pid}", ruv.url)});
+        v["portrait_image"] = json!(format!("{}/portrait", ruv.url));
+        v["episode_image"] = json!(format!("{}/episode-{pid}", ruv.url));
         v
     };
     let s = Setup::new(json!({"items": [with_extras("e1"), with_extras("e2"), with_extras("w1")]}))
@@ -513,10 +552,12 @@ async fn downloads_fetch_extras_and_refresh_plex_once() {
 
     let e1 = s.episode_path("Sería", "e1");
     let season = e1.parent().unwrap();
-    assert!(season.join("Sería - e1.is.srt").is_file());
-    assert!(season.join("Sería - e1.is.vtt").is_file());
+    let stem = e1.file_stem().unwrap().to_string_lossy().into_owned();
+    assert_eq!(stem, "Sería - s01e01");
+    assert!(season.join(format!("{stem}.is.srt")).is_file());
+    assert!(season.join(format!("{stem}.is.vtt")).is_file());
     assert_eq!(
-        std::fs::read_to_string(season.join("Sería - e1.jpg")).unwrap(),
+        std::fs::read_to_string(season.join(format!("{stem}.jpg"))).unwrap(),
         "/episode-e1"
     );
     assert_eq!(
@@ -526,7 +567,7 @@ async fn downloads_fetch_extras_and_refresh_plex_once() {
 
     let web = s.queue.get(&web.id).await.unwrap().unwrap();
     let names: Vec<&str> = web.files.iter().map(|f| f.name.as_str()).collect();
-    assert_eq!(names, ["Sería - w1.mp4", "Sería - w1.is.srt"]);
+    assert_eq!(names, ["Sería s01e03.mp4", "Sería s01e03.is.srt"]);
     assert!(
         !s.dir
             .path()

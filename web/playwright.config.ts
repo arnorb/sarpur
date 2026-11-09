@@ -26,7 +26,7 @@ function chromium(): string | undefined {
 }
 
 // Criterion 17. Runs the built UI (npm run build) against a sarpur in
-// dry-run mode with the fake worker (e2e/server.mjs).
+// dry-run mode with RÚV replayed from recordings (e2e/server.mjs).
 export default defineConfig({
   testDir: "e2e",
   fullyParallel: false,

@@ -24,10 +24,10 @@ use sarpur_lib::import::{self, ImportError};
 use sarpur_lib::jobs::{Event, JobError, Mode, Priority, Queue, State as JobState};
 use sarpur_lib::library;
 use sarpur_lib::posters::{PosterCache, PosterError};
+use sarpur_lib::ruv::Ruv;
 use sarpur_lib::scan::Scanner;
 use sarpur_lib::settings;
 use sarpur_lib::updates::UpdateChecker;
-use sarpur_lib::worker::WorkerClient;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use tokio::sync::watch;
@@ -38,7 +38,7 @@ use tokio_stream::wrappers::{BroadcastStream, WatchStream};
 pub struct AppState {
     pub queue: Queue,
     pub catalogue: Arc<Catalogue>,
-    pub worker: WorkerClient,
+    pub ruv: Ruv,
     pub follows: Arc<Follows>,
     pub scanner: Arc<Scanner>,
     pub posters: Arc<PosterCache>,
@@ -211,11 +211,7 @@ async fn list_shows(
     let items: Vec<_> = if q.is_empty() {
         s.catalogue.all().iter().cloned().collect()
     } else {
-        let pids = s
-            .worker
-            .search(q)
-            .await
-            .map_err(|e| ApiError(StatusCode::BAD_GATEWAY, format!("search failed: {e}")))?;
+        let pids = s.ruv.search(q).await;
         s.catalogue.items_for_pids(&pids)
     };
     let followed: std::collections::HashSet<String> = follows::list(s.queue.db())
@@ -246,9 +242,9 @@ async fn catalogue_status(State(s): State<AppState>) -> Json<Value> {
 
 async fn refresh_catalogue(State(s): State<AppState>) -> (StatusCode, Json<Value>) {
     let catalogue = s.catalogue.clone();
-    let worker = s.worker.clone();
+    let ruv = s.ruv.clone();
     tokio::spawn(async move {
-        catalogue.load(&worker, true).await;
+        catalogue.load(&ruv, true).await;
     });
     // Give the task a moment to flip the status so the reply shows it.
     tokio::task::yield_now().await;
@@ -505,7 +501,7 @@ async fn import_apply(
             data_dir: s.queue.data_dir(),
             follows: &s.follows,
             catalogue: &s.catalogue,
-            worker: &s.worker,
+            ruv: &s.ruv,
             log: &s.log,
         },
     )
@@ -620,6 +616,18 @@ mod tests {
         std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../sarpur-lib/testdata")
     }
 
+    /// RÚV with `web1` (a show) and `mov1` (a movie) that download fine.
+    fn test_ruv(dir: &std::path::Path) -> Ruv {
+        use sarpur_lib::ruv::testing::{FakeRuv, episode, movie};
+        FakeRuv::new()
+            .playable(
+                episode("web1", "100", "Þáttur", 1, 2, "2026-11-07T19:35:00"),
+                "ok",
+            )
+            .playable(movie("mov1", "200", "Bíómynd", "2026-11-06T21:00:00"), "ok")
+            .build(dir)
+    }
+
     async fn call(app: &Router, req: Request<Body>) -> (StatusCode, Response) {
         let res = app.clone().oneshot(req).await.unwrap();
         (res.status(), res)
@@ -634,11 +642,7 @@ mod tests {
     async fn web_download_end_to_end() {
         let dir = tempfile::tempdir().unwrap();
         let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
-        let worker = WorkerClient::new(
-            sarpur_lib::config::python(),
-            testdata().join("fake_worker.py"),
-            dir.path(),
-        );
+        let worker = test_ruv(dir.path());
         let queue = Queue::new(
             db,
             worker.clone(),
@@ -670,7 +674,7 @@ mod tests {
         let app = router(AppState {
             queue: queue.clone(),
             catalogue,
-            worker,
+            ruv: worker,
             follows,
             scanner,
             posters: Arc::new(PosterCache::new(
@@ -836,11 +840,7 @@ mod tests {
     async fn sse_file_ready_goes_only_to_the_matching_client() {
         let dir = tempfile::tempdir().unwrap();
         let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
-        let worker = WorkerClient::new(
-            sarpur_lib::config::python(),
-            testdata().join("fake_worker.py"),
-            dir.path(),
-        );
+        let worker = test_ruv(dir.path());
         let queue = Queue::new(
             db,
             worker.clone(),
@@ -870,7 +870,7 @@ mod tests {
         let app = router(AppState {
             queue: queue.clone(),
             catalogue,
-            worker,
+            ruv: worker,
             follows,
             scanner,
             posters: Arc::new(PosterCache::new(
@@ -952,25 +952,19 @@ mod tests {
     async fn follow_endpoints() {
         let dir = tempfile::tempdir().unwrap();
         let item = |pid: &str, sid: &str, title: &str| {
-            json!({"pid": pid, "sid": sid, "title": title, "series_title": title,
-                   "showtime": format!("2026-01-01T20:00:0{}", pid.len()), "duration": 60})
+            let showtime = format!("2026-01-01T20:00:0{}", pid.len());
+            sarpur_lib::ruv::testing::episode(pid, sid, title, 1, 1, &showtime)
         };
-        let fixture = json!({"items": [
+        let mut fake = sarpur_lib::ruv::testing::FakeRuv::new().featured(&[]);
+        for value in [
             item("a1", "A", "Þáttur"),
             item("b11", "B", "Þáttur 2"),
             item("c1", "C", "Annað"),
-        ]});
-        std::fs::write(
-            dir.path().join("fake_catalogue.json"),
-            serde_json::to_vec(&fixture).unwrap(),
-        )
-        .unwrap();
+        ] {
+            fake = fake.item(value);
+        }
         let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
-        let worker = WorkerClient::new(
-            sarpur_lib::config::python(),
-            testdata().join("fake_follow_worker.py"),
-            dir.path(),
-        );
+        let worker = fake.build(dir.path());
         let queue = Queue::new(
             db.clone(),
             worker.clone(),
@@ -997,7 +991,7 @@ mod tests {
         let app = router(AppState {
             queue: queue.clone(),
             catalogue,
-            worker,
+            ruv: worker,
             follows: follows.clone(),
             scanner,
             posters: Arc::new(PosterCache::new(
@@ -1241,11 +1235,7 @@ mod tests {
     async fn password_protects_the_api() {
         let dir = tempfile::tempdir().unwrap();
         let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
-        let worker = WorkerClient::new(
-            sarpur_lib::config::python(),
-            testdata().join("fake_worker.py"),
-            dir.path(),
-        );
+        let worker = test_ruv(dir.path());
         let queue = Queue::new(
             db.clone(),
             worker.clone(),
@@ -1272,7 +1262,7 @@ mod tests {
         let app = router(AppState {
             queue: queue.clone(),
             catalogue,
-            worker,
+            ruv: worker,
             follows,
             scanner,
             posters: Arc::new(PosterCache::new(

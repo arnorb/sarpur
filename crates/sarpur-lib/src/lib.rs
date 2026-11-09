@@ -1,4 +1,4 @@
-//! sarpur's core: database, download queue, follows, Python worker client,
+//! sarpur's core: database, download queue, follows, the RÚV client,
 //! ffmpeg runner, library folder rules and the in-memory catalogue.
 
 pub mod catalogue;
@@ -18,7 +18,6 @@ pub mod scan;
 pub mod settings;
 pub mod subtitles;
 pub mod updates;
-pub mod worker;
 
 #[cfg(test)]
 pub(crate) mod testutil;

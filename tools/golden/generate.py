@@ -1,4 +1,4 @@
-"""Generate golden naming and IMDB outputs from the vendored Python worker.
+"""Generate golden naming and IMDB outputs from ruvsarpur's Python (tools/reference).
 
 Every output line carries its input item, so a failing comparison can be
 reproduced from the golden file alone. The clock is frozen, so outputs don't
@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "worker"))
+sys.path.insert(0, str(ROOT / "tools" / "reference"))
 
 import ruvsarpur  # noqa: E402
 import sarpur_worker  # noqa: E402

@@ -1,6 +1,6 @@
-"""Differential check for S3: the Rust port against the Python worker.
+"""Differential check for S3: the Rust port against ruvsarpur's Python.
 
-Runs each ported function in Python (worker/ruvsarpur.py) and in Rust (the
+Runs each ported function in Python (tools/reference/ruvsarpur.py) and in Rust (the
 `compat` example of sarpur-lib) on the same input and compares the JSON
 lines. Offline by default: RÚV is replayed from fixtures/ruv/. With --live,
 both sides fetch from RÚV (a live snapshot; run it by hand, not in CI).
@@ -33,9 +33,9 @@ def dump(obj) -> str:
     return json.dumps(obj, ensure_ascii=False, sort_keys=True, default=worker._json_default)
 
 
-def rust(*args: str) -> list[str]:
+def rust(*args: str, stdin: str | None = None) -> list[str]:
     cmd = ["cargo", "run", "-q", "-p", "sarpur-lib", "--example", "compat", "--", *args]
-    out = subprocess.run(cmd, cwd=ROOT, check=True, capture_output=True, text=True).stdout
+    out = subprocess.run(cmd, cwd=ROOT, check=True, capture_output=True, text=True, input=stdin).stdout
     return [dump(json.loads(line)) for line in out.splitlines() if line.strip()]
 
 
@@ -98,7 +98,103 @@ def check_resolve(live: bool) -> tuple[list[str], list[str]]:
     return py, rs
 
 
+def fuzz_pairs() -> list[tuple[str, str]]:
+    """Queries a person might type against the catalogue's titles: words and
+    pieces of titles, with and without typos, in lower case as search uses."""
+    import random
+    rng = random.Random(7)
+    titles = sorted({t.lower() for item in schedule_items()
+                     for t in (item.get("title"), item.get("series_title"), item.get("original-title")) if t})
+    queries = set()
+    for title in rng.sample(titles, 300):
+        words = title.split()
+        queries.add(rng.choice(words))
+        start = rng.randrange(len(title))
+        queries.add(title[start:start + rng.randint(3, 12)])
+        typo = list(title[: rng.randint(4, 16)])
+        if len(typo) > 2:
+            typo[rng.randrange(len(typo))] = rng.choice("aeiouáéíóúþæöð ")
+        queries.add("".join(typo))
+    queries = sorted(q for q in queries if q.strip())
+    return [(q, t) for q in queries for t in rng.sample(titles, 25)]
+
+
+def check_fuzz(live: bool) -> tuple[list[str], list[str]]:
+    from fuzzywuzzy import fuzz
+    pairs = fuzz_pairs()
+    py = [dump({"ratio": fuzz.ratio(a, b), "partial": fuzz.partial_ratio(a, b)}) for a, b in pairs]
+    stdin = "".join(json.dumps([a, b], ensure_ascii=False) + "\n" for a, b in pairs)
+    return py, rust("fuzz", stdin=stdin)
+
+
+EPISODE_KEYS = ("description", "duration", "file_expires", "files", "firstrun", "id", "number", "title")
+
+
+def normal(item: dict) -> str:
+    """An item as compared: `episode` cut to the keys sarpur keeps, and the
+    subtitle tracks sorted (their order comes from a JSON object, which
+    serde_json doesn't keep)."""
+    item = dict(item)
+    if isinstance(item.get("episode"), dict):
+        item["episode"] = {k: v for k, v in item["episode"].items() if k in EPISODE_KEYS}
+    if isinstance(item.get("subtitles"), list):
+        item["subtitles"] = sorted(item["subtitles"], key=lambda s: str(s.get("name")))
+    return dump(item)
+
+
+def recorded_sids() -> list[str]:
+    import re
+    return sorted({m.group(1) for (_, u) in replay.load_index()
+                   if (m := re.search(r"/programs/program/(\d+)/all$", u))}, key=int)
+
+
+def check_series(live: bool) -> tuple[list[str], list[str]]:
+    sids = recorded_sids()
+    py = []
+    with network(live), replay.no_imdb(ruvsarpur):
+        for sid in sids:
+            try:
+                py += [normal(i) for i in ruvsarpur.getVodSeriesSchedule(sid, None, {}, None).values()]
+            except Exception:  # noqa: BLE001
+                py.append(dump({"sid": sid, "error": True}))
+    rs = [normal(json.loads(line)) for line in rust("series", *net_args(live), *sids)]
+    return py, rs
+
+
+def check_catalogue(live: bool) -> tuple[list[str], list[str]]:
+    with network(live), replay.no_imdb(ruvsarpur):
+        py = [normal(i) for i in ruvsarpur.getVodSchedule({}, False, {}, None).values()]
+    rs = [normal(json.loads(line)) for line in rust("catalogue", *net_args(live))]
+    return py, rs
+
+
+SEARCHES = ["Brown", "séra", "veður", "fréttir", "krakka", "kiljan", "landinn", "Silfrið", "the", "a",
+            "Hvolpasveitin", "Father Brown", "english", "with English subtitles", "Kastljós", "spaug",
+            "Stundin okkar", "Ófærð", "trapped", "Bíó", "heimild", "íþrótt", "Gettu betur", "Útsvar",
+            "xyz", "Ævar", "Sögur", "2024", "Hraðfréttir", "Tónatal", "jól", "Lag dagsins", "Áramótaskaup"]
+
+
+def check_search(live: bool) -> tuple[list[str], list[str]]:
+    schedule = json.loads(SCHEDULE.read_text(encoding="utf-8"))
+    schedule["date"] = None
+    py = []
+    for query in SEARCHES:
+        args = argparse.Namespace(sid=None, pid=None, find=query, originaltitle=False,
+                                  new=False, includeenglishsubs=True)
+        pids = [i["pid"] for i in ruvsarpur.searchForItemsInTvSchedule(args, schedule)]
+        py.append(dump({"query": query, "pids": pids}))
+    return py, rust("search", str(SCHEDULE), *SEARCHES)
+
+
+def net_args(live: bool) -> list[str]:
+    return ["--live"] if live else ["--replay", str(FIXTURES)]
+
+
 CHECKS = {
+    "search": check_search,
+    "series": check_series,
+    "catalogue": check_catalogue,
+    "fuzz": check_fuzz,
     "metadata": check_metadata,
     "resolve": check_resolve,
 }

@@ -6,16 +6,38 @@ fn testdata() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("testdata")
 }
 
+/// The episodes these tests download, by how ffmpeg behaves for them.
+fn fake_ruv(dir: &TempDir) -> crate::ruv::Ruv {
+    use crate::ruv::testing::{FakeRuv, episode};
+    FakeRuv::new()
+        .playable(
+            episode("web1", "100", "Þáttur", 1, 2, "2026-11-07T19:35:00"),
+            "ok",
+        )
+        .playable(
+            episode("lib1", "101", "Þáttur [x]", 1, 2, "2026-11-07T19:35:00"),
+            "ok",
+        )
+        .playable(
+            episode("fail1", "102", "Bilun", 1, 2, "2026-11-07T19:35:00"),
+            "fail",
+        )
+        .playable(
+            episode("slow1", "103", "Hægt", 1, 2, "2026-11-07T19:35:00"),
+            "slow",
+        )
+        .playable(
+            episode("slow2", "103", "Hægt", 2, 2, "2026-11-07T19:35:00"),
+            "slow",
+        )
+        .build(dir.path())
+}
+
 fn queue_with(dir: &TempDir, dry_run: bool, free: u64) -> Queue {
     let db = Db::open(&dir.path().join("sarpur.db")).unwrap();
-    let worker = WorkerClient::new(
-        crate::config::python(),
-        testdata().join("fake_worker.py"),
-        dir.path(),
-    );
     Queue::new(
         db,
-        worker,
+        fake_ruv(dir),
         QueueConfig {
             data_dir: dir.path().to_path_buf(),
             ffmpeg: testdata()

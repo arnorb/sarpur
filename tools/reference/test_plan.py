@@ -1,6 +1,6 @@
 """Offline tests for the worker's `plan` command.
 
-    /path/to/python -m unittest discover -s worker -p "test_*.py"
+    /path/to/python -m unittest discover -s tools/reference -p "test_*.py"
 """
 import io
 import json
@@ -17,7 +17,7 @@ sys.path.insert(0, str(WORKER_DIR))
 import ruvsarpur  # noqa: E402
 import sarpur_worker  # noqa: E402
 
-FIXTURE = WORKER_DIR.parent / "fixtures" / "tvschedule.json"
+FIXTURE = WORKER_DIR.parents[1] / "fixtures" / "tvschedule.json"
 FAKE_PLAYLIST = {
     "url": "https://ruv-vod.akamaized.net/opid/X/1080p/stream.m3u8",
     "audio_url": "https://ruv-vod.akamaized.net/opid/X/audio/stream.m3u8",

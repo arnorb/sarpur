@@ -17,7 +17,7 @@ WORKER_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(WORKER_DIR))
 import ruvsarpur  # noqa: E402
 
-FIXTURES = WORKER_DIR.parent / "fixtures" / "subtitles"
+FIXTURES = WORKER_DIR.parents[1] / "fixtures" / "subtitles"
 
 
 def convert(vtt: Path):

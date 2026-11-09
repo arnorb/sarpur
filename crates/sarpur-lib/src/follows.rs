@@ -17,9 +17,9 @@ use crate::catalogue::{Catalogue, CatalogueItem};
 use crate::db::{Db, DbError, rusqlite};
 use crate::jobs::{Event, JobError, Mode, Priority, Queue};
 use crate::library;
+use crate::ruv::{NameMode, Ruv};
 use crate::scan::Scanner;
 use crate::settings;
-use crate::worker::{NameMode, WorkerClient};
 
 /// ruvsarpur's `trimSeasonNumberSuffix`: drops the first of these suffixes
 /// that the title ends with, checked in this order.
@@ -281,7 +281,7 @@ pub struct RunOptions {
 
 pub struct Follows {
     db: Db,
-    worker: WorkerClient,
+    ruv: Ruv,
     catalogue: Arc<Catalogue>,
     queue: Queue,
     scanner: Arc<Scanner>,
@@ -334,7 +334,7 @@ fn known(c: &rusqlite::Connection, pids: &[String]) -> rusqlite::Result<Known> {
 impl Follows {
     pub fn new(
         db: Db,
-        worker: WorkerClient,
+        ruv: Ruv,
         catalogue: Arc<Catalogue>,
         queue: Queue,
         scanner: Arc<Scanner>,
@@ -342,7 +342,7 @@ impl Follows {
     ) -> Follows {
         Follows {
             db,
-            worker,
+            ruv,
             catalogue,
             queue,
             scanner,
@@ -380,13 +380,13 @@ impl Follows {
             Some(info) => (info.series_title, info.english_subtitled),
             None => {
                 let items = self
-                    .worker
+                    .ruv
                     .series(sid)
                     .await
                     .map_err(|e| FollowError::NotFound(format!("series {sid}: {e}")))?;
                 let item = items
                     .iter()
-                    .find_map(CatalogueItem::from_worker)
+                    .find_map(CatalogueItem::from_item)
                     .ok_or_else(|| FollowError::NotFound(format!("series {sid} not found")))?;
                 let title = if item.series_title.trim().is_empty() {
                     item.title
@@ -455,7 +455,7 @@ impl Follows {
         };
         self.catalogue.wait_idle().await;
         if opts.refresh {
-            self.catalogue.load(&self.worker, true).await;
+            self.catalogue.load(&self.ruv, true).await;
             let status = self.catalogue.status();
             if status.state == "failed" {
                 return Err(RunProblem::Warning(format!(
@@ -544,7 +544,7 @@ impl Follows {
         missing.sort();
         let mut fetched = false;
         for sid in missing {
-            match self.worker.series(sid).await {
+            match self.ruv.series(sid).await {
                 Ok(items) => fetched |= !items.is_empty(),
                 Err(e) => report
                     .warnings
@@ -552,7 +552,7 @@ impl Follows {
             }
         }
         if fetched {
-            self.catalogue.load(&self.worker, false).await;
+            self.catalogue.load(&self.ruv, false).await;
         }
 
         // (a) reads the library table, so bring it up to date first.
@@ -603,11 +603,7 @@ impl Follows {
             .await
             .map_err(RunProblem::error)?;
         let pids: Vec<String> = candidates.iter().map(|e| e.pid.clone()).collect();
-        let names = self
-            .worker
-            .names(&pids, NameMode::Plex)
-            .await
-            .map_err(|e| RunProblem::Warning(format!("Could not name the episodes: {e}")))?;
+        let names = self.ruv.names(&pids, NameMode::Plex);
         let names: HashMap<String, _> = names.into_iter().map(|n| (n.pid.clone(), n)).collect();
         for episode in candidates {
             let Some(relative) = names

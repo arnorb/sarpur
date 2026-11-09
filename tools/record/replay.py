@@ -20,7 +20,7 @@ import requests
 
 REPO = Path(__file__).resolve().parents[2]
 FIXTURE_DIR = REPO / "fixtures" / "ruv"
-WORKER_DIR = REPO / "worker"
+WORKER_DIR = REPO / "tools" / "reference"
 FROZEN_NOW = "2026-11-07T12:00:00"
 
 
@@ -68,7 +68,7 @@ def replaying(fixture_dir=FIXTURE_DIR):
 
 
 def import_worker():
-    """Import ruvsarpur and sarpur_worker from worker/ without touching them."""
+    """Import ruvsarpur and sarpur_worker from tools/reference/ without touching them."""
     if str(WORKER_DIR) not in sys.path:
         sys.path.insert(0, str(WORKER_DIR))
     import ruvsarpur
