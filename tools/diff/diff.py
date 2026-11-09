@@ -15,6 +15,7 @@ import argparse
 import contextlib
 import io
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -162,9 +163,17 @@ def check_series(live: bool) -> tuple[list[str], list[str]]:
 
 
 def check_catalogue(live: bool) -> tuple[list[str], list[str]]:
+    """Items compared by pid: the saved schedule is sorted by pid, so the
+    order they were fetched in doesn't matter. Live, RÚV can change while
+    the two fetch (Python takes about 15 minutes), so a few differences
+    there need a look rather than mean a bug."""
     with network(live), replay.no_imdb(ruvsarpur):
-        py = [normal(i) for i in ruvsarpur.getVodSchedule({}, False, {}, None).values()]
-    rs = [normal(json.loads(line)) for line in rust("catalogue", *net_args(live))]
+        py = sorted(normal(i) for i in ruvsarpur.getVodSchedule({}, False, {}, None).values())
+    rs = sorted(normal(json.loads(line)) for line in rust("catalogue", *net_args(live)))
+    if live:
+        out = Path(os.environ.get("DIFF_OUT", "."))
+        (out / "catalogue-python.jsonl").write_text("\n".join(py) + "\n", encoding="utf-8")
+        (out / "catalogue-rust.jsonl").write_text("\n".join(rs) + "\n", encoding="utf-8")
     return py, rs
 
 
@@ -186,11 +195,43 @@ def check_search(live: bool) -> tuple[list[str], list[str]]:
     return py, rust("search", str(SCHEDULE), *SEARCHES)
 
 
+def imdb_cases() -> list[list]:
+    """The lookups the catalogue made: each series with a foreign title, as
+    getVodSeriesSchedule would ask (live only: IMDB isn't recorded)."""
+    seen, cases = set(), []
+    for item in schedule_items():
+        title = item.get("original-title") or (item.get("series_title") if item.get("is_movie") else None)
+        if not title or item["sid"] in seen:
+            continue
+        seen.add(item["sid"])
+        kind = "documentary" if item.get("is_docu") else "movie" if item.get("is_movie") else "tvshow"
+        year = ruvsarpur.getGroup(ruvsarpur.RE_CAPTURE_YEAR_FROM_DESCRIPTION, "year", item.get("series_sdesc") or "")
+        duration = float(item.get("duration") or 0)
+        cases.append([title, year, kind, duration, int(item.get("ep_total") or 1)])
+    return cases[:120]
+
+
+def check_imdb(live: bool) -> tuple[list[str], list[str]]:
+    if not live:
+        return [], []
+    cases = imdb_cases()
+    py = []
+    for title, year, kind, duration, episodes in cases:
+        try:
+            found = ruvsarpur.lookupItemInIMDB(title, year, kind, duration, episodes, False, {})
+            py.append(dump({"title": title, "imdb": found}))
+        except Exception:  # noqa: BLE001
+            py.append(dump({"title": title, "error": True}))
+    stdin = "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases)
+    return py, rust("imdb", "--live", stdin=stdin)
+
+
 def net_args(live: bool) -> list[str]:
     return ["--live"] if live else ["--replay", str(FIXTURES)]
 
 
 CHECKS = {
+    "imdb": check_imdb,
     "search": check_search,
     "series": check_series,
     "catalogue": check_catalogue,

@@ -1,6 +1,6 @@
 # Running sarpur in Docker
 
-The image holds the server (with the UI), the Python worker and ffmpeg. It runs as `568:568` under `tini` and listens on port 8090.
+The image holds the server (with the UI) and ffmpeg. It runs as `568:568` under `tini` and listens on port 8090.
 
 ```bash
 docker build -t sarpur .                       # or pull ghcr.io/arnorb/sarpur
@@ -23,13 +23,13 @@ docker compose up -d                           # docker-compose.yml: the NAS lay
 | `SARPUR_GITHUB_TOKEN` | unset | Needed for the update check while the repository is private. |
 | `RUST_LOG` | `info` | |
 
-`SARPUR_DATA_DIR`, `SARPUR_PYTHON` and `SARPUR_WORKER` are set by the image; leave them.
+`SARPUR_DATA_DIR` is set by the image; leave it.
 
 ## Stopping
 
 `docker stop` sends SIGTERM: sarpur stops ffmpeg, leaves the job for recovery and exits (under a second when tested). On the next start the `.part` file is deleted and an interrupted interactive job is queued again; a scheduled one is marked failed and the next follow run picks it up. Give it `stop_grace_period: 30s`.
 
-The healthcheck calls `/api/health` (open even with a password) and is green about 2 seconds after start.
+The healthcheck (`sarpur --healthcheck`) calls `/api/health` (open even with a password) and is green about 2 seconds after start.
 
 ## Releases
 

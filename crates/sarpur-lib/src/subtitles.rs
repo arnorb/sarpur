@@ -180,7 +180,7 @@ mod tests {
     }
 
     /// Criterion 14: every `fixtures/subtitles/*.vtt` converts to the `.srt`
-    /// next to it, which `worker/test_subtitles.py` checks against R:382.
+    /// next to it, which `tools/reference/test_subtitles.py` checks against R:382.
     #[test]
     fn matches_ruvsarpur_on_fixtures() {
         let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fixtures/subtitles");

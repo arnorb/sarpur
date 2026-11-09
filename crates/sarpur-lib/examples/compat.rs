@@ -10,7 +10,7 @@ use std::path::Path;
 
 use sarpur_lib::ruv::http::Http;
 use sarpur_lib::ruv::schedule::{self, ImdbCache};
-use sarpur_lib::ruv::{fuzz, metadata, playlist};
+use sarpur_lib::ruv::{fuzz, imdb, metadata, playlist};
 use sarpur_lib::settings::Quality;
 use serde_json::{Value, json};
 
@@ -110,6 +110,32 @@ async fn main() {
             for query in args {
                 emit(
                     json!({"query": query, "pids": sarpur_lib::ruv::search::search(&schedule, &query)}),
+                );
+            }
+        }
+        "imdb" => {
+            // stdin: one [title, year, kind, duration, episodes] per line.
+            let http = http(&mut args);
+            for line in std::io::stdin().lines() {
+                let (title, year, kind, duration, episodes): (
+                    String,
+                    Option<String>,
+                    String,
+                    f64,
+                    i64,
+                ) = serde_json::from_str(&line.unwrap()).expect("args");
+                let kind = match kind.as_str() {
+                    "movie" => imdb::Kind::Movie,
+                    "documentary" => imdb::Kind::Documentary,
+                    _ => imdb::Kind::TvShow,
+                };
+                emit(
+                    match imdb::lookup(&http, &title, year.as_deref(), kind, duration, episodes)
+                        .await
+                    {
+                        Ok(found) => json!({"title": title, "imdb": found}),
+                        Err(_) => json!({"title": title, "error": true}),
+                    },
                 );
             }
         }

@@ -14,7 +14,7 @@ This file moved here from `ruvsarpur/.omc/plans/sarpur-rewrite.md` on 2026-11-07
 
 ## Status
 
-Last updated: 2026-11-08.
+Last updated: 2026-11-09.
 
 | Step | State | Where / evidence |
 | --- | --- | --- |
@@ -29,7 +29,7 @@ Last updated: 2026-11-08.
 | **S2.1** slice 3: UI port | Done | Merged to `main`. Criteria 9 (password) and 17 are tests. A UI review comes later (owner). See "Slice 3 progress". |
 | **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Done | Merged to `main`. Criterion 16's local half passes in Docker Desktop; the NAS half is part of cutover. See "Slice 4 progress". |
 | **S2.2** cutover on the NAS | Done | 2026-11-08: sarpur `v0.1.0` runs on the NAS; the old apps are stopped, not deleted. Criteria 11, 12 and 16 checked there. See "Cutover". |
-| **S3** port the worker to Rust | Next | |
+| **S3** port the worker to Rust | Done (branch `s3-port`) | No Python at run time. Criterion 18: `tools/diff/diff.py` on the fixtures in CI and live by hand. See "S3" below. |
 
 ### Decisions since approval
 
@@ -63,6 +63,20 @@ A running `sarpur` server takes one RÚV episode through queue → worker → ff
 - **Browser downloads:** `<data>/web/<job>/<name>`, served at `/api/jobs/{id}/files/{name}`, swept after 24 h (at startup and hourly).
 - **Catalogue:** kept in memory, loaded from the worker at startup (in the background) and after `POST /api/catalogue/refresh`; substring search.
 - **API:** see `docs/api.md`. SSE job updates go to everyone; `file_ready` goes only to the matching `client_id`.
+
+### S3 (2026-11-09)
+
+- **What moved:** `sarpur-lib::ruv` holds the port: `naming` (`createShowTitle`, `createLocalFileName`), `metadata` (`buildFfmpegMetadata`), `playlist` (`find_m3u8_playlist_url` and the worker's `_resolve_playlist`), `schedule` (`getVodSeriesSchedule`, `getVodSchedule`, the category feed, `tvschedule.json`), `search`, `fuzz` and `imdb`. `Ruv` replaced the worker client everywhere; the server no longer starts Python.
+- **Checks (criterion 18):** `tools/diff/diff.py` runs each part in Python and in Rust (`examples/compat.rs`) on the same input. On the fixtures (CI): metadata 8,508 items, playlists 27 (three shapes × three qualities), series 220 items from the 14 recorded series, catalogue from the recorded feeds, search 33 queries, fuzz 18,325 query/title pairs with exact scores; all 0 differences. Live: 120 IMDB lookups, 0 differences; the full catalogue (17,792 episodes, compared by pid), 3 differences, all RÚV changing between the two fetches (Python takes 15 minutes): series 36633 expired that day (now 404) and one episode got its description. Names: `golden/names.jsonl` in all three modes, as before (criterion 4).
+- **Live run:** the Rust server fetched the full catalogue into an empty data folder in 90 s (Python: about 16 min; six series at a time instead of one), 17,792 episodes with IMDB matching. Search takes about 0.5 s in a debug build. A real browser download (`agcomq`) came out as `Veður s01e58.mp4` with ruvsarpur's tags. Criteria 4 to 17 rerun: Rust tests, Playwright (14), the image (healthy in 4 s, runs as 568, no Python, 731 MB instead of 847 MB).
+- **Decisions:**
+  - fuzzywuzzy's `partial_ratio` scores windows picked by the matching blocks of RapidFuzz's Levenshtein alignment, so that alignment is ported exactly (common affix removed, Hyyrö's deltas, the same backtrace). Scores match Python's to the point, not just the >85 decisions.
+  - The Python moved to `tools/reference/` instead of being deleted: `golden/` and the differential check need it. It isn't in the image.
+  - The schedule keeps only the `episode` keys anything reads (description, firstrun, expiry, files, …); image renditions and clips were most of the file. Fetching one series no longer changes the schedule's date, which marks the last full fetch.
+  - A refresh that finds no programmes keeps the old schedule (was: an empty catalogue).
+  - Playlists are fetched with TLS verification on (ruvsarpur turned it off).
+  - Tests use `ruv::testing::FakeRuv` (schedule items and canned RÚV answers) instead of fake Python workers; the e2e server replays RÚV with `SARPUR_RUV_REPLAY`. The Docker health check is `sarpur --healthcheck`.
+  - The documentary flag (`heimildarmyndir`) and the movie part naming are unchanged; changing them changes names (see the decisions above).
 
 ### After cutover
 
@@ -336,7 +350,7 @@ sarpur/
   - `name`: R:946-1066, with the prefix glob escaped.
   - `imdb`.
 - Each one ships when the differential CI passes on the fixtures **and** on a live catalogue snapshot.
-- When all four are done, delete `worker/` and remove Python from the image and the zip.
+- When all four are done, delete `worker/` and remove Python from the image and the zip. (Done 2026-11-09; the Python moved to `tools/reference/` as the reference for the checks.)
 
 ## 5. Acceptance criteria
 

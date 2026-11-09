@@ -16,22 +16,24 @@ cargo test --workspace
 cargo clippy --workspace --all-targets -- -D warnings
 cargo fmt --check
 cargo run -p sarpur -- --data-dir ./data              # http://127.0.0.1:8090
-python -m unittest discover -s worker -p "test_*.py"  # worker tests
+python -m unittest discover -s tools/reference -p "test_*.py"  # reference tests
+python tools/diff/diff.py                             # Rust port vs the Python (criterion 18)
 python -m unittest discover -s tools/record           # record/replay tests
 python tools/golden/generate.py                       # must leave golden/ unchanged
 (cd web && npm ci && npm run build)                   # the UI; the binary embeds web/dist
 (cd web && npm run test:e2e)                          # Playwright (criterion 17)
 ```
 
-The worker needs ruvsarpur's Python dependencies (`pip install -r worker/requirements.txt`). On this Mac a ready venv is `/Users/arnorbogason/Projects/ruvsarpur/venv/bin/python`; point `SARPUR_PYTHON` at it when running the server. ffmpeg is on PATH (Homebrew).
+The server needs no Python. The Python tools need ruvsarpur's dependencies (`pip install -r tools/reference/requirements.txt`); on this Mac a ready venv is `/Users/arnorbogason/Projects/ruvsarpur/venv/bin/python`. ffmpeg is on PATH (Homebrew).
 
 ## Layout
 
-- `crates/sarpur-lib/`: the core (`config`, `settings`, `db`, `worker`, `catalogue`, `library`, `media`, `jobs`, `follows`, `scan`, `subtitles`, `extras`, `plex`, `posters`, `import`, `eventlog`).
+- `crates/sarpur-lib/`: the core (`config`, `settings`, `db`, `ruv`, `catalogue`, `library`, `media`, `jobs`, `follows`, `scan`, `subtitles`, `extras`, `plex`, `posters`, `import`, `eventlog`).
 - `crates/sarpur/`: the axum server and CLI. Routes are listed in `docs/api.md`.
 - `web/`: the UI. `src/api` is the typed client, `src/store.tsx` the shared state over SSE, `e2e/` the Playwright tests.
-- `worker/`: ruvsarpur's Python, vendored at tag `v-s1` and ours to edit. It's run as `ruvsarpur.py --json <command>` and writes JSON lines only. In S3 each command is replaced by Rust and checked against this output.
-- `fixtures/`: the pinned catalogue (`tvschedule.json`), recorded RÚV responses (`fixtures/ruv/`, replayed by `tools/record/`) and VTT files with the SRT ruvsarpur makes from them (`fixtures/subtitles/`; regenerate with `python worker/test_subtitles.py --regenerate`).
+- `crates/sarpur-lib/src/ruv/`: RÚV, ported from ruvsarpur in S3: `naming`, `metadata`, `playlist`, `schedule` (catalogue and series), `search` and `fuzz` (fuzzywuzzy over RapidFuzz, exactly), `imdb`, `http` (live or replayed). `Ruv` is the entry point; `testing` is a fake RÚV for tests. Keep each function's behaviour equal to the Python: `tools/diff/diff.py` checks it.
+- `tools/reference/`: ruvsarpur's Python (tag `v-s1` plus sarpur's JSON worker). Not shipped; the reference for `golden/` and `tools/diff/`.
+- `fixtures/`: the pinned catalogue (`tvschedule.json`), recorded RÚV responses (`fixtures/ruv/`, replayed by `tools/record/`) and VTT files with the SRT ruvsarpur makes from them (`fixtures/subtitles/`; regenerate with `python tools/reference/test_subtitles.py --regenerate`).
 - `golden/`: expected file names and IMDB data from `tools/golden/generate.py`. A change to `golden/` means naming changed. Plex already knows the existing names, so that's a bug unless it's deliberate and agreed.
 - `spikes/`: the S2.0 spikes. Raw outputs in `spikes/*/out/` are git-ignored.
 
