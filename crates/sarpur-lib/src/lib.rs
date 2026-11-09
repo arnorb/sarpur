@@ -13,6 +13,7 @@ pub mod library;
 pub mod media;
 pub mod plex;
 pub mod posters;
+pub mod ruv;
 pub mod scan;
 pub mod settings;
 pub mod subtitles;

@@ -19,6 +19,7 @@ dirs = "7.0.0"
 fs4 = "1.1.0"
 libc = "0.2.191"
 mp4ameta = "0.13.0"
+regex = "1.13.1"
 reqwest = { version = "0.13.5", default-features = false, features = ["query", "rustls"] }
 rust-embed = { version = "8.13.0", features = ["mime-guess"] }
 rusqlite = { version = "0.41.1", features = ["bundled"] }
@@ -33,6 +34,7 @@ tower-http = { version = "0.7.1", features = ["compression-gzip"] }
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
 unicode-normalization = "0.1.26"
+url = "2.5.8"
 uuid = { version = "1.29.1", features = ["v4"] }
 # dev
 tempfile = "3.27.0"
