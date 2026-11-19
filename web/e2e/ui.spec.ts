@@ -107,6 +107,40 @@ test("Follow by keyboard from a poster, then on the Following page", async ({ pa
   await expect(page.getByText("You don’t follow anything yet.")).toBeVisible();
 });
 
+test.describe("in a short window", () => {
+  test.use({ viewport: { width: 800, height: 300 } });
+
+  test("Back returns to where the page was scrolled", async ({ page }) => {
+    await open(page);
+    await page.getByRole("button", { name: "List" }).click();
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    // The click scrolls the link into view first, so note where the page is when it lands.
+    await page.evaluate(() => addEventListener("click", () => sessionStorage.setItem("scrolled", String(scrollY)), true));
+    await page.getByRole("link", { name: "Ófærð" }).click();
+    const scrolled = Number(await page.evaluate(() => sessionStorage.getItem("scrolled")));
+    expect(scrolled).toBeGreaterThan(50);
+    await expect(page.getByRole("heading", { name: "Ófærð" })).toBeVisible();
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+
+    await page.goBack();
+    await expect(page.getByRole("button", { name: "List" })).toBeVisible();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(scrolled);
+  });
+});
+
+test("a category chosen with the mouse filters the series", async ({ page }) => {
+  await open(page);
+  const grid = page.getByRole("list", { name: "Series" });
+  await expect(grid.getByRole("listitem")).toHaveCount(3);
+  await page.getByText("All categories").click();
+  // On the label's text, not the checkbox: a click there moves focus off the button.
+  const option = page.locator("details label").first();
+  await option.locator("span").click();
+  await expect(option.getByRole("checkbox")).toBeChecked();
+  await expect(page.getByText("1 category")).toBeVisible();
+  await expect(grid.getByRole("listitem")).toHaveCount(1);
+});
+
 test("the search field shows keyboard focus", async ({ page }) => {
   await open(page);
   await page.getByRole("searchbox", { name: "Search by title" }).or(page.getByRole("textbox", { name: "Search by title" })).focus();

@@ -82,7 +82,8 @@ export function BrowsePage() {
           <summary className={`flex h-8 cursor-pointer list-none items-center rounded-md border border-slate-500 bg-slate-800 px-3 text-sm text-slate-100 hover:bg-slate-700 ${focusRing}`}>
             {filters.categories.length === 0 ? "All categories" : count(filters.categories.length, "category", "categories")}
           </summary>
-          <div className="absolute left-0 top-10 z-30 max-h-80 w-64 max-w-full overflow-y-auto overscroll-contain rounded-lg border border-slate-700 bg-slate-900 p-2 shadow-2xl">
+          {/* tabIndex: a click on a label or on the padding keeps focus inside, so the blur above doesn't close the popup mid-click. */}
+          <div tabIndex={-1} className="absolute left-0 top-10 z-30 max-h-80 w-64 max-w-full overflow-y-auto overscroll-contain rounded-lg border border-slate-700 bg-slate-900 p-2 shadow-2xl focus:outline-none">
             <div className="mb-1 flex items-center justify-between border-b border-slate-800 px-2 pb-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-slate-300">Categories</span>
               {filters.categories.length > 0 ? (

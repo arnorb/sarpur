@@ -8,6 +8,7 @@ import { DownloadQueue } from "@/components/DownloadQueue";
 import { LiveNotice, NoticeBar } from "@/components/common";
 import { type Section, SettingsDialog } from "@/components/SettingsDialog";
 import { loadPosterColumns } from "@/lib/browser";
+import { useScrollRestoration } from "@/lib/page";
 import { DEFAULT_FILTERS, type Filters } from "@/lib/shows";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store";
@@ -50,6 +51,7 @@ export function Layout() {
   const store = useStore();
   const navigate = useNavigate();
   const location = useLocation();
+  useScrollRestoration();
   const [filters, setFiltersState] = useState<Filters>(DEFAULT_FILTERS);
   const [view, setView] = useState<"poster" | "list">("poster");
   const [page, setPage] = useState(1);
