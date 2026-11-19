@@ -24,6 +24,8 @@ python tools/golden/generate.py                       # must leave golden/ uncha
 (cd web && npm run test:e2e)                          # Playwright (criterion 17)
 ```
 
+CI is off on GitHub (2026-11-19), so nothing runs these for you: run them before merging to `main`. The Rust ones always, the Playwright tests for UI changes, and the diff and golden checks for anything in `ruv/` or naming.
+
 The server needs no Python. The Python tools need ruvsarpur's dependencies (`pip install -r tools/reference/requirements.txt`); on this Mac a ready venv is `/Users/arnorbogason/Projects/ruvsarpur/venv/bin/python`. ffmpeg is on PATH (Homebrew).
 
 ## Layout

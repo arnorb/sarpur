@@ -29,11 +29,12 @@ Last updated: 2026-11-19.
 | **S2.1** slice 3: UI port | Done | Merged to `main`. Criteria 9 (password) and 17 are tests. A UI review comes later (owner). See "Slice 3 progress". |
 | **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Done | Merged to `main`. Criterion 16's local half passes in Docker Desktop; the NAS half is part of cutover. See "Slice 4 progress". |
 | **S2.2** cutover on the NAS | Done | 2026-11-08: sarpur `v0.1.0` runs on the NAS; the old apps are stopped, not deleted. Criteria 11, 12 and 16 checked there. See "Cutover". |
-| **S3** port the worker to Rust | Done (branch `s3-port`) | No Python at run time. Criterion 18: `tools/diff/diff.py` on the fixtures in CI and live by hand. See "S3" below. |
+| **S3** port the worker to Rust | Done | Merged to `main`. No Python at run time. Criterion 18: `tools/diff/diff.py` on the fixtures (in CI until 2026-11-19, now run locally) and live by hand. See "S3" below. |
 | Follow downloads new episodes only | Done | Merged to `main`. A follow made in the UI skips what was on RÚV at that moment; "Also download earlier episodes" on the Following page turns that off. Tests in `follows/tests.rs`, `api.rs` and `e2e/ui.spec.ts`. Decision below. |
 
 ### Decisions since approval
 
+- **2026-11-19, CI is off (owner):** the `CI` workflow is disabled on GitHub (`gh workflow enable ci.yml` turns it back on; `ci.yml` stays as the list of checks). The checks in `AGENTS.md` are run locally before a merge to `main`: always the Rust ones, the Playwright tests for UI changes, and `tools/diff/diff.py` plus the golden files for anything in `ruv/` or naming. `Release` still builds the image on every push to `main` and on tags, without running tests.
 - **2026-11-19, Follow is new-only (owner):** following used to queue a show's whole back catalogue. Now a new follow saves the pids on RÚV at that moment, for all the show's seasons (`follow_earlier`), and runs skip them. The rule is a pid list, not a date, because RÚV's only date is the first broadcast and a rerun would look old. A season RÚV takes down and puts back up after the follow counts as new. Follows from before this and imported ones download everything (`new_only = 0`), as ruvsarpur did. Undoing an unfollow makes a fresh follow with the old setting, so its list is taken again at that moment.
 
 - **2026-11-07, follow key (spike 6):** `title_key` drops `normalizeSeriesLabel`. Stripping parentheses would auto-add the sign-language and audio-described versions. §3.5 is updated.

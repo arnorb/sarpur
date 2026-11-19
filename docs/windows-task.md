@@ -29,7 +29,7 @@ Missing:
 
 ## Work, in order
 
-1. **Build on Windows in CI.** Add a `windows-latest` job to `ci.yml` that builds the UI and runs `cargo test --workspace`.
+1. **Build on Windows.** Add a `windows-latest` job that builds the UI and runs `cargo test --workspace`. The `CI` workflow is off (plan, decision 2026-11-19), so make it a workflow started by hand, like `Windows spike 5`.
    - `reqwest` uses `aws-lc-rs`, which needs a C compiler; if that fails, fall back to `rustls-no-provider` with `ring`.
    - Done when the job is green.
 2. **Windows-only name rules** (`cfg(windows)`, plan §3.8): add a suffix to reserved names (`CON`, `PRN`, `AUX`, `NUL`, `COM1`–`COM9`, `LPT1`–`LPT9`) and drop trailing dots and spaces from each folder name.
