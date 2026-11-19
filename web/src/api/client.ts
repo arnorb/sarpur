@@ -67,6 +67,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
 
 const get = <T>(path: string) => request<T>("GET", path);
 const post = <T>(path: string, body?: unknown) => request<T>("POST", path, body ?? {});
+const patch = <T>(path: string, body: unknown) => request<T>("PATCH", path, body);
 const del = <T>(path: string) => request<T>("DELETE", path);
 const enc = encodeURIComponent;
 
@@ -91,7 +92,9 @@ export const api = {
   retryJob: (id: string) => post<Job>(`/api/jobs/${enc(id)}/retry`),
 
   follows: () => get<{ follows: Follow[]; status: RunStatus }>("/api/follows"),
-  follow: (sid: string) => post<Follow>("/api/follows", { sid }),
+  /** A new follow downloads only new episodes unless `includeEarlier`; an existing one keeps its setting. */
+  follow: (sid: string, includeEarlier = false) => post<Follow>("/api/follows", { sid, includeEarlier }),
+  setIncludeEarlier: (id: number, includeEarlier: boolean) => patch<Follow>(`/api/follows/${id}`, { includeEarlier }),
   unfollow: (id: number) => del<{ removed: boolean }>(`/api/follows/${id}`),
   removeFollowSid: (id: number, sid: string) =>
     del<{ follow: Follow | null }>(`/api/follows/${id}/sids/${enc(sid)}`),

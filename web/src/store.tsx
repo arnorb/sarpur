@@ -28,7 +28,7 @@ import {
 import { count } from "@/lib/utils";
 
 /** A message for the user; `undo` puts back what the action just removed. */
-type Notice = { kind: "status" | "error"; text: string; undo?: () => Promise<void> } | null;
+type Notice = { kind: "status" | "error"; text: string; action?: { label: string; run: () => Promise<void> } } | null;
 
 type Store = {
   session: Session | null;
@@ -53,6 +53,7 @@ type Store = {
   setFollowed(sid: string, follow: boolean): Promise<void>;
   removeFollowSid(follow: Follow, sid: string): Promise<void>;
   unfollow(follow: Follow): Promise<void>;
+  setIncludeEarlier(follow: Follow, include: boolean): Promise<void>;
   runFollows(dryRun: boolean): Promise<void>;
   download(shows: Show[], mode: DownloadMode, languages: string[], folder?: DirectoryHandle): Promise<void>;
   removeJob(job: Job): Promise<void>;
@@ -60,7 +61,8 @@ type Store = {
   clearFinished(): Promise<void>;
   allowRedownload(show: Show): Promise<void>;
   setMainAction(mode: DownloadMode): void;
-  say(text: string, undo?: () => Promise<void>): void;
+  /** Shows a notice. `action` adds a button to it, named `label`. */
+  say(text: string, action?: () => Promise<void>, label?: string): void;
   /** Shows an error; `action` says what failed ("Couldn't save the settings"). */
   fail(error: unknown, action?: string): void;
   clearNotice(): void;
@@ -94,7 +96,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const handled = useRef<Set<string>>(loadHandledJobs());
   const folders = useRef<Record<string, DirectoryHandle>>({});
 
-  const say = useCallback((text: string, undo?: () => Promise<void>) => setNotice({ kind: "status", text, undo }), []);
+  const say = useCallback(
+    (text: string, action?: () => Promise<void>, label = "Undo") =>
+      setNotice({ kind: "status", text, action: action && { label, run: action } }),
+    [],
+  );
   const fail = useCallback(
     (error: unknown, action?: string) =>
       setNotice({ kind: "error", text: action ? `${action}. ${message(error)}` : message(error) }),
@@ -294,15 +300,25 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       async setFollowed(sid, follow) {
         try {
           if (follow) {
-            await api.follow(sid);
+            const made = await api.follow(sid);
             await reloadFollows();
+            if (!made.includeEarlier && made.earlierCount > 0) {
+              say(
+                `Following ${made.label}. Only new episodes will download.`,
+                async () => {
+                  await api.setIncludeEarlier(made.id, true);
+                  await reloadFollows();
+                },
+                `Also download the ${count(made.earlierCount, "earlier episode", "earlier episodes")}`,
+              );
+            }
           } else {
             const owner = follows.find((f) => f.sids.some((s) => s.sid === sid));
             if (!owner) return;
             await api.removeFollowSid(owner.id, sid);
             await reloadFollows();
             say(`Stopped following ${owner.sids.find((s) => s.sid === sid)?.seriesTitle ?? owner.label}.`, async () => {
-              await api.follow(sid);
+              await api.follow(sid, owner.includeEarlier);
               await reloadFollows();
             });
           }
@@ -315,7 +331,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           await api.removeFollowSid(follow.id, sid);
           await reloadFollows();
           say(`Removed ${follow.sids.find((s) => s.sid === sid)?.seriesTitle ?? sid} from ${follow.label}.`, async () => {
-            await api.follow(sid);
+            await api.follow(sid, follow.includeEarlier);
             await reloadFollows();
           });
         } catch (error) {
@@ -327,11 +343,19 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           await api.unfollow(follow.id);
           await reloadFollows();
           say(`Stopped following ${follow.label}.`, async () => {
-            for (const { sid } of follow.sids) await api.follow(sid);
+            for (const { sid } of follow.sids) await api.follow(sid, follow.includeEarlier);
             await reloadFollows();
           });
         } catch (error) {
           fail(error, `Couldn't stop following ${follow.label}`);
+        }
+      },
+      async setIncludeEarlier(follow, include) {
+        try {
+          await api.setIncludeEarlier(follow.id, include);
+          await reloadFollows();
+        } catch (error) {
+          fail(error, `Couldn't change ${follow.label}`);
         }
       },
       async runFollows(dryRun) {

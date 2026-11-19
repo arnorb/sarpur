@@ -413,7 +413,8 @@ pub async fn apply(dir: &Path, svc: Services<'_>) -> Result<Applied, ImportError
         .await?;
 
     for sid in &source.preview.follow_sids {
-        match svc.follows.follow_sid(sid).await {
+        // As in ruvsarpur: an imported follow downloads everything.
+        match svc.follows.follow_sid(sid, true).await {
             Ok(_) => applied.follows_added.push(sid.clone()),
             Err(e) => applied
                 .warnings

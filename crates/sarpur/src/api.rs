@@ -78,7 +78,10 @@ pub fn router(state: AppState) -> Router {
         .route("/api/follows", get(list_follows).post(add_follow))
         .route("/api/follows/status", get(follow_status))
         .route("/api/follows/run", post(run_follows))
-        .route("/api/follows/{id}", delete(delete_follow))
+        .route(
+            "/api/follows/{id}",
+            delete(delete_follow).patch(update_follow),
+        )
         .route("/api/follows/{id}/sids/{sid}", delete(delete_follow_sid))
         .route("/api/library/scan", get(scan_status).post(start_scan))
         .route("/api/recorded/{pid}/forget", post(forget_recorded))
@@ -307,15 +310,24 @@ async fn retry_job(State(s): State<AppState>, Path(id): Path<String>) -> ApiResu
 }
 
 async fn list_follows(State(s): State<AppState>) -> ApiResult<Json<Value>> {
-    let list = follows::list(s.follows.db()).await.map_err(internal)?;
+    let list = s.follows.list().await.map_err(internal)?;
     Ok(Json(
         json!({ "follows": list, "status": s.follows.status() }),
     ))
 }
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct FollowRequest {
     sid: String,
+    #[serde(default)]
+    include_earlier: bool,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct FollowUpdate {
+    include_earlier: bool,
 }
 
 async fn add_follow(
@@ -325,8 +337,20 @@ async fn add_follow(
     if req.sid.trim().is_empty() {
         return Err(ApiError(StatusCode::BAD_REQUEST, "sid is required".into()));
     }
-    let follow = s.follows.follow_sid(&req.sid).await?;
+    let follow = s.follows.follow_sid(&req.sid, req.include_earlier).await?;
     Ok((StatusCode::CREATED, Json(json!(follow))))
+}
+
+async fn update_follow(
+    State(s): State<AppState>,
+    Path(id): Path<i64>,
+    Json(req): Json<FollowUpdate>,
+) -> ApiResult<Json<Value>> {
+    let follow = s
+        .follows
+        .set_include_earlier(id, req.include_earlier)
+        .await?;
+    Ok(Json(json!(follow)))
 }
 
 async fn delete_follow(State(s): State<AppState>, Path(id): Path<i64>) -> ApiResult<Json<Value>> {
@@ -1023,6 +1047,33 @@ mod tests {
         assert_eq!(follow["label"], "Þáttur");
         assert_eq!(follow["sids"][0]["addedBy"], "user");
         let id = follow["id"].as_i64().unwrap();
+        // New-only by default: the episodes on RÚV now (A's and B's) are skipped.
+        assert_eq!(follow["includeEarlier"], false);
+        assert_eq!(follow["earlierCount"], 2);
+        let patch = |uri: &str, body: Value| {
+            Request::patch(uri)
+                .header("content-type", "application/json")
+                .body(Body::from(body.to_string()))
+                .unwrap()
+        };
+        let (status, _) = call(
+            &app,
+            patch("/api/follows/999", json!({"includeEarlier": true})),
+        )
+        .await;
+        assert_eq!(status, StatusCode::NOT_FOUND);
+        let (status, res) = call(
+            &app,
+            patch(
+                &format!("/api/follows/{id}"),
+                json!({"includeEarlier": true}),
+            ),
+        )
+        .await;
+        assert_eq!(status, StatusCode::OK);
+        let follow = json_body(res).await;
+        assert_eq!(follow["includeEarlier"], true);
+        assert_eq!(follow["earlierCount"], 0);
 
         // A dry run reports and queues nothing.
         let (status, _) = call(

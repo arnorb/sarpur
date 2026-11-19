@@ -92,6 +92,16 @@ CREATE TABLE scan_cache (
 -- The subtitle languages a download asked for (JSON array); NULL means all.
 ALTER TABLE jobs ADD COLUMN subtitle_languages TEXT;
 "#,
+    r#"
+-- A new-only follow skips the episodes that were on RÚV when it was made
+-- (`follow_earlier`). Follows from before this keep downloading everything.
+ALTER TABLE follows ADD COLUMN new_only INTEGER NOT NULL DEFAULT 0;
+CREATE TABLE follow_earlier (
+    follow_id INTEGER NOT NULL REFERENCES follows (id) ON DELETE CASCADE,
+    pid       TEXT NOT NULL,
+    PRIMARY KEY (follow_id, pid)
+);
+"#,
 ];
 
 #[derive(Debug, thiserror::Error)]

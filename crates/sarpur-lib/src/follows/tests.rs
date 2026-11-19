@@ -192,7 +192,7 @@ async fn adds_only_sids_with_the_same_key_and_flag() {
         item("f1", "F", "Annar þáttur", false, "2026-02-05T20:00:00"),
     ]}))
     .await;
-    let follow = s.follows.follow_sid("A").await.unwrap();
+    let follow = s.follows.follow_sid("A", true).await.unwrap();
     assert_eq!(follow.label, "Þáttur");
     assert_eq!(sids(&follow), [("A", "user")]);
 
@@ -233,7 +233,7 @@ async fn adds_only_sids_with_the_same_key_and_flag() {
         [("A", "user")]
     );
     // Following it by hand brings it back as the user's.
-    s.follows.follow_sid("B").await.unwrap();
+    s.follows.follow_sid("B", true).await.unwrap();
     assert_eq!(
         sids(&list(s.follows.db()).await.unwrap()[0]),
         [("A", "user"), ("B", "user")]
@@ -241,7 +241,7 @@ async fn adds_only_sids_with_the_same_key_and_flag() {
 
     // The English-subtitled version is its own follow; removing its only
     // sid deletes it.
-    let english = s.follows.follow_sid("C").await.unwrap();
+    let english = s.follows.follow_sid("C", true).await.unwrap();
     assert_ne!(english.id, id);
     assert!(english.english_subtitled);
     assert_eq!(
@@ -251,6 +251,111 @@ async fn adds_only_sids_with_the_same_key_and_flag() {
     assert_eq!(list(s.follows.db()).await.unwrap().len(), 1);
     assert!(remove(s.follows.db(), id).await.unwrap());
     assert!(list(s.follows.db()).await.unwrap().is_empty());
+}
+
+/// Adds an episode to the fake RÚV's schedule, as a catalogue refresh would.
+async fn publish(s: &Setup, pid: &str, sid: &str, series_title: &str, n: u32) {
+    let path = s.dir.path().join("tvschedule.json");
+    let mut schedule: Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+    let mut episode = testing::episode(pid, sid, series_title, n, 9, "2019-01-01T20:00:00");
+    episode["file"] = json!(format!("https://ruv-vod.akamaized.net/t/{pid}/{pid}.m3u8"));
+    schedule[pid] = episode;
+    std::fs::write(&path, schedule.to_string()).unwrap();
+    assert!(s.ruv.load().await.unwrap());
+}
+
+const NO_REFRESH: RunOptions = RunOptions {
+    refresh: false,
+    dry_run: false,
+};
+
+/// A follow made without `include_earlier` skips what was on RÚV then, in
+/// every season of the show, and downloads what RÚV adds later, whatever its
+/// air date.
+#[tokio::test]
+async fn a_new_follow_downloads_only_later_episodes() {
+    let s = Setup::new(json!({"items": [
+        item("a1", "A", "Þáttur", false, "2026-01-01T20:00:00"),
+        item("a2", "A", "Þáttur", false, "2026-01-08T20:00:00"),
+        item("b1", "B", "Þáttur 2", false, "2026-02-01T20:00:00"),
+        item("o1", "O", "Önnur", false, "2026-02-02T20:00:00"),
+    ]}))
+    .await;
+    let follow = s.follows.follow_sid("B", false).await.unwrap();
+    assert!(!follow.include_earlier);
+    assert_eq!(follow.earlier_count, 3, "both seasons");
+
+    let report = s.follows.run(NO_REFRESH).await.unwrap();
+    assert_eq!(
+        report.added_sids.len(),
+        1,
+        "season A still joins the follow"
+    );
+    assert!(report.scheduled.is_empty());
+    assert_eq!(report.skipped.earlier, 3);
+
+    // RÚV adds an old episode to season A and a whole new season C.
+    publish(&s, "a3", "A", "Þáttur", 3).await;
+    publish(&s, "c1", "C", "Þáttur 3", 1).await;
+    publish(&s, "c2", "C", "Þáttur 3", 2).await;
+    s.follows.catalogue.load(&s.ruv, false).await;
+    let report = s.follows.run(NO_REFRESH).await.unwrap();
+    assert_eq!(s.queued_pids().await, ["a3", "c1", "c2"]);
+    assert_eq!(report.skipped.earlier, 3);
+
+    // Following another season of the same show doesn't change the mode.
+    let follow = s.follows.follow_sid("A", true).await.unwrap();
+    assert!(!follow.include_earlier);
+    assert_eq!(follow.earlier_count, 3);
+
+    // Including earlier episodes queues the rest; switching back skips
+    // whatever is on RÚV at that moment.
+    let follow = s
+        .follows
+        .set_include_earlier(follow.id, true)
+        .await
+        .unwrap();
+    assert!(follow.include_earlier);
+    assert_eq!(follow.earlier_count, 0);
+    let report = s.follows.run(NO_REFRESH).await.unwrap();
+    assert_eq!(report.skipped.earlier, 0);
+    assert_eq!(s.queued_pids().await, ["a1", "a2", "a3", "b1", "c1", "c2"]);
+    let follow = s
+        .follows
+        .set_include_earlier(follow.id, false)
+        .await
+        .unwrap();
+    assert_eq!(follow.earlier_count, 6);
+    assert!(matches!(
+        s.follows.set_include_earlier(999, true).await,
+        Err(FollowError::NotFound(_))
+    ));
+
+    // Unfollowing forgets the list with the follow.
+    assert!(remove(s.follows.db(), follow.id).await.unwrap());
+    let left: i64 = s
+        .follows
+        .db()
+        .call(|c| c.query_row("SELECT count(*) FROM follow_earlier", [], |r| r.get(0)))
+        .await
+        .unwrap();
+    assert_eq!(left, 0);
+}
+
+/// A series outside the catalogue is fetched when it's followed; its episodes
+/// count as earlier too.
+#[tokio::test]
+async fn a_new_follow_outside_the_catalogue_skips_what_ruv_has() {
+    let s = Setup::new(json!({
+        "items": [item("a1", "A", "Þáttur", false, "2026-01-01T20:00:00")],
+        "series": {"Z": {"title": "Gamalt", "episodes": [["z1", "2020-01-01T20:00:00"]]}},
+    }))
+    .await;
+    s.follows.follow_sid("Z", false).await.unwrap();
+    let report = s.follows.run(RUN).await.unwrap();
+    assert!(report.scheduled.is_empty());
+    assert_eq!(report.skipped.earlier, 1);
+    assert_eq!(s.follows.list().await.unwrap()[0].earlier_count, 1);
 }
 
 /// The §3.3 rule for follow runs: skip what's on disk (tag/library row or a
@@ -269,7 +374,7 @@ async fn schedules_only_what_is_missing() {
         item("oth1", "O", "Önnur", false, "2026-01-09T20:00:00"),
     ]}))
     .await;
-    s.follows.follow_sid("S").await.unwrap();
+    s.follows.follow_sid("S", true).await.unwrap();
 
     // tag1: in the library table, at a moved path that exists.
     let moved = s.dir.path().join("elsewhere/x.mp4");
@@ -307,6 +412,7 @@ async fn schedules_only_what_is_missing() {
             name_match: 1,
             recorded: 2,
             in_queue: 1,
+            earlier: 0,
         }
     );
     let scheduled: Vec<&str> = report.scheduled.iter().map(|e| e.pid.as_str()).collect();
@@ -333,7 +439,7 @@ async fn ruv_down_is_a_warning_and_schedules_nothing() {
         item("a1", "A", "Þáttur", false, "2026-01-01T20:00:00"),
     ]}))
     .await;
-    s.follows.follow_sid("A").await.unwrap();
+    s.follows.follow_sid("A", true).await.unwrap();
     let report = s.follows.run(RUN).await.unwrap();
     assert!(report.scheduled.is_empty());
     let status = s.follows.status();
@@ -368,7 +474,7 @@ async fn a_followed_sid_outside_the_catalogue_is_fetched() {
         "series": {"Z": {"title": "Gamalt", "episodes": [["z1", "2020-01-01T20:00:00"]]}},
     }))
     .await;
-    let follow = s.follows.follow_sid("Z").await.unwrap();
+    let follow = s.follows.follow_sid("Z", true).await.unwrap();
     assert_eq!(follow.label, "Gamalt");
     let report = s.follows.run(RUN).await.unwrap();
     let scheduled: Vec<&str> = report.scheduled.iter().map(|e| e.pid.as_str()).collect();
@@ -376,7 +482,7 @@ async fn a_followed_sid_outside_the_catalogue_is_fetched() {
     assert!(report.warnings.is_empty(), "{:?}", report.warnings);
 
     assert!(matches!(
-        s.follows.follow_sid("nosuch").await,
+        s.follows.follow_sid("nosuch", true).await,
         Err(FollowError::NotFound(_))
     ));
 }
@@ -394,7 +500,7 @@ async fn criterion_6_library_rule() {
         item("web1", "S", "Sería", false, "2026-01-04T20:00:00"),
     ]}))
     .await;
-    s.follows.follow_sid("S").await.unwrap();
+    s.follows.follow_sid("S", true).await.unwrap();
     // del1 was downloaded to the library, then deleted on purpose.
     // web1 was only ever a browser download.
     s.sql(
@@ -430,6 +536,7 @@ async fn criterion_6_library_rule() {
             name_match: 1,
             recorded: 1,
             in_queue: 0,
+            earlier: 0,
         }
     );
 

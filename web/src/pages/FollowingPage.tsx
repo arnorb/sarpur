@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/shows";
 import { useStore } from "@/store";
 
 export function FollowingPage() {
-  const { follows, runStatus, settings, runFollows, removeFollowSid, unfollow } = useStore();
+  const { follows, runStatus, settings, runFollows, removeFollowSid, unfollow, setIncludeEarlier } = useStore();
   const report = runStatus?.lastReport;
   const { openSettings } = useBrowse();
   usePageTitle("Following");
@@ -39,7 +39,8 @@ export function FollowingPage() {
                 are on
               </>
             )}
-            . New seasons are added automatically when RÚV gives them a new series id.
+            . Episodes that were on RÚV before you followed are left out unless you ask for them. New seasons are added automatically when RÚV gives
+            them a new series id.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -72,7 +73,7 @@ export function FollowingPage() {
             <>
               <p className="mt-1 text-xs opacity-90">
                 Skipped: {report.skipped.onDisk} in the library, {report.skipped.nameMatch} by file name, {report.skipped.recorded} downloaded before,{" "}
-                {report.skipped.inQueue} already queued.
+                {report.skipped.inQueue} already queued, {report.skipped.earlier} from before you followed.
               </p>
               {report.addedSids.length > 0 ? (
                 <p className="mt-1 text-xs">{report.dryRun ? "Would add" : "Added"}: {report.addedSids.map((a) => `${a.seriesTitle} (${a.sid})`).join(", ")}</p>
@@ -123,6 +124,20 @@ export function FollowingPage() {
                   Unfollow
                 </Button>
               </div>
+              <label className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-100">
+                <input
+                  type="checkbox"
+                  className="h-4 w-4 accent-sky-500"
+                  checked={follow.includeEarlier}
+                  onChange={(e) => void setIncludeEarlier(follow, e.target.checked)}
+                />
+                <span>
+                  Also download earlier episodes<span className="sr-only"> of {follow.label}</span>
+                </span>
+                {!follow.includeEarlier && follow.earlierCount > 0 ? (
+                  <span className="text-xs text-slate-300">{count(follow.earlierCount, "episode", "episodes")} from before you followed</span>
+                ) : null}
+              </label>
               <ul className="mt-2 space-y-1">
                 {follow.sids.map((s) => (
                   <li key={s.sid} className="flex flex-wrap items-center justify-between gap-2 rounded-md bg-slate-950/60 px-3 py-2 text-sm">

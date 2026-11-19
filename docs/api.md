@@ -23,8 +23,9 @@ Everything outside `/api` is the UI, embedded in the binary from `web/dist`; pat
 | `DELETE /api/jobs/{id}` | Queued: cancelled. Running: ffmpeg is stopped, the `.part` deleted, then the job becomes `cancelled`. Finished: removed from the list (a browser download's file goes too). Returns `{removed, job}`. 404 for an unknown id. |
 | `POST /api/jobs/{id}/retry` | Puts a finished job back at the end of the queue. 400 if it is still queued or running. |
 | `GET /api/jobs/{id}/files/{name}` | The file of a completed browser download, for 24 hours. `Content-Disposition` carries an ASCII `filename` and an RFC 5987 `filename*`. |
-| `GET /api/follows` | `{follows, status}`. Each follow: `id, titleKey, label, englishSubtitled, createdAt, sids: [{sid, seriesTitle, addedBy: "user" \| "auto", addedAt}]`. |
-| `POST /api/follows` | Body `{sid}`. Follows the series for its strict title key and English flag (looked up in the catalogue, else on RÚV); 201 with the follow. 404 for an unknown sid. |
+| `GET /api/follows` | `{follows, status}`. Each follow: `id, titleKey, label, englishSubtitled, createdAt, includeEarlier, earlierCount, sids: [{sid, seriesTitle, addedBy: "user" \| "auto", addedAt}]`. With `includeEarlier: false`, runs skip the episodes that were on RÚV when the follow was made; `earlierCount` is how many of those are still in the catalogue. |
+| `POST /api/follows` | Body `{sid, includeEarlier?: false}`. Follows the series for its strict title key and English flag (looked up in the catalogue, else on RÚV); 201 with the follow. A follow this creates skips every episode now on RÚV for the show (all its seasons) unless `includeEarlier`; an existing follow keeps its setting. 404 for an unknown sid. |
+| `PATCH /api/follows/{id}` | Body `{includeEarlier}`. `true`: runs download everything. `false`: runs skip what is on RÚV now. Returns the follow, or 404. |
 | `DELETE /api/follows/{id}` | Stops following the show. `{removed: true}`, or 404. |
 | `DELETE /api/follows/{id}/sids/{sid}` | Stops following one sid. It is remembered, so a run won't add it back. `{follow}` (`null` when that was the last sid and the follow is gone), or 404. |
 | `GET /api/follows/status` | The run status (below). |
@@ -61,7 +62,10 @@ A run refreshes the catalogue (incremental), adds sids whose strict title key an
 - on disk: a `library` row for the pid whose file exists, from the tag scan or a finished job (`onDisk`);
 - matched by name: a file with the expected name as a prefix (`nameMatch`);
 - recorded with origin `library` or `unknown` and not forgotten (`recorded`);
-- already queued or running (`inQueue`).
+- already queued or running (`inQueue`);
+- earlier: on RÚV before a follow with `includeEarlier: false` was made (`earlier`).
+
+"On RÚV before" is a list of pids saved with the follow (every episode then in the catalogue for the show's title key and English flag), not a date: RÚV only gives the first broadcast, which stays old when a series is put back up. An episode that isn't on the list is new, so a season that appears later is downloaded whole.
 
 An explicit Library download checks only the first two (a tagged file anywhere in the library, or a name match) and then completes as `Already in the library`. Being recorded never blocks it.
 

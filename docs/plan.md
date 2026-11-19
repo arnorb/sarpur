@@ -14,7 +14,7 @@ This file moved here from `ruvsarpur/.omc/plans/sarpur-rewrite.md` on 2026-11-07
 
 ## Status
 
-Last updated: 2026-11-09.
+Last updated: 2026-11-19.
 
 | Step | State | Where / evidence |
 | --- | --- | --- |
@@ -30,8 +30,11 @@ Last updated: 2026-11-09.
 | **S2.1** slice 4: packaging (Docker; the Windows zip is deferred) | Done | Merged to `main`. Criterion 16's local half passes in Docker Desktop; the NAS half is part of cutover. See "Slice 4 progress". |
 | **S2.2** cutover on the NAS | Done | 2026-11-08: sarpur `v0.1.0` runs on the NAS; the old apps are stopped, not deleted. Criteria 11, 12 and 16 checked there. See "Cutover". |
 | **S3** port the worker to Rust | Done (branch `s3-port`) | No Python at run time. Criterion 18: `tools/diff/diff.py` on the fixtures in CI and live by hand. See "S3" below. |
+| Follow downloads new episodes only | Done (branch `follow-new-only`) | A follow made in the UI skips what was on RÚV at that moment; "Also download earlier episodes" on the Following page turns that off. Tests in `follows/tests.rs`, `api.rs` and `e2e/ui.spec.ts`. Decision below. |
 
 ### Decisions since approval
+
+- **2026-11-19, Follow is new-only (owner):** following used to queue a show's whole back catalogue. Now a new follow saves the pids on RÚV at that moment, for all the show's seasons (`follow_earlier`), and runs skip them. The rule is a pid list, not a date, because RÚV's only date is the first broadcast and a rerun would look old. A season RÚV takes down and puts back up after the follow counts as new. Follows from before this and imported ones download everything (`new_only = 0`), as ruvsarpur did. Undoing an unfollow makes a fresh follow with the old setting, so its list is taken again at that moment.
 
 - **2026-11-07, follow key (spike 6):** `title_key` drops `normalizeSeriesLabel`. Stripping parentheses would auto-add the sign-language and audio-described versions. §3.5 is updated.
 - **2026-11-07, Windows spikes:** the Windows user runs them on their own PC. A GitHub Actions workflow (`Windows spike 5`) smoke-tests the script first.
@@ -246,6 +249,7 @@ sarpur/
 - A follow stores the series ids the user chose, plus an exact `title_key`. The key is `trimSeasonNumberSuffix` (R:1443) of the trimmed `series_title`, lowercased, with Unicode normalised to NFC. It does **not** use `normalizeSeriesLabel`: that strips "(með táknmálstúlkun)" and "(með sjónlýsingu)", which would auto-add sign-language and audio-described variants (spike 6, `sarpur/spikes/follow/RESULTS.md`, 2026-11-07).
 - A new sid is added automatically only when both its `title_key` matches **exactly** and its English-subtitle flag (R:1254) equals the followed sid's flag.
 - Auto-added sids show in the Following list with "added automatically" and a remove button.
+- A follow made in the UI is new-only: it skips the episodes that were on RÚV when it was made, unless "Also download earlier episodes" is on (decision 2026-11-19).
 
 ### 3.6 Queue
 - One ffmpeg at a time. Interactive jobs (a user clicked Download or Library) run before scheduled ones.

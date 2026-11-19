@@ -85,6 +85,19 @@ test("Follow by keyboard from a poster, then on the Following page", async ({ pa
   await expect(page.getByRole("heading", { name: "Following", level: 1 })).toBeFocused();
   await expect(page).toHaveTitle("Following – RÚV Sarpur");
   await expect(page.getByRole("heading", { name: "Fréttir" })).toBeVisible();
+
+  // A new follow leaves out the episode that was already on RÚV.
+  const earlier = page.getByRole("checkbox", { name: /Also download earlier episodes of Fréttir/ });
+  await expect(earlier).not.toBeChecked();
+  await expect(page.getByText("1 episode from before you followed")).toBeVisible();
+  await page.getByRole("button", { name: "Preview" }).click();
+  await expect(page.getByText(/Would download 0 episodes from/)).toBeVisible();
+  await expect(page.getByText(/1 from before you followed\./)).toBeVisible();
+  await earlier.click();
+  await expect(earlier).toBeChecked();
+  await page.getByRole("button", { name: "Preview" }).click();
+  await expect(page.getByText(/Would download 1 episode from/)).toBeVisible();
+
   await page.getByRole("button", { name: "Unfollow" }).click();
   await expect(page.getByText("You don’t follow anything yet.")).toBeVisible();
   // Unfollowing can be undone.

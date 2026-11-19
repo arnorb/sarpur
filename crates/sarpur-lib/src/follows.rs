@@ -4,6 +4,10 @@
 //! a run because their strict title key and English flag match. A run
 //! refreshes the catalogue, adds those ids, and queues a scheduled library job
 //! for every episode that isn't already on disk or recorded (plan §3.3).
+//!
+//! A follow made in the UI is new-only: the episodes on RÚV at that moment
+//! (`follow_earlier`) are skipped, so only what RÚV adds later is downloaded.
+//! "Include earlier episodes" clears that list.
 
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
@@ -78,6 +82,12 @@ pub struct Follow {
     pub label: String,
     pub english_subtitled: bool,
     pub created_at: String,
+    /// False for a new-only follow: runs skip the episodes that were on RÚV
+    /// when it was made.
+    pub include_earlier: bool,
+    /// How many of those skipped episodes are still in the catalogue. Filled
+    /// in by [`Follows::list`]; 0 from [`list`].
+    pub earlier_count: usize,
     /// The sids that are followed (removed ones are left out).
     pub sids: Vec<FollowSid>,
 }
@@ -95,7 +105,8 @@ pub enum FollowError {
 fn list_follows(c: &rusqlite::Connection) -> rusqlite::Result<Vec<Follow>> {
     let mut follows: Vec<Follow> = c
         .prepare(
-            "SELECT id, title_key, label, english_flag, created_at FROM follows ORDER BY label, id",
+            "SELECT id, title_key, label, english_flag, created_at, new_only FROM follows
+             ORDER BY label, id",
         )?
         .query_map([], |r| {
             Ok(Follow {
@@ -104,6 +115,8 @@ fn list_follows(c: &rusqlite::Connection) -> rusqlite::Result<Vec<Follow>> {
                 label: r.get(2)?,
                 english_subtitled: r.get(3)?,
                 created_at: r.get(4)?,
+                include_earlier: !r.get::<_, bool>(5)?,
+                earlier_count: 0,
                 sids: Vec::new(),
             })
         })?
@@ -133,21 +146,22 @@ fn list_follows(c: &rusqlite::Connection) -> rusqlite::Result<Vec<Follow>> {
 }
 
 /// Adds `sid` to the follow for its key and flag, creating the follow if
-/// needed. A removed sid is followed again. Returns the follow id.
+/// needed. A removed sid is followed again. Returns the follow id and whether
+/// the follow is new.
 fn insert_sid(
     c: &rusqlite::Connection,
     sid: &str,
     series_title: &str,
     english: bool,
     added_by: &str,
-) -> rusqlite::Result<i64> {
+) -> rusqlite::Result<(i64, bool)> {
     let key = title_key(series_title);
     let now = crate::now_iso();
-    c.execute(
+    let created = c.execute(
         "INSERT INTO follows (title_key, english_flag, label, created_at) VALUES (?1, ?2, ?3, ?4)
          ON CONFLICT (title_key, english_flag) DO NOTHING",
         rusqlite::params![key, english, series_label(series_title), now],
-    )?;
+    )? > 0;
     let follow_id: i64 = c.query_row(
         "SELECT id FROM follows WHERE title_key = ?1 AND english_flag = ?2",
         rusqlite::params![key, english],
@@ -160,19 +174,52 @@ fn insert_sid(
              added_by = CASE WHEN excluded.added_by = 'user' THEN 'user' ELSE added_by END",
         rusqlite::params![follow_id, sid, series_title, english, added_by, now],
     )?;
-    Ok(follow_id)
+    Ok((follow_id, created))
+}
+
+/// Makes the follow new-only (`earlier`: the pids to skip) or, with `None`,
+/// one that downloads everything.
+fn set_earlier(
+    c: &rusqlite::Connection,
+    follow_id: i64,
+    earlier: Option<&[String]>,
+) -> rusqlite::Result<()> {
+    c.execute(
+        "UPDATE follows SET new_only = ?2 WHERE id = ?1",
+        rusqlite::params![follow_id, earlier.is_some()],
+    )?;
+    c.execute(
+        "DELETE FROM follow_earlier WHERE follow_id = ?1",
+        [follow_id],
+    )?;
+    let mut insert =
+        c.prepare("INSERT OR IGNORE INTO follow_earlier (follow_id, pid) VALUES (?1, ?2)")?;
+    for pid in earlier.unwrap_or_default() {
+        insert.execute(rusqlite::params![follow_id, pid])?;
+    }
+    Ok(())
 }
 
 pub async fn list(db: &Db) -> Result<Vec<Follow>, DbError> {
     db.call(|c| list_follows(c)).await
 }
 
-/// Follows `sid` for the user.
-pub async fn add(db: &Db, sid: &str, series_title: &str, english: bool) -> Result<Follow, DbError> {
+/// Follows `sid` for the user. A follow this creates is new-only when
+/// `earlier` is given (the pids to skip); an existing follow keeps its mode.
+pub async fn add(
+    db: &Db,
+    sid: &str,
+    series_title: &str,
+    english: bool,
+    earlier: Option<Vec<String>>,
+) -> Result<Follow, DbError> {
     let (sid, title) = (sid.to_string(), series_title.to_string());
     db.call(move |c| {
         let tx = c.transaction()?;
-        let id = insert_sid(&tx, &sid, &title, english, "user")?;
+        let (id, created) = insert_sid(&tx, &sid, &title, english, "user")?;
+        if created {
+            set_earlier(&tx, id, earlier.as_deref())?;
+        }
         tx.commit()?;
         Ok(list_follows(c)?
             .into_iter()
@@ -246,6 +293,8 @@ pub struct Skipped {
     pub recorded: usize,
     /// Already queued or running.
     pub in_queue: usize,
+    /// On RÚV before a new-only follow was made.
+    pub earlier: usize,
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq, Default)]
@@ -296,6 +345,8 @@ struct Known {
     recorded: HashSet<String>,
     library_paths: HashMap<String, Vec<String>>,
     in_queue: HashSet<String>,
+    /// Pids that new-only follows skip.
+    earlier: HashSet<String>,
 }
 
 fn known(c: &rusqlite::Connection, pids: &[String]) -> rusqlite::Result<Known> {
@@ -324,10 +375,18 @@ fn known(c: &rusqlite::Connection, pids: &[String]) -> rusqlite::Result<Known> {
             in_queue.insert(pid.clone());
         }
     }
+    let earlier = c
+        .prepare(
+            "SELECT e.pid FROM follow_earlier e JOIN follows f ON f.id = e.follow_id
+             WHERE f.new_only",
+        )?
+        .query_map([], |r| r.get(0))?
+        .collect::<Result<_, _>>()?;
     Ok(Known {
         recorded,
         library_paths,
         in_queue,
+        earlier,
     })
 }
 
@@ -372,10 +431,66 @@ impl Follows {
         });
     }
 
+    /// The follows, with `earlier_count` filled in from the catalogue.
+    pub async fn list(&self) -> Result<Vec<Follow>, DbError> {
+        let mut follows = list(&self.db).await?;
+        if follows.iter().all(|f| f.include_earlier) {
+            return Ok(follows);
+        }
+        let rows: Vec<(i64, String)> = self
+            .db
+            .call(|c| {
+                c.prepare("SELECT follow_id, pid FROM follow_earlier")?
+                    .query_map([], |r| Ok((r.get(0)?, r.get(1)?)))?
+                    .collect()
+            })
+            .await?;
+        let items = self.catalogue.all();
+        let on_ruv: HashSet<&str> = items.iter().map(|i| i.pid.as_str()).collect();
+        for follow in follows.iter_mut().filter(|f| !f.include_earlier) {
+            follow.earlier_count = rows
+                .iter()
+                .filter(|(id, pid)| *id == follow.id && on_ruv.contains(pid.as_str()))
+                .count();
+        }
+        Ok(follows)
+    }
+
+    async fn get(&self, id: i64) -> Result<Follow, FollowError> {
+        self.list()
+            .await?
+            .into_iter()
+            .find(|f| f.id == id)
+            .ok_or_else(|| FollowError::NotFound(format!("follow {id}")))
+    }
+
+    /// The pids now in the catalogue for `sids` and for every series with
+    /// this title key and English flag (the seasons a run would add).
+    fn pids_on_ruv(&self, key: &str, english: bool, sids: &[String]) -> Vec<String> {
+        let mut wanted: HashSet<String> = sids.iter().cloned().collect();
+        for (sid, info) in self.catalogue.series_index() {
+            if info.english_subtitled == english && title_key(&info.series_title) == key {
+                wanted.insert(sid);
+            }
+        }
+        self.catalogue
+            .items_for_sids(&wanted)
+            .into_iter()
+            .map(|i| i.pid)
+            .collect()
+    }
+
     /// Follows `sid` for the user, looking it up in the catalogue or, when it
-    /// isn't there, on RÚV.
-    pub async fn follow_sid(&self, sid: &str) -> Result<Follow, FollowError> {
+    /// isn't there, on RÚV. A new follow downloads only the episodes RÚV adds
+    /// from now on, unless `include_earlier`; an existing follow keeps its
+    /// mode.
+    pub async fn follow_sid(
+        &self,
+        sid: &str,
+        include_earlier: bool,
+    ) -> Result<Follow, FollowError> {
         let sid = sid.trim();
+        let mut fetched = Vec::new();
         let info = match self.catalogue.series_index().remove(sid) {
             Some(info) => (info.series_title, info.english_subtitled),
             None => {
@@ -384,6 +499,12 @@ impl Follows {
                     .series(sid)
                     .await
                     .map_err(|e| FollowError::NotFound(format!("series {sid}: {e}")))?;
+                // The catalogue doesn't have these until it's next loaded.
+                fetched = items
+                    .iter()
+                    .filter_map(CatalogueItem::from_item)
+                    .map(|i| i.pid)
+                    .collect();
                 let item = items
                     .iter()
                     .find_map(CatalogueItem::from_item)
@@ -396,7 +517,34 @@ impl Follows {
                 (title, item.english_subtitled)
             }
         };
-        Ok(add(&self.db, sid, &info.0, info.1).await?)
+        let earlier = (!include_earlier).then(|| {
+            fetched.extend(self.pids_on_ruv(&title_key(&info.0), info.1, &[sid.to_string()]));
+            fetched
+        });
+        let follow = add(&self.db, sid, &info.0, info.1, earlier).await?;
+        self.get(follow.id).await
+    }
+
+    /// Switches a follow between downloading everything and new-only. Going
+    /// to new-only skips what is on RÚV now.
+    pub async fn set_include_earlier(
+        &self,
+        id: i64,
+        include_earlier: bool,
+    ) -> Result<Follow, FollowError> {
+        let follow = self.get(id).await?;
+        let earlier = (!include_earlier).then(|| {
+            let sids: Vec<String> = follow.sids.iter().map(|s| s.sid.clone()).collect();
+            self.pids_on_ruv(&follow.title_key, follow.english_subtitled, &sids)
+        });
+        self.db
+            .call(move |c| {
+                let tx = c.transaction()?;
+                set_earlier(&tx, id, earlier.as_deref())?;
+                tx.commit()
+            })
+            .await?;
+        self.get(id).await
     }
 
     /// One follow run. Fails only when another run is in progress; problems
@@ -579,20 +727,22 @@ impl Follows {
                 report.skipped.in_queue += 1;
             } else if known.recorded.contains(&episode.pid) {
                 report.skipped.recorded += 1;
-            } else if let Some(paths) = known.library_paths.get(&episode.pid) {
-                let paths = paths.clone();
-                let exists = tokio::task::spawn_blocking(move || {
-                    paths.iter().any(|p| Path::new(p).is_file())
-                })
-                .await
-                .unwrap_or(false);
+            } else {
+                let exists = match known.library_paths.get(&episode.pid).cloned() {
+                    Some(paths) => tokio::task::spawn_blocking(move || {
+                        paths.iter().any(|p| Path::new(p).is_file())
+                    })
+                    .await
+                    .unwrap_or(false),
+                    None => false,
+                };
                 if exists {
                     report.skipped.on_disk += 1;
+                } else if known.earlier.contains(&episode.pid) {
+                    report.skipped.earlier += 1;
                 } else {
                     candidates.push(episode);
                 }
-            } else {
-                candidates.push(episode);
             }
         }
         if candidates.is_empty() {

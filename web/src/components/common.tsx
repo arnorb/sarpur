@@ -173,12 +173,12 @@ export function LiveNotice() {
   );
 }
 
-/** The current notice, with Undo when the action can be undone. */
+/** The current notice, with its action (Undo, mostly) when it has one. */
 export function NoticeBar({ onDismiss, className }: { onDismiss?: () => void; className?: string }) {
   const { notice, clearNotice, fail } = useStore();
   const [undoing, setUndoing] = useState(false);
   if (!notice) return null;
-  const undo = notice.undo;
+  const action = notice.action;
   return (
     <div
       className={cn(
@@ -188,7 +188,7 @@ export function NoticeBar({ onDismiss, className }: { onDismiss?: () => void; cl
       )}
     >
       <span className="min-w-0 flex-1 break-words">{notice.text}</span>
-      {undo ? (
+      {action ? (
         <Button
           variant="secondary"
           size="sm"
@@ -198,16 +198,16 @@ export function NoticeBar({ onDismiss, className }: { onDismiss?: () => void; cl
             if (undoing) return;
             setUndoing(true);
             try {
-              await undo();
+              await action.run();
               clearNotice();
             } catch (error) {
-              fail(error, "Couldn't undo");
+              fail(error, action.label === "Undo" ? "Couldn't undo" : "That didn't work");
             } finally {
               setUndoing(false);
             }
           }}
         >
-          Undo
+          {action.label}
         </Button>
       ) : null}
       <button

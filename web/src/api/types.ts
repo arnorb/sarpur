@@ -85,6 +85,10 @@ export type Follow = {
   label: string;
   englishSubtitled: boolean;
   createdAt: string;
+  /** False: only episodes RÚV adds after the follow was made are downloaded. */
+  includeEarlier: boolean;
+  /** Episodes on RÚV that the follow skips because they were there before it. */
+  earlierCount: number;
   sids: FollowSid[];
 };
 
@@ -94,7 +98,7 @@ export type RunReport = {
   episodes: number;
   addedSids: { followId: number; sid: string; seriesTitle: string }[];
   scheduled: { pid: string; title: string; path: string }[];
-  skipped: { onDisk: number; nameMatch: number; recorded: number; inQueue: number };
+  skipped: { onDisk: number; nameMatch: number; recorded: number; inQueue: number; earlier: number };
   warnings: string[];
 };
 
