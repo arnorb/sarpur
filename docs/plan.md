@@ -31,6 +31,7 @@ Last updated: 2026-11-19.
 | **S2.2** cutover on the NAS | Done | 2026-11-08: sarpur `v0.1.0` runs on the NAS; the old apps are stopped, not deleted. Criteria 11, 12 and 16 checked there. See "Cutover". |
 | **S3** port the worker to Rust | Done | Merged to `main`. No Python at run time. Criterion 18: `tools/diff/diff.py` on the fixtures (in CI until 2026-11-19, now run locally) and live by hand. See "S3" below. |
 | Follow downloads new episodes only | Done | Merged to `main`. A follow made in the UI skips what was on RÚV at that moment; "Also download earlier episodes" on the Following page turns that off. Tests in `follows/tests.rs`, `api.rs` and `e2e/ui.spec.ts`. Decision below. |
+| Back keeps the scroll position; category filter | Done | Released in `v0.2.1`. Back and Forward return to where the page was scrolled (`web/src/lib/page.ts`). A category can be ticked with the mouse again: the popup closed before the click landed. A Playwright test for each. |
 
 ### Decisions since approval
 
